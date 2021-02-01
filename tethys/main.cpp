@@ -1,4 +1,5 @@
-#include "file.hpp"
+#include "config.hpp"
+#include "exception.hpp"
 
 #include <tethys/version.hpp>
 #include <iostream>
@@ -12,10 +13,16 @@ int main()
 		<< tethys::version.minor
 		<< std::endl;
 	try {
-		auto lines = tethys::file::read_lines("tethys.cfg");
-		std::cout << "Config line count: " << lines.size() << std::endl;
-	} catch (const tethys::file::OpenFailed& err) {
-		std::cout << err.what() << std::endl;
+		tethys::Config config {"tethys.cfg"};
+		auto city = config.get_city_hex();
+		std::cout << "city.gold = " << city.gold << std::endl;
+		std::cout << "city.industry = " << city.industry << std::endl;
+		std::cout << "city.manpower = " << city.manpower << std::endl;
+		std::cout << "gold per trade = "
+			<< config.get_gold_per_trade()
+			<< std::endl;
+	} catch (const tethys::Exception& err) {
+		std::cerr << err.what() << std::endl;
 	}
 	return 0;
 }
