@@ -67,7 +67,7 @@ namespace tethys::s {
 	}
 
 	double
-	pair2double(const Pair pair)
+	pair2double(const Pair& pair)
 	{
 		try {
 			return to_double(pair.value);

@@ -21,7 +21,8 @@ int main()
 		std::cout << "gold per trade = "
 			<< config.get_gold_per_trade()
 			<< std::endl;
-	} catch (const tethys::Exception& err) {
+	}
+	catch (const tethys::Exception& err) {
 		std::cerr << err.what() << std::endl;
 	}
 	return 0;
