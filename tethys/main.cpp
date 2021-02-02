@@ -1,30 +1,43 @@
+#include "cfg_file.hpp"
 #include "config.hpp"
-#include "exception.hpp"
+#include "log.hpp"
 
 #include <tethys/version.hpp>
 #include <iostream>
+#include <string>
+
+namespace tethys {
+	std::string get_title()
+	{
+		return "Mare Tethys v"
+			+ std::to_string(version.major)
+			+ "."
+			+ std::to_string(version.minor);
+	}
+
+	void start(Log&& log)
+	{
+		log.put(get_title());
+		try {
+			log.put("Reading config...");
+			Config config {
+				CfgFile {"tethys.cfg"}
+			};
+			log.pair("Mountain gold", config.mountain.gold);
+		}
+		catch (const std::exception& err) {
+			log.error(err.what());
+		}
+		log.put("End");
+	}
+}
 
 int main()
 {
-	std::cout
-		<< "Version: "
-		<< tethys::version.major
-		<< "."
-		<< tethys::version.minor
-		<< std::endl;
 	try {
-		tethys::Config config {
-			tethys::CfgFile {"tethys.cfg"}
-		};
-		auto city = config.city;
-		std::cout << "city.gold = " << city.gold << std::endl;
-		std::cout << "city.industry = " << city.industry << std::endl;
-		std::cout << "city.manpower = " << city.manpower << std::endl;
-		std::cout << "gold per trade = "
-			<< config.gold_per_trade
-			<< std::endl;
+		tethys::start(tethys::Log {"tethys.log"});
 	}
-	catch (const tethys::Exception& err) {
+	catch (const std::exception& err) {
 		std::cerr << err.what() << std::endl;
 	}
 	return 0;
