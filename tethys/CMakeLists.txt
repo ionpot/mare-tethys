@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED true)
 add_library(common INTERFACE)
 target_compile_options(common INTERFACE -Wall -Wextra -pedantic -Werror)
 
-add_executable(tethys config.cpp file.cpp main.cpp)
+add_executable(tethys cfg_file.cpp config.cpp file.cpp main.cpp)
 
 configure_file(tethys.cfg tethys.cfg COPYONLY)
 configure_file(version.hpp.in version.hpp @ONLY)
