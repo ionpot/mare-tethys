@@ -13,13 +13,15 @@ int main()
 		<< tethys::version.minor
 		<< std::endl;
 	try {
-		tethys::Config config {"tethys.cfg"};
-		auto city = config.get_city_hex();
+		tethys::Config config {
+			tethys::CfgFile {"tethys.cfg"}
+		};
+		auto city = config.city;
 		std::cout << "city.gold = " << city.gold << std::endl;
 		std::cout << "city.industry = " << city.industry << std::endl;
 		std::cout << "city.manpower = " << city.manpower << std::endl;
 		std::cout << "gold per trade = "
-			<< config.get_gold_per_trade()
+			<< config.gold_per_trade
 			<< std::endl;
 	}
 	catch (const tethys::Exception& err) {

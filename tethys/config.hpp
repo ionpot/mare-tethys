@@ -3,30 +3,24 @@
 
 #include "cfg_file.hpp"
 
-#include <string>
-
 namespace tethys {
-	class Config {
-	public:
-		Config(const std::string filename);
-
+	struct Config {
 		struct Hex {
 			double gold;
 			double industry;
 			double manpower;
-			Hex(const CfgFile::Section& lines);
+			Hex(const CfgFile::Section&);
 		};
-		Hex get_city_hex() const;
-		Hex get_forest_hex() const;
-		Hex get_mountain_hex() const;
-		Hex get_plains_hex() const;
-		Hex get_sea_hex() const;
+		Hex city;
+		Hex forest;
+		Hex mountain;
+		Hex plains;
+		Hex sea;
 
-		double get_gold_per_trade() const;
-		double get_trade_value() const;
+		double gold_per_trade;
+		double trade_value;
 
-	private:
-		const CfgFile m_file;
+		Config(const CfgFile&);
 	};
 }
 
