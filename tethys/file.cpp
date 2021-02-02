@@ -1,14 +1,12 @@
 #include "file.hpp"
 
-#include "exception.hpp"
-
 #include <fstream>
 #include <list>
 #include <string>
 
 namespace tethys::file {
 	OpenFailed::OpenFailed(const std::string filename):
-		Exception {"Failed to open file: " + filename}
+		FileException {"Failed to open file: " + filename}
 	{}
 
 	LineList

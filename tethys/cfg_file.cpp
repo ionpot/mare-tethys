@@ -1,16 +1,15 @@
 #include "config.hpp"
 
-#include "exception.hpp"
 #include "file.hpp"
 
+#include <stdexcept>
 #include <string>
-#include <unordered_set>
 
 namespace tethys::s {
-	struct BadValue : public Exception {
+	struct BadValue : public CfgFileException {
 		const std::string expected;
 		BadValue(const std::string expected):
-			Exception {"Value is not " + expected + "."},
+			CfgFileException {"Value is not " + expected + "."},
 			expected {expected}
 		{}
 	};
@@ -138,7 +137,7 @@ namespace tethys {
 		const std::string expected,
 		const std::string section
 	):
-		Exception {s::key_str(key, section) + " is not " + expected + "."},
+		CfgFileException {s::key_str(key, section) + " is not " + expected + "."},
 		expected {expected},
 		key {key},
 		section {section}
@@ -148,17 +147,17 @@ namespace tethys {
 		const std::string key,
 		const std::string section
 	):
-		Exception {"Key not found: " + s::key_str(key, section)},
+		CfgFileException {"Key not found: " + s::key_str(key, section)},
 		key {key},
 		section {section}
 	{}
 
 	CfgFile::MissingSection::MissingSection(const std::string name):
-		Exception {"Missing section: " + name},
+		CfgFileException {"Missing section: " + name},
 		name {name}
 	{}
 
 	CfgFile::NotPair::NotPair(const std::string line):
-		Exception {"Line is not a pair -> " + line}
+		CfgFileException {"Line is not a pair -> " + line}
 	{}
 }
