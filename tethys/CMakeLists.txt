@@ -3,7 +3,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 add_library(common INTERFACE)
-target_compile_options(common INTERFACE -Wall -Wextra -pedantic -Werror)
+
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	# /W4 -> warning level 4
+	# /WX -> warnings are errors
+	target_compile_options(common INTERFACE /W4 /WX)
+else()
+	target_compile_options(common INTERFACE -Wall -Wextra -pedantic -Werror)
+endif()
 
 add_executable(tethys cfg_file.cpp config.cpp file.cpp main.cpp log.cpp)
 
