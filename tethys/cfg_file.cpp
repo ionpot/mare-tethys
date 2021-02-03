@@ -28,7 +28,7 @@ namespace tethys::s {
 		try {
 			return std::stod(input);
 		}
-		catch (const std::invalid_argument& err) {
+		catch (const std::invalid_argument&) {
 			throw BadValue {"a double"};
 		}
 	}
