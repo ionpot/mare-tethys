@@ -18,10 +18,13 @@ namespace tethys::file {
 		LineList lines;
 		std::string line;
 		while (std::getline(file, line)) {
-			if (line.back() == '\r')
-				line.pop_back();
 			if (line.empty())
 				continue;
+			if (line.back() == '\r') {
+				line.pop_back();
+				if (line.empty())
+					continue;
+			}
 			lines.push_back(line);
 		}
 		return lines;
