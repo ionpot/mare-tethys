@@ -1,6 +1,8 @@
 #ifndef TETHYS_LOG_HPP
 #define TETHYS_LOG_HPP
 
+#include "macros.hpp"
+
 #include <fstream>
 #include <string>
 
@@ -9,6 +11,9 @@ namespace tethys {
 		std::ofstream file;
 
 		Log(const std::string filename);
+		~Log() = default;
+		TETHYS_NO_COPY(Log)
+		TETHYS_DEFAULT_MOVE(Log)
 
 		void error(const std::string);
 
