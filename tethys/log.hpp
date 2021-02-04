@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <string>
+#include <utility>
 
 namespace tethys {
 	struct Log {
@@ -17,8 +18,12 @@ namespace tethys {
 
 		void error(const std::string);
 
-		void pair(const std::string, double);
-		void pair(const std::string, const std::string);
+		template<class T>
+		void pair(const std::string key, T&& value)
+		{
+			write_pair_key(key);
+			file << std::forward<T>(value) << std::endl;
+		}
 
 		void put(const std::string);
 

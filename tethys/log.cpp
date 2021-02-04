@@ -21,20 +21,6 @@ namespace tethys {
 	}
 
 	void
-	Log::pair(const std::string key, double value)
-	{
-		write_pair_key(key);
-		file << value << std::endl;
-	}
-
-	void
-	Log::pair(const std::string key, const std::string value)
-	{
-		write_pair_key(key);
-		file << value << std::endl;
-	}
-
-	void
 	Log::put(const std::string line)
 	{
 		file << line << std::endl;
