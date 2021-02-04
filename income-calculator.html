@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Income Calculator</title>
+	<script>
+var hexes = {
+    mountain: { gold: 0.2, industry: 1, mnp: 0 },
+    sea: { gold: 0, industry: 1, mnp: 0 },
+    city: { gold: 2, industry: 2, mnp: 2 },
+    forest: { gold: 0.2, industry: 2, mnp: 0 },
+    plains: { gold: 0.5, industry: 1, mnp: 1 }
+};
+	</script>
+	<style>
+form {
+    float: left;
+};
+	</style>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>Hexes</legend>
+        <table>
+          <tr>
+            <td><label for="mountain">Mountain:</label></td>
+            <td><input id="mountain" type="number" min="0" value="0"></td>
+          </tr>
+          <tr>
+            <td><label for="sea">Sea:</label></td>
+            <td><input id="sea" type="number" min="0" value="0"></td>
+          </tr>
+          <tr>
+            <td><label for="city">City:</label></td>
+            <td><input id="city" type="number" min="0" value="0"></td>
+          </tr>
+          <tr>
+            <td><label for="forest">Forest:</label></td>
+            <td><input id="forest" type="number" min="0" value="0"></td>
+          </tr>
+          <tr>
+            <td><label for="plains">Plains:</label></td>
+            <td><input id="plains" type="number" min="0" value="0"></td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Income per turn</legend>
+        <table>
+          <tr>
+            <td>Gold:</td>
+            <td id="goldTurn">0</td>
+          </tr>
+          <tr>
+            <td>Industry:</td>
+            <td id="industryTurn">0</td>
+          </tr>
+          <tr>
+            <td>Manpower:</td>
+            <td id="manpowerTurn">0</td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Total resources</legend>
+        <table>
+          <tr>
+            <td>Turn:</td>
+            <td id="turnTotal">0</td>
+          </tr>
+          <tr>
+            <td>Gold:</td>
+            <td id="goldTotal">0</td>
+          </tr>
+          <tr>
+            <td>Industry:</td>
+            <td id="industryTotal">0</td>
+          </tr>
+          <tr>
+            <td>Manpower:</td>
+            <td id="manpowerTotal">0</td>
+          </tr>
+          <tr>
+            <td><label for="industryUsed">Industry used:</label></td>
+            <td><input id="industryUsed" type="number" min="0" value="0"></td>
+          </tr>
+          <tr>
+            <td><button id="nextTurn" type="button">Next Turn</button></td>
+            <td><button id="resetTotal" type="button">Reset</button></td>
+          </tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Config</legend>
+        <table>
+          <tr>
+            <td><label for="tradeGold">Gold per trade:</label></td>
+            <td><input id="tradeGold" type="number" value="8"></td>
+          </tr>
+          <tr>
+            <td><label for="tradeValue">Trade value:</label></td>
+            <td><input id="tradeValue" type="number" value="1"></td>
+          </tr>
+        </table>
+      </fieldset>
+    </form>
+    <script>
+function addTurn() {
+    var turn = calcPerTurn();
+    var industry = Math.max(0, turn.industry - industryUsed.value);
+    var bonus = getTradeBonus(industry);
+    incr(turnTotal, 1);
+    incr(goldTotal, turn.gold + bonus);
+    if (bonus)
+        goldTotal.innerText += " (+" + num2str(bonus) + " from industry)";
+    industryTotal.innerText = num2str(industry);
+    incr(manpowerTotal, turn.manpower);
+}
+function calcPerTurn() {
+    var nodes = document.querySelectorAll("input[type=number]");
+    var gold = 0;
+    var industry = 0;
+    var manpower = 0;
+    for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var id = node.getAttribute("id");
+        var hex = hexes[id];
+        if (!hex) continue;
+        var num = Number(node.value);
+        gold += hex.gold * num;
+        industry += hex.industry * num;
+        manpower += hex.mnp * num;
+    }
+    return { gold, industry, manpower };
+}
+function clearTotal() {
+    turnTotal.innerText = 0;
+    goldTotal.innerText = 0;
+    industryTotal.innerText = 0;
+    manpowerTotal.innerText = 0;
+}
+function incr(elmt, num) {
+    var val = parseFloat(elmt.innerText);
+    elmt.innerText = num2str(val + num);
+}
+function getTradeBonus(industry) {
+    return industry
+        * Number(tradeGold.value)
+        * Number(tradeValue.value);
+}
+function hex2str(hex) {
+    var ls =
+    [   { name: "gold", value: hex.gold },
+        { name: "industry", value: hex.industry },
+        { name: "mnp", value: hex.mnp }
+    ]
+    .filter(function (obj) {
+        return obj.value > 0;
+    })
+    .map(function (obj) {
+        return "+" + num2str(obj.value) + " " + obj.name;
+    });
+    return ls.join(", ");
+}
+function num2str(n) {
+    return n.toFixed(1).replace(".0", "");
+}
+function setLabels() {
+    var nodes = document.querySelectorAll("label");
+    for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var id = node.getAttribute("for");
+        var hex = hexes[id];
+        if (!hex) continue;
+        var str = hex2str(hex);
+        if (str)
+            node.innerText = node.innerText.replace(":", " (" + str + "):");
+    }
+}
+function setPerTurn() {
+    var turn = calcPerTurn();
+    var bonus = getTradeBonus(turn.industry);
+    goldTurn.innerText = num2str(turn.gold);
+    industryTurn.innerText = num2str(turn.industry);
+    if (bonus > 0)
+        industryTurn.innerText += " (+" + num2str(bonus) + " gold)";
+    manpowerTurn.innerText = num2str(turn.manpower);
+}
+mountain.onchange = setPerTurn;
+sea.onchange = setPerTurn;
+city.onchange = setPerTurn;
+forest.onchange = setPerTurn;
+plains.onchange = setPerTurn;
+tradeGold.onchange = setPerTurn;
+tradeValue.onchange = setPerTurn;
+nextTurn.onclick = addTurn;
+resetTotal.onclick = clearTotal;
+setLabels();
+    </script>
+  </body>
+</html>
