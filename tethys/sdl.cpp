@@ -6,7 +6,7 @@
 #include <string>
 
 namespace tethys::sdl::s {
-	bool initialized = false;
+	Uint32 init_flags = SDL_INIT_VIDEO;
 	Uint32 renderer_flags =
 		SDL_RENDERER_ACCELERATED
 		| SDL_RENDERER_PRESENTVSYNC;
@@ -30,11 +30,10 @@ namespace tethys::sdl {
 	Base::Base(Log& log):
 		m_call_quit {true}, m_event {}, m_log {log}
 	{
-		if (s::initialized)
+		if (SDL_WasInit(s::init_flags))
 			throw Exception {"Cannot re-initialize."};
 		log.put("Initializing SDL...");
-		int error = SDL_Init(SDL_INIT_VIDEO);
-		s::initialized = !error;
+		int error = SDL_Init(s::init_flags);
 		if (error) {
 			std::string text {SDL_GetError()};
 			SDL_Quit();
@@ -47,7 +46,6 @@ namespace tethys::sdl {
 		if (m_call_quit) {
 			m_log.get().put("Quitting SDL...");
 			SDL_Quit();
-			s::initialized = false;
 		}
 	}
 
