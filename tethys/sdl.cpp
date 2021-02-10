@@ -14,7 +14,7 @@ namespace tethys::sdl::s {
 	SDL_Window* create_window(
 		const std::string title,
 		Window::Size size,
-		Uint32 flags
+		Uint32 flags = 0
 	) {
 		return SDL_CreateWindow(
 			title.c_str(),
@@ -86,7 +86,7 @@ namespace tethys::sdl {
 	// context //
 
 	Context::Context(const std::string title, Window::Size size, Log& log):
-		base {log}, window {title, size, log}, renderer {window.create_renderer()}
+		base {log}, window {title, size}, renderer {window.create_renderer()}
 	{}
 
 	// event //
@@ -141,22 +141,13 @@ namespace tethys::sdl {
 
 	// window //
 
-	Window::Window(const std::string title, Size size, Log& log):
+	Window::Window(const std::string title, Size size):
 		m_window {NULL}
 	{
-		log.put("Trying Vulkan window...");
-		m_window = s::create_window(title, size, SDL_WINDOW_VULKAN);
-		if (m_window)
-			return;
-		log.put("Trying Metal window...");
-		m_window = s::create_window(title, size, SDL_WINDOW_METAL);
-		if (m_window)
-			return;
-		log.put("Trying OpenGL window...");
-		m_window = s::create_window(title, size, SDL_WINDOW_OPENGL);
-		if (m_window)
-			return;
-		throw Exception {SDL_GetError()};
+		m_window = s::create_window(title, size);
+		if (!m_window) {
+			throw Exception {SDL_GetError()};
+		}
 	}
 
 	Window::~Window()

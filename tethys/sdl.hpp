@@ -65,7 +65,7 @@ namespace tethys::sdl {
 	private:
 		friend struct Context;
 		SDL_Window* m_window;
-		Window(const std::string title, Size window_size, Log&);
+		Window(const std::string title, Size window_size);
 		~Window();
 		TETHYS_NO_COPY(Window)
 		TETHYS_DECLARE_MOVE(Window)
