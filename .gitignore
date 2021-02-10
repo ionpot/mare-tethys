@@ -2,4 +2,6 @@
 *.sw[po]
 /.vs/
 /build/
+/lib/sdl2/*
+!/lib/sdl2/sdl2-config.cmake
 /out/
