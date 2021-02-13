@@ -93,7 +93,7 @@ namespace tethys::sdl {
 		m_event {event}
 	{}
 
-	bool Event::is_quit()
+	bool Event::is_quit() const
 	{
 		return m_event.type == SDL_QUIT;
 	}

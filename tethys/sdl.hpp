@@ -17,7 +17,7 @@ namespace tethys::sdl {
 
 	class Event {
 	public:
-		bool is_quit();
+		bool is_quit() const;
 	private:
 		friend class Base;
 		Event() = default;
