@@ -27,7 +27,7 @@ namespace tethys::sdl {
 
 	class Base {
 	public:
-		void delay(Uint32 milliseconds);
+		void delay(Uint32 milliseconds) const;
 		Event* poll_event();
 	private:
 		friend struct Context;

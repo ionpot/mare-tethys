@@ -66,7 +66,7 @@ namespace tethys::sdl {
 		return *this;
 	}
 	
-	void Base::delay(Uint32 milliseconds)
+	void Base::delay(Uint32 milliseconds) const
 	{
 		SDL_Delay(milliseconds);
 	}
