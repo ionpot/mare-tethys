@@ -23,9 +23,11 @@ namespace tethys {
 			if (event->is_quit())
 				return;
 		}
-		sdl.renderer.clear();
-		sdl.renderer.present();
-		sdl.base.delay(1000 / 30);
+		else {
+			sdl.renderer.clear();
+			sdl.renderer.present();
+			sdl.base.delay(1000 / 30);
+		}
 		poll(sdl);
 	}
 
