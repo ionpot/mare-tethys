@@ -17,6 +17,7 @@ namespace tethys::sdl {
 
 	class Event {
 	public:
+		bool is_keydown() const;
 		bool is_quit() const;
 	private:
 		friend class Base;

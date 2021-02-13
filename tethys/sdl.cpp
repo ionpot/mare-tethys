@@ -93,6 +93,11 @@ namespace tethys::sdl {
 		m_event {event}
 	{}
 
+	bool Event::is_keydown() const
+	{
+		return m_event.type == SDL_KEYDOWN;
+	}
+
 	bool Event::is_quit() const
 	{
 		return m_event.type == SDL_QUIT;

@@ -22,6 +22,8 @@ namespace tethys {
 		if (event) {
 			if (event->is_quit())
 				return;
+			if (event->is_keydown())
+				return;
 		}
 		else {
 			sdl.renderer.clear();
