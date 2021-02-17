@@ -14,10 +14,12 @@
 
 namespace tethys::sdl::s {
 	Uint32 init_flags = SDL_INIT_VIDEO;
+
 	Uint32 renderer_flags =
 		SDL_RENDERER_ACCELERATED
 		| SDL_RENDERER_PRESENTVSYNC
 		| SDL_RENDERER_TARGETTEXTURE;
+
 	Uint32 texture_format =
 		SDL_PIXELFORMAT_RGBA8888;
 
@@ -56,7 +58,9 @@ namespace tethys::sdl::s {
 
 namespace tethys::sdl {
 	Base::Base(Log& log):
-		m_call_quit {true}, m_event {}, m_log {log}
+		m_call_quit {true},
+		m_event {},
+		m_log {log}
 	{
 		if (SDL_WasInit(s::init_flags))
 			throw Exception {"Cannot re-initialize."};
@@ -112,7 +116,9 @@ namespace tethys::sdl {
 	// context //
 
 	Context::Context(const std::string title, Size size, Log& log):
-		base {log}, window {title, size}, renderer {window.create_renderer()}
+		base {log},
+		window {title, size},
+		renderer {window.create_renderer()}
 	{}
 
 	// event //
@@ -261,7 +267,10 @@ namespace tethys::sdl {
 	Texture::Texture(SDL_Renderer* renderer, Size size, Uint32 flags):
 		size {size},
 		m_texture {SDL_CreateTexture(
-			renderer, s::texture_format, flags, size.width, size.height
+			renderer,
+			s::texture_format,
+			flags,
+			size.width, size.height
 		)}
 	{
 		if (!m_texture)
