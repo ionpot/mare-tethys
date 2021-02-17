@@ -62,7 +62,7 @@ namespace tethys {
 		void render() const
 		{
 			auto& renderer = m_sdl.renderer;
-			renderer.set_color(sdl::RGBA::opaque(rgb::dark_blue));
+			renderer.set_color(sdl::RGBA::opaque(rgb::black));
 			renderer.clear();
 			renderer.put(m_texture, {100, 100});
 			renderer.present();
