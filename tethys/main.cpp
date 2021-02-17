@@ -2,6 +2,8 @@
 #include "config.hpp"
 #include "hexagon.hpp"
 #include "log.hpp"
+#include "point.hpp"
+#include "rect.hpp"
 #include "rgb.hpp"
 #include "sdl.hpp"
 
@@ -36,7 +38,9 @@ namespace tethys {
 		Main(const std::string title, Log& log):
 			m_config {CfgFile {"tethys.cfg"}},
 			m_sdl {sdl::Context {title, m_config.window_size, log}},
-			m_texture {create_texture(m_sdl.renderer, m_config.hex_side)}
+			m_texture {create_texture(m_sdl.renderer, m_config.hex_side)},
+			m_tex_pos {100, 100},
+			m_put_tex {true}
 		{
 			log.pair("Hexagon size", m_texture.size);
 		}
@@ -48,6 +52,7 @@ namespace tethys {
 					return;
 				if (event->is_keydown())
 					return;
+				check_mouse(*event);
 			}
 			else {
 				render();
@@ -59,12 +64,24 @@ namespace tethys {
 		Config m_config;
 		sdl::Context m_sdl;
 		sdl::Texture m_texture;
+		Point m_tex_pos;
+		bool m_put_tex;
+		void check_mouse(sdl::Event& event)
+		{
+			auto mouse = event.read_mouse_motion();
+			if (mouse) {
+				Rect rect {m_tex_pos, m_texture.size};
+				m_put_tex = !rect.contains(*mouse);
+			}
+		}
 		void render() const
 		{
 			auto& renderer = m_sdl.renderer;
 			renderer.set_color(sdl::RGBA::opaque(rgb::black));
 			renderer.clear();
-			renderer.put(m_texture, {100, 100});
+			if (m_put_tex) {
+				renderer.put(m_texture, m_tex_pos);
+			}
 			renderer.present();
 		}
 	};

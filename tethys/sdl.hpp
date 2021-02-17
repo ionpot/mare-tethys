@@ -24,11 +24,13 @@ namespace tethys::sdl {
 	public:
 		bool is_keydown() const;
 		bool is_quit() const;
+		Point* read_mouse_motion();
 	private:
 		friend class Base;
 		Event() = default;
 		Event(SDL_Event);
 		SDL_Event m_event;
+		Point m_point;
 	};
 
 	class Base {

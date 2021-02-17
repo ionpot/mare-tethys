@@ -5,6 +5,7 @@
 #include "line.hpp"
 #include "log.hpp"
 #include "point.hpp"
+#include "rect.hpp"
 #include "rgb.hpp"
 #include "size.hpp"
 
@@ -35,16 +36,6 @@ namespace tethys::sdl::s {
 			size.width, size.height,
 			flags
 		);
-	}
-
-	SDL_Rect to_rect(Point pos, Size size)
-	{
-		SDL_Rect rect;
-		rect.x = pos.x;
-		rect.y = pos.y;
-		rect.w = size.width;
-		rect.h = size.height;
-		return rect;
 	}
 }
 
@@ -116,7 +107,8 @@ namespace tethys::sdl {
 	// event //
 
 	Event::Event(SDL_Event event):
-		m_event {event}
+		m_event {event},
+		m_point {}
 	{}
 
 	bool Event::is_keydown() const
@@ -127,6 +119,16 @@ namespace tethys::sdl {
 	bool Event::is_quit() const
 	{
 		return m_event.type == SDL_QUIT;
+	}
+
+	Point* Event::read_mouse_motion()
+	{
+		if (m_event.type == SDL_MOUSEMOTION) {
+			auto motion = m_event.motion;
+			m_point = {motion.x, motion.y};
+			return &m_point;
+		}
+		return nullptr;
 	}
 
 	// renderer //
@@ -205,7 +207,7 @@ namespace tethys::sdl {
 
 	void Renderer::put(const Texture& texture, Point position) const
 	{
-		auto dst = s::to_rect(position, texture.size);
+		auto dst = Rect {position, texture.size}.to_sdl();
 		auto err = SDL_RenderCopy(
 			m_renderer, texture.m_texture, NULL, &dst
 		);
