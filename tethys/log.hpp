@@ -2,6 +2,7 @@
 #define TETHYS_LOG_HPP
 
 #include "macros.hpp"
+#include "size.hpp"
 
 #include <fstream>
 #include <string>
@@ -19,10 +20,17 @@ namespace tethys {
 		void error(const std::string);
 
 		template<class T>
-		void pair(const std::string key, T&& value)
+		void pair(const std::string key, T value)
 		{
 			write_pair_key(key);
-			file << std::forward<T>(value) << std::endl;
+			file << std::forward(value) << std::endl;
+		}
+
+		template<>
+		void pair(const std::string key, Size size)
+		{
+			write_pair_key(key);
+			file << size.width << "x" << size.height << std::endl;
 		}
 
 		void put(const std::string);

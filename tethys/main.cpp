@@ -37,7 +37,9 @@ namespace tethys {
 			m_config {CfgFile {"tethys.cfg"}},
 			m_sdl {sdl::Context {title, m_config.window_size, log}},
 			m_texture {create_texture(m_sdl.renderer, m_config.hex_side)}
-		{}
+		{
+			log.pair("Hexagon size", m_texture.size);
+		}
 		void poll()
 		{
 			auto event = m_sdl.base.poll_event();
