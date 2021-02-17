@@ -37,14 +37,6 @@ namespace tethys::sdl::s {
 		);
 	}
 
-	SDL_Point to_point(Point p)
-	{
-		SDL_Point point;
-		point.x = p.x;
-		point.y = p.y;
-		return point;
-	}
-
 	SDL_Rect to_rect(Point pos, Size size)
 	{
 		SDL_Rect rect;
@@ -194,13 +186,13 @@ namespace tethys::sdl {
 	void Renderer::draw_hex(Hexagon hex) const
 	{
 		std::array points = {
-			s::to_point(hex.point1()),
-			s::to_point(hex.point2()),
-			s::to_point(hex.point3()),
-			s::to_point(hex.point4()),
-			s::to_point(hex.point5()),
-			s::to_point(hex.point6()),
-			s::to_point(hex.point1())
+			hex.point1().to_sdl(),
+			hex.point2().to_sdl(),
+			hex.point3().to_sdl(),
+			hex.point4().to_sdl(),
+			hex.point5().to_sdl(),
+			hex.point6().to_sdl(),
+			hex.point1().to_sdl()
 		};
 		if (SDL_RenderDrawLines(m_renderer, points.data(), points.size()))
 			throw Exception {SDL_GetError()};
