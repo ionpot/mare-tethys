@@ -18,9 +18,9 @@ namespace tethys {
 			+ std::to_string(version.minor);
 	}
 
-	auto create_texture(const sdl::Renderer& renderer)
+	auto create_texture(const sdl::Renderer& renderer, double hex_side)
 	{
-		Hexagon hex {100};
+		Hexagon hex {hex_side};
 		auto tx = renderer.create_target_texture(hex.size());
 		renderer.set_target(tx);
 		renderer.set_color(sdl::RGBA::transparent);
@@ -35,8 +35,8 @@ namespace tethys {
 	public:
 		Main(const std::string title, Log& log):
 			m_config {CfgFile {"tethys.cfg"}},
-			m_sdl {sdl::Context {title, {640, 480}, log}},
-			m_texture {create_texture(m_sdl.renderer)}
+			m_sdl {sdl::Context {title, m_config.window_size, log}},
+			m_texture {create_texture(m_sdl.renderer, m_config.hex_side)}
 		{}
 		void poll()
 		{

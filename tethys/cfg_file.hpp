@@ -24,6 +24,7 @@ namespace tethys {
 			std::string value;
 			Pair(const std::string line, const std::string section = "");
 			double to_double() const;
+			int to_int() const;
 		private:
 			template<class T>
 			T to_value(T (*)(const std::string)) const;

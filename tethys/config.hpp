@@ -2,6 +2,7 @@
 #define TETHYS_CONFIG_HPP
 
 #include "cfg_file.hpp"
+#include "size.hpp"
 
 namespace tethys {
 	struct Config {
@@ -19,6 +20,10 @@ namespace tethys {
 
 		double gold_per_trade;
 		double trade_value;
+
+		double hex_side;
+
+		Size window_size;
 
 		Config(const CfgFile&);
 	};

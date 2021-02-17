@@ -32,6 +32,17 @@ namespace tethys::s {
 			throw BadValue {"a double"};
 		}
 	}
+
+	int
+	to_int(const std::string input)
+	{
+		try {
+			return std::stoi(input);
+		}
+		catch (const std::invalid_argument&) {
+			throw BadValue {"an integer"};
+		}
+	}
 }
 
 namespace tethys {
@@ -59,6 +70,12 @@ namespace tethys {
 	CfgFile::Pair::to_double() const
 	{
 		return to_value(s::to_double);
+	}
+
+	int
+	CfgFile::Pair::to_int() const
+	{
+		return to_value(s::to_int);
 	}
 
 	template<class T>
