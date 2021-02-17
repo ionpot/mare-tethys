@@ -24,24 +24,20 @@ namespace tethys::s {
 
 	double
 	to_double(const std::string input)
-	{
-		try {
-			return std::stod(input);
-		}
-		catch (const std::invalid_argument&) {
-			throw BadValue {"a double"};
-		}
+	try {
+		return std::stod(input);
+	}
+	catch (const std::invalid_argument&) {
+		throw BadValue {"a double"};
 	}
 
 	int
 	to_int(const std::string input)
-	{
-		try {
-			return std::stoi(input);
-		}
-		catch (const std::invalid_argument&) {
-			throw BadValue {"an integer"};
-		}
+	try {
+		return std::stoi(input);
+	}
+	catch (const std::invalid_argument&) {
+		throw BadValue {"an integer"};
 	}
 }
 
@@ -83,13 +79,11 @@ namespace tethys {
 	CfgFile::Pair::to_value(
 		T (*parse)(const std::string)
 	) const
-	{
-		try {
-			return parse(value);
-		}
-		catch (const s::BadValue& err) {
-			throw BadValue {key, err.expected, section};
-		}
+	try {
+		return parse(value);
+	}
+	catch (const s::BadValue& err) {
+		throw BadValue {key, err.expected, section};
 	}
 
 	CfgFile::Section::Section(
