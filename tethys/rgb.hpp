@@ -1,11 +1,13 @@
 #ifndef TETHYS_RGB_HPP
 #define TETHYS_RGB_HPP
 
+#include <SDL.h>
+
 namespace tethys {
 	struct RGB {
-		int red;
-		int green;
-		int blue;
+		Uint8 red;
+		Uint8 green;
+		Uint8 blue;
 	};
 	namespace rgb {
 		const RGB black {0, 0, 0};

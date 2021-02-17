@@ -67,7 +67,7 @@ namespace tethys::sdl {
 
 	struct RGBA {
 		RGB channels;
-		int alpha;
+		Uint8 alpha;
 		static const RGBA transparent;
 		static RGBA opaque(RGB);
 	};
