@@ -1,5 +1,6 @@
 #include "cfg_file.hpp"
 #include "config.hpp"
+#include "hexagon.hpp"
 #include "log.hpp"
 #include "rgb.hpp"
 #include "sdl.hpp"
@@ -19,12 +20,13 @@ namespace tethys {
 
 	auto create_texture(const sdl::Renderer& renderer)
 	{
-		auto tx = renderer.create_target_texture({100, 100});
+		Hexagon hex {100};
+		auto tx = renderer.create_target_texture(hex.size());
 		renderer.set_target(tx);
 		renderer.set_color(sdl::RGBA::transparent);
 		renderer.clear();
 		renderer.set_color(sdl::RGBA::opaque(rgb::red));
-		renderer.draw_line({{0, 0}, {100, 100}});
+		renderer.draw_hex(hex);
 		renderer.reset_target();
 		return tx;
 	}
