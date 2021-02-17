@@ -196,7 +196,7 @@ namespace tethys::sdl {
 			hex.point6().to_sdl(),
 			hex.point1().to_sdl()
 		};
-		if (SDL_RenderDrawLines(m_renderer, points.data(), points.size()))
+		if (SDL_RenderDrawLines(m_renderer, points.data(), (int)points.size()))
 			throw Exception {SDL_GetError()};
 	}
 
