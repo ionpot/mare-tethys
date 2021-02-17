@@ -69,8 +69,8 @@ namespace tethys {
 	{
 		auto title = get_title();
 		log.put(title);
+		log.put("Begin");
 		try {
-			log.put("Begin");
 			Main m {title, log};
 			log.put("Polling events...");
 			m.poll();
