@@ -13,10 +13,11 @@ namespace tethys::s {
 		RGB sea {50, 50, 200};
 	} color;
 
-	auto create_texture(
-		const sdl::Renderer& rdr,
-		const Hexagon& hex,
-		const RGB& rgb)
+	auto
+	create_texture(
+			const sdl::Renderer& rdr,
+			const Hexagon& hex,
+			const RGB& rgb)
 	{
 		auto tx = rdr.create_target_texture(hex.size());
 		rdr.set_target(tx);
@@ -28,7 +29,8 @@ namespace tethys::s {
 		return tx;
 	}
 
-	Point find_offset(const std::list<HexGrid::Node>& nodes)
+	Point
+	find_offset(const std::list<HexGrid::Node>& nodes)
 	{
 		Point offset;
 		for (const auto& node : nodes) {
@@ -37,7 +39,11 @@ namespace tethys::s {
 		return offset.negate();
 	}
 
-	Size find_size(const std::list<HexGrid::Node>& nodes, const Hexagon& hex, Point offset)
+	Size
+	find_size(
+			const std::list<HexGrid::Node>& nodes,
+			const Hexagon& hex,
+			Point offset)
 	{
 		Point p;
 		for (const auto& node : nodes) {
@@ -64,7 +70,8 @@ namespace tethys {
 		m_renderer {rdr}
 	{}
 
-	sdl::Texture HexGrid::to_texture() const
+	sdl::Texture
+	HexGrid::to_texture() const
 	{
 		auto& rdr = m_renderer.get();
 		auto tx = rdr.create_target_texture(m_size);

@@ -9,7 +9,8 @@
 #include <string>
 
 namespace tethys {
-	std::string get_title()
+	std::string
+	get_title()
 	{
 		return "Mare Tethys v"
 			+ std::to_string(version.major)

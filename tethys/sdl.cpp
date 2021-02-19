@@ -24,11 +24,12 @@ namespace tethys::sdl::s {
 	Uint32 texture_format =
 		SDL_PIXELFORMAT_RGBA8888;
 
-	SDL_Window* create_window(
-		const std::string title,
-		Size size,
-		Uint32 flags = 0
-	) {
+	SDL_Window*
+	create_window(
+			const std::string title,
+			Size size,
+			Uint32 flags = 0)
+	{
 		return SDL_CreateWindow(
 			title.c_str(),
 			SDL_WINDOWPOS_UNDEFINED,
@@ -72,7 +73,8 @@ namespace tethys::sdl {
 		from.m_call_quit = false;
 	}
 
-	Base& Base::operator=(Base&& from) noexcept
+	Base&
+	Base::operator=(Base&& from) noexcept
 	{
 		m_call_quit = true;
 		from.m_call_quit = false;
@@ -81,12 +83,14 @@ namespace tethys::sdl {
 		return *this;
 	}
 	
-	void Base::delay(Uint32 milliseconds) const
+	void
+	Base::delay(Uint32 milliseconds) const
 	{
 		SDL_Delay(milliseconds);
 	}
 
-	Event* Base::poll_event()
+	Event*
+	Base::poll_event()
 	{
 		SDL_Event event;
 		if (SDL_PollEvent(&event)) {
@@ -111,17 +115,20 @@ namespace tethys::sdl {
 		m_point {}
 	{}
 
-	bool Event::is_keydown() const
+	bool
+	Event::is_keydown() const
 	{
 		return m_event.type == SDL_KEYDOWN;
 	}
 
-	bool Event::is_quit() const
+	bool
+	Event::is_quit() const
 	{
 		return m_event.type == SDL_QUIT;
 	}
 
-	Point* Event::read_mouse_motion()
+	Point*
+	Event::read_mouse_motion()
 	{
 		if (m_event.type == SDL_MOUSEMOTION) {
 			auto motion = m_event.motion;
@@ -155,26 +162,30 @@ namespace tethys::sdl {
 		from.m_renderer = NULL;
 	}
 
-	Renderer& Renderer::operator=(Renderer&& from) noexcept
+	Renderer&
+	Renderer::operator=(Renderer&& from) noexcept
 	{
 		m_renderer = from.m_renderer;
 		from.m_renderer = NULL;
 		return *this;
 	}
 
-	void Renderer::clear() const
+	void
+	Renderer::clear() const
 	{
 		auto err = SDL_RenderClear(m_renderer);
 		if (err)
 			throw Exception {SDL_GetError()};
 	}
 
-	TargetTexture Renderer::create_target_texture(Size size) const
+	TargetTexture
+	Renderer::create_target_texture(Size size) const
 	{
 		return {m_renderer, size};
 	}
 
-	void Renderer::draw_line(Line line) const
+	void
+	Renderer::draw_line(Line line) const
 	{
 		auto err = SDL_RenderDrawLine(
 			m_renderer,
@@ -185,7 +196,8 @@ namespace tethys::sdl {
 			throw Exception {SDL_GetError()};
 	}
 
-	void Renderer::draw_hex(const Hexagon& hex) const
+	void
+	Renderer::draw_hex(const Hexagon& hex) const
 	{
 		std::array points = {
 			hex.point1().to_sdl(),
@@ -200,12 +212,14 @@ namespace tethys::sdl {
 			throw Exception {SDL_GetError()};
 	}
 
-	void Renderer::present() const
+	void
+	Renderer::present() const
 	{
 		SDL_RenderPresent(m_renderer);
 	}
 
-	void Renderer::put(const Texture& texture, Point position) const
+	void
+	Renderer::put(const Texture& texture, Point position) const
 	{
 		auto dst = Rect {position, texture.size}.to_sdl();
 		auto err = SDL_RenderCopy(
@@ -215,19 +229,22 @@ namespace tethys::sdl {
 			throw Exception {SDL_GetError()};
 	}
 
-	void Renderer::reset_target() const
+	void
+	Renderer::reset_target() const
 	{
 		auto err = SDL_SetRenderTarget(m_renderer, NULL);
 		if (err)
 			throw Exception {SDL_GetError()};
 	}
 
-	void Renderer::reset_color() const
+	void
+	Renderer::reset_color() const
 	{
 		set_color(RGBA::opaque(rgb::black));
 	}
 
-	void Renderer::set_color(RGBA color) const
+	void
+	Renderer::set_color(RGBA color) const
 	{
 		auto err = SDL_SetRenderDrawColor(
 			m_renderer,
@@ -240,7 +257,8 @@ namespace tethys::sdl {
 			throw Exception {SDL_GetError()};
 	}
 
-	void Renderer::set_target(const TargetTexture& texture) const
+	void
+	Renderer::set_target(const TargetTexture& texture) const
 	{
 		auto err = SDL_SetRenderTarget(m_renderer, texture.m_texture);
 		if (err)
@@ -251,7 +269,8 @@ namespace tethys::sdl {
 
 	const RGBA RGBA::transparent {rgb::black, SDL_ALPHA_TRANSPARENT};
 
-	RGBA RGBA::opaque(RGB channels)
+	RGBA
+	RGBA::opaque(RGB channels)
 	{
 		return {channels, SDL_ALPHA_OPAQUE};
 	}
@@ -323,14 +342,16 @@ namespace tethys::sdl {
 		from.m_window = NULL;
 	}
 
-	Window& Window::operator=(Window&& from) noexcept
+	Window&
+	Window::operator=(Window&& from) noexcept
 	{
 		m_window = from.m_window;
 		from.m_window = NULL;
 		return *this;
 	}
 
-	Renderer Window::create_renderer() const
+	Renderer
+	Window::create_renderer() const
 	{
 		return Renderer {m_window};
 	}

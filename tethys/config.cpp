@@ -3,7 +3,8 @@
 #include "cfg_file.hpp"
 
 namespace tethys {
-	Size find_window_size(const CfgFile& file)
+	Size
+	find_window_size(const CfgFile& file)
 	{
 		auto section = file.find_section("window");
 		return {

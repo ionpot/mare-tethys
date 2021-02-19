@@ -77,7 +77,7 @@ namespace tethys {
 	template<class T>
 	T
 	CfgFile::Pair::to_value(
-		T (*parse)(const std::string)
+			T (*parse)(const std::string)
 	) const
 	try {
 		return parse(value);
@@ -87,8 +87,8 @@ namespace tethys {
 	}
 
 	CfgFile::Section::Section(
-		const std::string name,
-		const file::LineList& lines
+			const std::string name,
+			const file::LineList& lines
 	):
 		name {name}
 	{
@@ -144,9 +144,9 @@ namespace tethys {
 	}
 
 	CfgFile::BadValue::BadValue(
-		const std::string key,
-		const std::string expected,
-		const std::string section
+			const std::string key,
+			const std::string expected,
+			const std::string section
 	):
 		CfgFileException {s::key_str(key, section) + " is not " + expected + "."},
 		expected {expected},
@@ -155,8 +155,8 @@ namespace tethys {
 	{}
 
 	CfgFile::MissingKey::MissingKey(
-		const std::string key,
-		const std::string section
+			const std::string key,
+			const std::string section
 	):
 		CfgFileException {"Key not found: " + s::key_str(key, section)},
 		key {key},

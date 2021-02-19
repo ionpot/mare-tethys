@@ -8,9 +8,9 @@
 
 namespace tethys {
 	Screen::Screen(
-		const Config& config,
-		const sdl::Renderer& renderer,
-		Log& log
+			const Config& config,
+			const sdl::Renderer& renderer,
+			Log& log
 	):
 		m_hex {config.hex_side},
 		m_grid {m_hex, renderer},
@@ -21,7 +21,8 @@ namespace tethys {
 		log.pair("Hexagon size", m_hex.size());
 	}
 
-	Screen::Status Screen::handle(sdl::Event& event)
+	Screen::Status
+	Screen::handle(sdl::Event& event)
 	{
 		if (event.is_keydown()) {
 			return Status::quit;
@@ -29,7 +30,8 @@ namespace tethys {
 		return Status::ok;
 	}
 
-	void Screen::render() const
+	void
+	Screen::render() const
 	{
 		auto& rdr = m_renderer.get();
 		rdr.set_color(sdl::RGBA::opaque(rgb::black));
