@@ -76,7 +76,7 @@ namespace tethys::sdl {
 	public:
 		void clear() const;
 		TargetTexture create_target_texture(Size) const;
-		void draw_hex(Hexagon) const;
+		void draw_hex(const Hexagon&) const;
 		void draw_line(Line) const;
 		void present() const;
 		void put(const Texture&, Point position) const;

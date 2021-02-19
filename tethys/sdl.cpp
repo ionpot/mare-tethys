@@ -185,7 +185,7 @@ namespace tethys::sdl {
 			throw Exception {SDL_GetError()};
 	}
 
-	void Renderer::draw_hex(Hexagon hex) const
+	void Renderer::draw_hex(const Hexagon& hex) const
 	{
 		std::array points = {
 			hex.point1().to_sdl(),
