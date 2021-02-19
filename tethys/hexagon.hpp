@@ -16,6 +16,7 @@ namespace tethys {
 			{}
 		};
 		Point offset;
+		int margin;
 		int side;
 		Hexagon(double side);
 		Point point1() const;
@@ -27,6 +28,11 @@ namespace tethys {
 		Size size() const;
 		int height() const;
 		int width() const;
+
+		// neighbour points
+		Point above() const;
+		Point above_left() const;
+		Point above_right() const;
 	};
 }
 

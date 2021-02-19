@@ -2,6 +2,8 @@
 #define TETHYS_SCREEN_HPP
 
 #include "config.hpp"
+#include "hex_grid.hpp"
+#include "hexagon.hpp"
 #include "log.hpp"
 #include "point.hpp"
 #include "sdl.hpp"
@@ -12,11 +14,13 @@ namespace tethys {
 		enum class Status { ok, quit };
 		Screen(const Config&, const sdl::Renderer&, Log&);
 		Status handle(sdl::Event&);
-		void render(const sdl::Renderer&) const;
+		void render() const;
 	private:
-		sdl::Texture m_texture;
-		Point m_tex_pos;
-		bool m_put_tex;
+		Hexagon m_hex;
+		HexGrid m_grid;
+		sdl::Texture m_grid_tx;
+		Point m_grid_pos;
+		std::reference_wrapper<const sdl::Renderer> m_renderer;
 	};
 }
 

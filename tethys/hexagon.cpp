@@ -21,6 +21,7 @@ namespace tethys {
 				std::max(1, round(side / 2 * sqrt3))
 			}
 		},
+		margin {1},
 		side {round(side)}
 	{
 		if (side < 1)
@@ -34,7 +35,7 @@ namespace tethys {
 
 	Point Hexagon::point2() const
 	{
-		return {offset.x + side, 0};
+		return {offset.x + side - 1, 0};
 	}
 
 	Point Hexagon::point3() const
@@ -44,7 +45,7 @@ namespace tethys {
 
 	Point Hexagon::point4() const
 	{
-		return {offset.x + side, height() - 1};
+		return {offset.x + side - 1, height() - 1};
 	}
 
 	Point Hexagon::point5() const
@@ -70,5 +71,20 @@ namespace tethys {
 	int Hexagon::width() const
 	{
 		return offset.x * 2 + side;
+	}
+
+	Point Hexagon::above() const
+	{
+		return {0, -margin - height()};
+	}
+
+	Point Hexagon::above_left() const
+	{
+		return {-offset.x - side - margin, offset.y - height() - margin};
+	}
+
+	Point Hexagon::above_right() const
+	{
+		return {offset.x + side + margin, offset.y - height() - margin};
 	}
 }
