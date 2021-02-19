@@ -80,6 +80,6 @@ namespace tethys {
 			rdr.put(*node.texture, m_offset + node.position);
 		}
 		rdr.reset_target();
-		return tx;
+		return std::move(tx);
 	}
 }
