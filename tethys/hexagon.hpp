@@ -2,7 +2,6 @@
 #define TETHYS_HEXAGON_HPP
 
 #include "exception.hpp"
-#include "line.hpp"
 #include "point.hpp"
 #include "size.hpp"
 
@@ -15,9 +14,9 @@ namespace tethys {
 				tethys::Exception {"Hexagon", text}
 			{}
 		};
-		Point offset;
-		int margin;
-		int side;
+		const int side;
+		const int x1, x2, x3;
+		const int y1, y2;
 		Hexagon(double side);
 		Point point1() const;
 		Point point2() const;
