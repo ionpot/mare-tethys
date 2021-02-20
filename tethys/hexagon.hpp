@@ -32,6 +32,9 @@ namespace tethys {
 		Point above() const;
 		Point above_left() const;
 		Point above_right() const;
+		Point below() const;
+		Point below_left() const;
+		Point below_right() const;
 	};
 }
 

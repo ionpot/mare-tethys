@@ -63,7 +63,10 @@ namespace tethys {
 			{Point {}, &m_sea},
 			{hex.above(), &m_mountain},
 			{hex.above_left(), &m_forest},
-			{hex.above_right(), &m_forest}
+			{hex.above_right(), &m_forest},
+			{hex.below(), &m_mountain},
+			{hex.below_left(), &m_forest},
+			{hex.below_right(), &m_forest}
 		},
 		m_offset {s::find_offset(m_nodes)},
 		m_size {s::find_size(m_nodes, hex, m_offset)},

@@ -91,4 +91,19 @@ namespace tethys {
 	{
 		return {x2 + 2, -y1 - 1};
 	}
+
+	Point Hexagon::below() const
+	{
+		return {0, height() + 1};
+	}
+
+	Point Hexagon::below_left() const
+	{
+		return {-x2 - 2, y1 + 1};
+	}
+
+	Point Hexagon::below_right() const
+	{
+		return {x2 + 2, y1 + 1};
+	}
 }
