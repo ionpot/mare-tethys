@@ -13,22 +13,6 @@ namespace tethys::s {
 		RGB sea {50, 50, 200};
 	} color;
 
-	auto
-	create_texture(
-			const sdl::Renderer& rdr,
-			const Hexagon& hex,
-			const RGB& rgb)
-	{
-		auto tx = rdr.create_target_texture(hex.size());
-		rdr.set_target(tx);
-		rdr.set_color(sdl::RGBA::transparent);
-		rdr.clear();
-		rdr.set_color(sdl::RGBA::opaque(rgb));
-		rdr.draw_hex(hex);
-		rdr.reset_target();
-		return tx;
-	}
-
 	Point
 	find_offset(const std::list<HexGrid::Node>& nodes)
 	{
@@ -56,9 +40,9 @@ namespace tethys::s {
 
 namespace tethys {
 	HexGrid::HexGrid(const Hexagon& hex, const sdl::Renderer& rdr):
-		m_forest {s::create_texture(rdr, hex, s::color.forest)},
-		m_mountain {s::create_texture(rdr, hex, s::color.mountain)},
-		m_sea {s::create_texture(rdr, hex, s::color.sea)},
+		m_forest {rdr.create_hex(hex, s::color.forest)},
+		m_mountain {rdr.create_hex(hex, s::color.mountain)},
+		m_sea {rdr.create_hex(hex, s::color.sea)},
 		m_nodes {
 			{Point {}, &m_sea},
 			{hex.above(), &m_mountain},

@@ -178,6 +178,19 @@ namespace tethys::sdl {
 			throw Exception {SDL_GetError()};
 	}
 
+	Texture
+	Renderer::create_hex(const Hexagon& hex, const RGB& rgb) const
+	{
+		auto tx = create_target_texture(hex.size());
+		set_target(tx);
+		set_color(RGBA::transparent);
+		clear();
+		set_color(RGBA::opaque(rgb));
+		draw_hex(hex);
+		reset_target();
+		return std::move(tx);
+	}
+
 	TargetTexture
 	Renderer::create_target_texture(Size size) const
 	{

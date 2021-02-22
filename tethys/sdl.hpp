@@ -75,6 +75,7 @@ namespace tethys::sdl {
 	class Renderer {
 	public:
 		void clear() const;
+		Texture create_hex(const Hexagon&, const RGB&) const;
 		TargetTexture create_target_texture(Size) const;
 		void draw_hex(const Hexagon&) const;
 		void draw_line(Line) const;
