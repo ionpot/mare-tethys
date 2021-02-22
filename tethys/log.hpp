@@ -2,6 +2,7 @@
 #define TETHYS_LOG_HPP
 
 #include "macros.hpp"
+#include "point.hpp"
 #include "size.hpp"
 
 #include <fstream>
@@ -31,6 +32,13 @@ namespace tethys {
 		{
 			write_pair_key(key);
 			file << size.width << "x" << size.height << std::endl;
+		}
+
+		template<>
+		void pair(const std::string key, Point p)
+		{
+			write_pair_key(key);
+			file << p.x << " " << p.y << std::endl;
 		}
 
 		void put(const std::string);
