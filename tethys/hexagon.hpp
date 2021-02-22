@@ -17,16 +17,20 @@ namespace tethys {
 		const int side;
 		const int x1, x2, x3;
 		const int y1, y2;
+
 		Hexagon(double side);
+
+		Size size() const;
+		int height() const;
+		int width() const;
+
+		// clockwise from top left
 		Point point1() const;
 		Point point2() const;
 		Point point3() const;
 		Point point4() const;
 		Point point5() const;
 		Point point6() const;
-		Size size() const;
-		int height() const;
-		int width() const;
 
 		// neighbour points
 		Point above() const;
@@ -35,6 +39,16 @@ namespace tethys {
 		Point below() const;
 		Point below_left() const;
 		Point below_right() const;
+
+		// borders
+		static const Point border_offset;
+		Point border1() const;
+		Point border2() const;
+		Point border3() const;
+		Point border4() const;
+		Point border5() const;
+		Point border6() const;
+		Size border_size() const;
 	};
 }
 

@@ -20,6 +20,8 @@ namespace tethys::s {
 }
 
 namespace tethys {
+	const Point Hexagon::border_offset = {-1, -1};
+
 	Hexagon::Hexagon(double a_side):
 		side {s::round(a_side)},
 		x1 {s::round1(a_side / 2)},
@@ -30,6 +32,41 @@ namespace tethys {
 	{
 		if (side < 1)
 			throw Exception {"Side length is less than 1."};
+	}
+
+	Size Hexagon::border_size() const
+	{
+		return {width() + 2, height() + 2};
+	}
+
+	Point Hexagon::border1() const
+	{
+		return {x1 - 1, -1};
+	}
+
+	Point Hexagon::border2() const
+	{
+		return {x2 + 1, -1};
+	}
+
+	Point Hexagon::border3() const
+	{
+		return {x3 + 1, y1};
+	}
+
+	Point Hexagon::border4() const
+	{
+		return {x2 + 1, y2 + 1};
+	}
+
+	Point Hexagon::border5() const
+	{
+		return {x1 - 1, y2 + 1};
+	}
+
+	Point Hexagon::border6() const
+	{
+		return {-1, y1};
 	}
 
 	Point Hexagon::point1() const

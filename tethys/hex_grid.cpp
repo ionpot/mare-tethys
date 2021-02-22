@@ -57,6 +57,12 @@ namespace tethys {
 		m_renderer {rdr}
 	{}
 
+	Point
+	HexGrid::first_point() const
+	{
+		return m_offset + m_nodes.front().position;
+	}
+
 	sdl::Texture
 	HexGrid::to_texture() const
 	{

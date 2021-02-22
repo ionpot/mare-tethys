@@ -18,6 +18,7 @@ namespace tethys {
 	private:
 		Hexagon m_hex;
 		HexGrid m_grid;
+		sdl::Texture m_border_tx;
 		sdl::Texture m_grid_tx;
 		Point m_grid_pos;
 		std::reference_wrapper<const sdl::Renderer> m_renderer;

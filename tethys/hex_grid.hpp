@@ -16,6 +16,7 @@ namespace tethys {
 			sdl::Texture* texture;
 		};
 		HexGrid(const Hexagon&, const sdl::Renderer&);
+		Point first_point() const;
 		sdl::Texture to_texture() const;
 	private:
 		sdl::Texture m_forest;

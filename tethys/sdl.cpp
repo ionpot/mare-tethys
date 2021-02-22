@@ -191,6 +191,19 @@ namespace tethys::sdl {
 		return std::move(tx);
 	}
 
+	Texture
+	Renderer::create_hex_border(const Hexagon& hex, const RGB& rgb) const
+	{
+		auto tx = create_target_texture(hex.border_size());
+		set_target(tx);
+		set_color(RGBA::transparent);
+		clear();
+		set_color(RGBA::opaque(rgb));
+		draw_hex_borders(hex);
+		reset_target();
+		return std::move(tx);
+	}
+
 	TargetTexture
 	Renderer::create_target_texture(Size size) const
 	{
@@ -220,6 +233,25 @@ namespace tethys::sdl {
 			hex.point5().to_sdl(),
 			hex.point6().to_sdl(),
 			hex.point1().to_sdl()
+		};
+		if (SDL_RenderDrawLines(m_renderer, points.data(), (int)points.size()))
+			throw Exception {SDL_GetError()};
+	}
+
+	void
+	Renderer::draw_hex_borders(const Hexagon& hex) const
+	{
+		auto map = [](Point p) {
+			return (p - Hexagon::border_offset).to_sdl();
+		};
+		std::array points = {
+			map(hex.border1()),
+			map(hex.border2()),
+			map(hex.border3()),
+			map(hex.border4()),
+			map(hex.border5()),
+			map(hex.border6()),
+			map(hex.border1())
 		};
 		if (SDL_RenderDrawLines(m_renderer, points.data(), (int)points.size()))
 			throw Exception {SDL_GetError()};

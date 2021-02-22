@@ -23,11 +23,15 @@ namespace tethys {
 		}
 		Point negate() const
 		{
-			return {-x, -y};
+			return Point {0, 0} - Point {x, y};
 		}
 		Point operator+(const Point& p) const
 		{
 			return {x + p.x, y + p.y};
+		}
+		Point operator-(const Point& p) const
+		{
+			return {x - p.x, y - p.y};
 		}
 		Point& operator+=(const Point& p)
 		{
