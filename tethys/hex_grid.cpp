@@ -2,6 +2,7 @@
 
 #include "hexagon.hpp"
 #include "point.hpp"
+#include "rect.hpp"
 #include "rgb.hpp"
 #include "sdl.hpp"
 #include "size.hpp"
@@ -39,7 +40,8 @@ namespace tethys::s {
 }
 
 namespace tethys {
-	HexGrid::HexGrid(const Hexagon& hex, const sdl::Renderer& rdr):
+	HexGrid::HexGrid(Hexagon hex, const sdl::Renderer& rdr):
+		m_hex {hex},
 		m_forest {rdr.create_hex(hex, s::color.forest)},
 		m_mountain {rdr.create_hex(hex, s::color.mountain)},
 		m_sea {rdr.create_hex(hex, s::color.sea)},
@@ -55,12 +57,23 @@ namespace tethys {
 		m_offset {s::find_offset(m_nodes)},
 		m_size {s::find_size(m_nodes, hex, m_offset)},
 		m_renderer {rdr}
-	{}
-
-	Point
-	HexGrid::first_point() const
 	{
-		return m_offset + m_nodes.front().position;
+		for (auto& node : m_nodes)
+			node.position += m_offset;
+	}
+
+	const Point*
+	HexGrid::find_point(Point p) const
+	{
+		Rect rect {m_size};
+		if (rect.contains(p)) {
+			for (const auto& node : m_nodes) {
+				if (m_hex.contains(p - node.position)) {
+					return &node.position;
+				}
+			}
+		}
+		return nullptr;
 	}
 
 	sdl::Texture
@@ -70,7 +83,7 @@ namespace tethys {
 		auto tx = rdr.create_target_texture(m_size);
 		rdr.set_target(tx);
 		for (const auto& node : m_nodes) {
-			rdr.put(*node.texture, m_offset + node.position);
+			rdr.put(*node.texture, node.position);
 		}
 		rdr.reset_target();
 		return std::move(tx);

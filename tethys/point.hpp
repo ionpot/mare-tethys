@@ -2,11 +2,19 @@
 #define TETHYS_POINT_HPP
 
 #include <SDL.h>
+#include <cmath>
 
 namespace tethys {
 	struct Point {
 		int x = 0;
 		int y = 0;
+		double distance(Point target)
+		{
+			Point p {target - *this};
+			return std::sqrt(
+				std::pow(p.x, 2) + std::pow(p.y, 2)
+			);
+		}
 		void pick_min(const Point& p)
 		{
 			if (p.x < x)

@@ -6,6 +6,16 @@
 #include <SDL.h>
 
 namespace tethys {
+	Rect::Rect(Size s):
+		position {0, 0},
+		size {s}
+	{}
+
+	Rect::Rect(Point p, Size s):
+		position {p},
+		size {s}
+	{}
+
 	bool
 	Rect::contains(Point p) const
 	{

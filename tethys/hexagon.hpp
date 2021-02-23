@@ -17,12 +17,15 @@ namespace tethys {
 		const int side;
 		const int x1, x2, x3;
 		const int y1, y2;
+		const Point center;
 
 		Hexagon(double side);
 
 		Size size() const;
 		int height() const;
 		int width() const;
+
+		bool contains(Point) const;
 
 		// clockwise from top left
 		Point point1() const;

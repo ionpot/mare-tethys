@@ -15,10 +15,11 @@ namespace tethys {
 			Point position;
 			sdl::Texture* texture;
 		};
-		HexGrid(const Hexagon&, const sdl::Renderer&);
-		Point first_point() const;
+		HexGrid(Hexagon, const sdl::Renderer&);
+		const Point* find_point(Point) const;
 		sdl::Texture to_texture() const;
 	private:
+		Hexagon m_hex;
 		sdl::Texture m_forest;
 		sdl::Texture m_mountain;
 		sdl::Texture m_sea;

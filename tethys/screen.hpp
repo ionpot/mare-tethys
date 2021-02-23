@@ -16,6 +16,7 @@ namespace tethys {
 		Status handle(sdl::Event&);
 		void render() const;
 	private:
+		const Point* m_active_point;
 		Hexagon m_hex;
 		HexGrid m_grid;
 		sdl::Texture m_border_tx;

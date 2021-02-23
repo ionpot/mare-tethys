@@ -28,10 +28,17 @@ namespace tethys {
 		x2 {x1 + side - 1},
 		x3 {x1 + x2},
 		y1 {s::round1(a_side / 2 * s::sqrt3)},
-		y2 {y1 * 2}
+		y2 {y1 * 2},
+		center {(x3 + 1) / 2, (y2 + 1) / 2}
 	{
 		if (side < 1)
 			throw Exception {"Side length is less than 1."};
+	}
+
+	bool Hexagon::contains(Point p) const
+	{
+		auto r = static_cast<double>(center.x);
+		return p.distance(center) <= r;
 	}
 
 	Size Hexagon::border_size() const
