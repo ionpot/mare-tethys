@@ -5,10 +5,6 @@
 #include <string>
 
 namespace tethys::file {
-	OpenFailed::OpenFailed(std::string filename):
-		FileException {"Failed to open file: " + filename}
-	{}
-
 	LineList
 	read_lines(std::string filename)
 	{
@@ -29,4 +25,8 @@ namespace tethys::file {
 		}
 		return lines;
 	}
+
+	OpenFailed::OpenFailed(std::string filename):
+		Exception {"Failed to open file: " + filename}
+	{}
 }

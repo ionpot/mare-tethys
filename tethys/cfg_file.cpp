@@ -6,10 +6,10 @@
 #include <string>
 
 namespace tethys::s {
-	struct BadValue : public CfgFileException {
+	struct BadValue : public CfgFile::Exception {
 		const std::string expected;
 		BadValue(std::string expected):
-			CfgFileException {"Value is not " + expected + "."},
+			CfgFile::Exception {"Value is not " + expected + "."},
 			expected {expected}
 		{}
 	};
@@ -148,27 +148,21 @@ namespace tethys {
 			std::string expected,
 			std::string section
 	):
-		CfgFileException {s::key_str(key, section) + " is not " + expected + "."},
-		expected {expected},
-		key {key},
-		section {section}
+		Exception {s::key_str(key, section) + " is not " + expected + "."}
 	{}
 
 	CfgFile::MissingKey::MissingKey(
 			std::string key,
 			std::string section
 	):
-		CfgFileException {"Key not found: " + s::key_str(key, section)},
-		key {key},
-		section {section}
+		Exception {"Key not found: " + s::key_str(key, section)}
 	{}
 
 	CfgFile::MissingSection::MissingSection(std::string name):
-		CfgFileException {"Missing section: " + name},
-		name {name}
+		Exception {"Missing section: " + name}
 	{}
 
 	CfgFile::NotPair::NotPair(std::string line):
-		CfgFileException {"Line is not a pair -> " + line}
+		Exception {"Line is not a pair -> " + line}
 	{}
 }

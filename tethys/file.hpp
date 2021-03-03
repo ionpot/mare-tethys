@@ -9,13 +9,13 @@
 namespace tethys::file {
 	typedef std::list<std::string> LineList;
 
-	struct FileException : public Exception {
-		FileException(std::string text):
-			Exception {"File", text}
+	struct Exception : public tethys::Exception {
+		Exception(std::string text):
+			tethys::Exception {"File", text}
 		{};
 	};
 
-	struct OpenFailed : public FileException {
+	struct OpenFailed : public Exception {
 		OpenFailed(std::string filename);
 	};
 

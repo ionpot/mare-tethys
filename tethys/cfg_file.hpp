@@ -7,12 +7,6 @@
 #include <string>
 
 namespace tethys {
-	struct CfgFileException : public Exception {
-		CfgFileException(std::string text):
-			Exception {"CfgFile", text}
-		{};
-	};
-
 	class CfgFile {
 	public:
 		class Pair {
@@ -46,10 +40,13 @@ namespace tethys {
 		Section
 		find_section(std::string name) const;
 
-		struct BadValue : public CfgFileException {
-			const std::string expected;
-			const std::string key;
-			const std::string section;
+		struct Exception : public tethys::Exception {
+			Exception(std::string text):
+				tethys::Exception {"CfgFile", text}
+			{};
+		};
+
+		struct BadValue : public Exception {
 			BadValue(
 				std::string key,
 				std::string expected,
@@ -57,18 +54,15 @@ namespace tethys {
 			);
 		};
 
-		struct MissingKey : public CfgFileException {
-			const std::string key;
-			const std::string section;
+		struct MissingKey : public Exception {
 			MissingKey(std::string key, std::string section = "");
 		};
 
-		struct MissingSection : public CfgFileException {
-			const std::string name;
+		struct MissingSection : public Exception {
 			MissingSection(std::string name);
 		};
 
-		struct NotPair : public CfgFileException {
+		struct NotPair : public Exception {
 			NotPair(std::string line);
 		};
 
