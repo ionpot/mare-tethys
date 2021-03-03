@@ -8,7 +8,7 @@
 
 namespace tethys {
 	struct CfgFileException : public Exception {
-		CfgFileException(const std::string text):
+		CfgFileException(std::string text):
 			Exception {"CfgFile", text}
 		{};
 	};
@@ -18,65 +18,65 @@ namespace tethys {
 		class Pair {
 		public:
 			static const std::string delimiter;
-			static bool is_pair(const std::string line);
+			static bool is_pair(std::string line);
 			const std::string section;
 			std::string key;
 			std::string value;
-			Pair(const std::string line, const std::string section = "");
+			Pair(std::string line, std::string section = "");
 			double to_double() const;
 			int to_int() const;
 		private:
 			template<class T>
-			T to_value(T (*)(const std::string)) const;
+			T to_value(T (*)(std::string)) const;
 		};
 		class Section {
 		public:
 			const std::string name;
-			Section(const std::string name, const file::LineList&);
-			Pair find_pair(const std::string key) const;
+			Section(std::string name, const file::LineList&);
+			Pair find_pair(std::string key) const;
 		private:
 			file::LineList m_lines;
 		};
 
-		CfgFile(const std::string filename);
+		CfgFile(std::string filename);
 
 		Pair
-		find_pair(const std::string key) const;
+		find_pair(std::string key) const;
 
 		Section
-		find_section(const std::string name) const;
+		find_section(std::string name) const;
 
 		struct BadValue : public CfgFileException {
 			const std::string expected;
 			const std::string key;
 			const std::string section;
 			BadValue(
-				const std::string key,
-				const std::string expected,
-				const std::string section = ""
+				std::string key,
+				std::string expected,
+				std::string section = ""
 			);
 		};
 
 		struct MissingKey : public CfgFileException {
 			const std::string key;
 			const std::string section;
-			MissingKey(const std::string key, const std::string section = "");
+			MissingKey(std::string key, std::string section = "");
 		};
 
 		struct MissingSection : public CfgFileException {
 			const std::string name;
-			MissingSection(const std::string name);
+			MissingSection(std::string name);
 		};
 
 		struct NotPair : public CfgFileException {
-			NotPair(const std::string line);
+			NotPair(std::string line);
 		};
 
 	private:
 		const file::LineList m_lines;
 
 		file::LineList
-		find_object_lines(const std::string name) const;
+		find_object_lines(std::string name) const;
 	};
 }
 

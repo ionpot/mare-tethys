@@ -14,7 +14,7 @@ namespace tethys {
 			return final_text.c_str();
 		}
 	protected:
-		Exception(const std::string source, const std::string text):
+		Exception(std::string source, std::string text):
 			source {source},
 			text {text},
 			final_text {"(" + source + ") " + text}

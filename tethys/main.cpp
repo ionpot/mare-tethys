@@ -20,7 +20,7 @@ namespace tethys {
 
 	class Main {
 	public:
-		Main(const std::string title, Log& log):
+		Main(std::string title, Log& log):
 			m_config {CfgFile {"tethys.cfg"}},
 			m_sdl {sdl::Context {title, m_config.window_size, log}},
 			m_screen {m_config, m_sdl.renderer, log}

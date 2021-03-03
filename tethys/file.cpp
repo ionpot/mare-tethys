@@ -5,12 +5,12 @@
 #include <string>
 
 namespace tethys::file {
-	OpenFailed::OpenFailed(const std::string filename):
+	OpenFailed::OpenFailed(std::string filename):
 		FileException {"Failed to open file: " + filename}
 	{}
 
 	LineList
-	read_lines(const std::string filename)
+	read_lines(std::string filename)
 	{
 		std::ifstream file {filename};
 		if (!file.is_open())

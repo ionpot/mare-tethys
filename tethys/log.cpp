@@ -6,7 +6,7 @@
 #include <string>
 
 namespace tethys {
-	Log::Log(const std::string filename):
+	Log::Log(std::string filename):
 		file {std::ofstream {filename, std::ofstream::trunc}}
 	{
 		if (!file.is_open())
@@ -15,19 +15,19 @@ namespace tethys {
 	}
 
 	void
-	Log::error(const std::string text)
+	Log::error(std::string text)
 	{
 		put("[Error] " + text);
 	}
 
 	void
-	Log::put(const std::string line)
+	Log::put(std::string line)
 	{
 		file << line << std::endl;
 	}
 
 	void
-	Log::write_pair_key(const std::string key)
+	Log::write_pair_key(std::string key)
 	{
 		file << key << ": ";
 	}

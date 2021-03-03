@@ -10,7 +10,7 @@
 namespace tethys {
 	struct Hexagon {
 		struct Exception : public tethys::Exception {
-			Exception(const std::string text):
+			Exception(std::string text):
 				tethys::Exception {"Hexagon", text}
 			{}
 		};

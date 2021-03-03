@@ -26,7 +26,7 @@ namespace tethys::sdl::s {
 
 	SDL_Window*
 	create_window(
-			const std::string title,
+			std::string title,
 			Size size,
 			Uint32 flags = 0)
 	{
@@ -102,7 +102,7 @@ namespace tethys::sdl {
 
 	// context //
 
-	Context::Context(const std::string title, Size size, Log& log):
+	Context::Context(std::string title, Size size, Log& log):
 		base {log},
 		window {title, size},
 		renderer {window.create_renderer()}
@@ -365,7 +365,7 @@ namespace tethys::sdl {
 
 	// window //
 
-	Window::Window(const std::string title, Size size):
+	Window::Window(std::string title, Size size):
 		m_window {NULL}
 	{
 		m_window = s::create_window(title, size);

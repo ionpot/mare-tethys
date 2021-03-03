@@ -13,38 +13,38 @@ namespace tethys {
 	struct Log {
 		std::ofstream file;
 
-		Log(const std::string filename);
+		Log(std::string filename);
 		~Log() = default;
 		TETHYS_NO_COPY(Log)
 		TETHYS_DEFAULT_MOVE(Log)
 
-		void error(const std::string);
+		void error(std::string);
 
 		template<class T>
-		void pair(const std::string key, T value)
+		void pair(std::string key, T value)
 		{
 			write_pair_key(key);
 			file << std::forward(value) << std::endl;
 		}
 
 		template<>
-		void pair(const std::string key, Size size)
+		void pair(std::string key, Size size)
 		{
 			write_pair_key(key);
 			file << size.width << "x" << size.height << std::endl;
 		}
 
 		template<>
-		void pair(const std::string key, Point p)
+		void pair(std::string key, Point p)
 		{
 			write_pair_key(key);
 			file << p.x << " " << p.y << std::endl;
 		}
 
-		void put(const std::string);
+		void put(std::string);
 
 	private:
-		void write_pair_key(const std::string key);
+		void write_pair_key(std::string key);
 	};
 }
 

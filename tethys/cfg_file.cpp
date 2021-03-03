@@ -8,14 +8,14 @@
 namespace tethys::s {
 	struct BadValue : public CfgFileException {
 		const std::string expected;
-		BadValue(const std::string expected):
+		BadValue(std::string expected):
 			CfgFileException {"Value is not " + expected + "."},
 			expected {expected}
 		{}
 	};
 
 	std::string
-	key_str(const std::string key, const std::string section)
+	key_str(std::string key, std::string section)
 	{
 		if (section.empty())
 			return key;
@@ -23,7 +23,7 @@ namespace tethys::s {
 	}
 
 	double
-	to_double(const std::string input)
+	to_double(std::string input)
 	try {
 		return std::stod(input);
 	}
@@ -32,7 +32,7 @@ namespace tethys::s {
 	}
 
 	int
-	to_int(const std::string input)
+	to_int(std::string input)
 	try {
 		return std::stoi(input);
 	}
@@ -46,13 +46,13 @@ namespace tethys {
 	CfgFile::Pair::delimiter = " = ";
 
 	bool
-	CfgFile::Pair::is_pair(const std::string line)
+	CfgFile::Pair::is_pair(std::string line)
 	{
 		auto i = line.find(delimiter);
 		return i != std::string::npos;
 	}
 
-	CfgFile::Pair::Pair(const std::string line, const std::string section):
+	CfgFile::Pair::Pair(std::string line, std::string section):
 		section {section}
 	{
 		auto i = line.find(delimiter);
@@ -77,7 +77,7 @@ namespace tethys {
 	template<class T>
 	T
 	CfgFile::Pair::to_value(
-			T (*parse)(const std::string)
+			T (*parse)(std::string)
 	) const
 	try {
 		return parse(value);
@@ -87,7 +87,7 @@ namespace tethys {
 	}
 
 	CfgFile::Section::Section(
-			const std::string name,
+			std::string name,
 			const file::LineList& lines
 	):
 		name {name}
@@ -108,7 +108,7 @@ namespace tethys {
 	}
 
 	CfgFile::Pair
-	CfgFile::Section::find_pair(const std::string key) const
+	CfgFile::Section::find_pair(std::string key) const
 	{
 		for (auto const& line : m_lines) {
 			if (Pair::is_pair(line)) {
@@ -120,12 +120,12 @@ namespace tethys {
 		throw MissingKey {key, name};
 	}
 
-	CfgFile::CfgFile(const std::string filename):
+	CfgFile::CfgFile(std::string filename):
 		m_lines {file::read_lines(filename)}
 	{}
 
 	CfgFile::Pair
-	CfgFile::find_pair(const std::string key) const
+	CfgFile::find_pair(std::string key) const
 	{
 		for (auto const& line : m_lines) {
 			if (!Pair::is_pair(line))
@@ -138,15 +138,15 @@ namespace tethys {
 	}
 
 	CfgFile::Section
-	CfgFile::find_section(const std::string name) const
+	CfgFile::find_section(std::string name) const
 	{
 		return Section {name, m_lines};
 	}
 
 	CfgFile::BadValue::BadValue(
-			const std::string key,
-			const std::string expected,
-			const std::string section
+			std::string key,
+			std::string expected,
+			std::string section
 	):
 		CfgFileException {s::key_str(key, section) + " is not " + expected + "."},
 		expected {expected},
@@ -155,20 +155,20 @@ namespace tethys {
 	{}
 
 	CfgFile::MissingKey::MissingKey(
-			const std::string key,
-			const std::string section
+			std::string key,
+			std::string section
 	):
 		CfgFileException {"Key not found: " + s::key_str(key, section)},
 		key {key},
 		section {section}
 	{}
 
-	CfgFile::MissingSection::MissingSection(const std::string name):
+	CfgFile::MissingSection::MissingSection(std::string name):
 		CfgFileException {"Missing section: " + name},
 		name {name}
 	{}
 
-	CfgFile::NotPair::NotPair(const std::string line):
+	CfgFile::NotPair::NotPair(std::string line):
 		CfgFileException {"Line is not a pair -> " + line}
 	{}
 }
