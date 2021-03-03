@@ -9,6 +9,10 @@ namespace tethys {
 		{
 			return {width + size.width, height + size.height};
 		}
+		Size operator-(const Size& size)
+		{
+			return {width - size.width, height - size.height};
+		}
 	};
 }
 

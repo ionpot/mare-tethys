@@ -12,6 +12,7 @@
 #include <SDL.h>
 #include <array>
 #include <string>
+#include <variant>
 
 namespace tethys::sdl::s {
 	Uint32 init_flags = SDL_INIT_VIDEO;
@@ -37,6 +38,24 @@ namespace tethys::sdl::s {
 			size.width, size.height,
 			flags
 		);
+	}
+
+	Key
+	lookup_keycode(SDL_Keycode code)
+	{
+		switch (code)
+		{
+		case SDLK_DOWN:
+			return Key::down;
+		case SDLK_LEFT:
+			return Key::left;
+		case SDLK_RIGHT:
+			return Key::right;
+		case SDLK_UP:
+			return Key::up;
+		default:
+			return Key::other;
+		}
 	}
 }
 
@@ -112,14 +131,8 @@ namespace tethys::sdl {
 
 	Event::Event(SDL_Event event):
 		m_event {event},
-		m_point {}
+		m_data {}
 	{}
-
-	bool
-	Event::is_keydown() const
-	{
-		return m_event.type == SDL_KEYDOWN;
-	}
 
 	bool
 	Event::is_quit() const
@@ -127,16 +140,37 @@ namespace tethys::sdl {
 		return m_event.type == SDL_QUIT;
 	}
 
-	Point*
+	const Point*
 	Event::read_mouse_motion()
 	{
 		if (m_event.type == SDL_MOUSEMOTION) {
 			auto motion = m_event.motion;
-			m_point = {motion.x, motion.y};
-			return &m_point;
+			m_data = Point {motion.x, motion.y};
+			return std::get_if<Point>(&m_data);
 		}
 		return nullptr;
 	}
+
+	const KeyEvent*
+	Event::read_key()
+	{
+		if (m_event.type == SDL_KEYDOWN && m_event.key.repeat == 0) {
+			m_data = KeyEvent {true, m_event.key.keysym.sym};
+			return std::get_if<KeyEvent>(&m_data);
+		}
+		if (m_event.type == SDL_KEYUP && m_event.key.repeat == 0) {
+			m_data = KeyEvent {false, m_event.key.keysym.sym};
+			return std::get_if<KeyEvent>(&m_data);
+		}
+		return nullptr;
+	}
+
+	// key event //
+
+	KeyEvent::KeyEvent(bool down, SDL_Keycode code):
+		down {down},
+		key {s::lookup_keycode(code)}
+	{}
 
 	// renderer //
 

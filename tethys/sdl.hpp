@@ -12,6 +12,7 @@
 
 #include <SDL.h>
 #include <string>
+#include <variant>
 
 namespace tethys::sdl {
 	struct Exception : public tethys::Exception {
@@ -20,17 +21,26 @@ namespace tethys::sdl {
 		{}
 	};
 
+	enum class Key { up, down, left, right, other };
+
+	struct KeyEvent {
+		bool down = false;
+		Key key = Key::other;
+		KeyEvent() = default;
+		KeyEvent(bool, SDL_Keycode);
+	};
+
 	class Event {
 	public:
-		bool is_keydown() const;
 		bool is_quit() const;
-		Point* read_mouse_motion();
+		const Point* read_mouse_motion();
+		const KeyEvent* read_key();
 	private:
 		friend class Base;
 		Event() = default;
 		Event(SDL_Event);
 		SDL_Event m_event;
-		Point m_point;
+		std::variant<KeyEvent, Point> m_data;
 	};
 
 	class Base {

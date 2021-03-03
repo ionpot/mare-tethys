@@ -35,6 +35,7 @@ namespace tethys {
 					return;
 			}
 			else {
+				m_screen.update();
 				m_screen.render();
 				m_sdl.base.delay(1000 / 30);
 			}

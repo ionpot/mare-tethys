@@ -6,6 +6,7 @@
 #include "hexagon.hpp"
 #include "log.hpp"
 #include "point.hpp"
+#include "scroll.hpp"
 #include "sdl.hpp"
 
 namespace tethys {
@@ -15,6 +16,7 @@ namespace tethys {
 		Screen(const Config&, const sdl::Renderer&, Log&);
 		Status handle(sdl::Event&);
 		void render() const;
+		void update();
 	private:
 		const Point* m_active_point;
 		Hexagon m_hex;
@@ -23,6 +25,8 @@ namespace tethys {
 		sdl::Texture m_grid_tx;
 		Point m_grid_pos;
 		std::reference_wrapper<const sdl::Renderer> m_renderer;
+		Scroll m_scroll;
+		Status handle_key(const sdl::KeyEvent&);
 	};
 }
 

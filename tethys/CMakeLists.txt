@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 # WIN32 flag removes the console window on Windows
-add_executable(tethys WIN32 cfg_file.cpp config.cpp file.cpp hex_grid.cpp hexagon.cpp log.cpp main.cpp rect.cpp screen.cpp sdl.cpp)
+add_executable(tethys WIN32 cfg_file.cpp config.cpp file.cpp hex_grid.cpp hexagon.cpp log.cpp main.cpp rect.cpp screen.cpp scroll.cpp sdl.cpp)
 
 configure_file(tethys.cfg tethys.cfg COPYONLY)
 configure_file(version.hpp.in version.hpp @ONLY)

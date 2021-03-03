@@ -1,6 +1,8 @@
 #ifndef TETHYS_POINT_HPP
 #define TETHYS_POINT_HPP
 
+#include "size.hpp"
+
 #include <SDL.h>
 #include <cmath>
 
@@ -8,6 +10,25 @@ namespace tethys {
 	struct Point {
 		int x = 0;
 		int y = 0;
+		Point():
+			Point {0, 0}
+		{}
+		Point(int x, int y):
+			x {x}, y {y}
+		{}
+		Point(Size size):
+			x {size.width}, y {size.height}
+		{}
+		static Point min(Point a, Point b = {0, 0})
+		{
+			a.pick_min(b);
+			return a;
+		}
+		static Point max(Point a, Point b = {0, 0})
+		{
+			a.pick_max(b);
+			return a;
+		}
 		double distance(Point target)
 		{
 			Point p {target - *this};
@@ -44,6 +65,11 @@ namespace tethys {
 		Point& operator+=(const Point& p)
 		{
 			*this = *this + p;
+			return *this;
+		}
+		Point& operator-=(const Point& p)
+		{
+			*this = *this - p;
 			return *this;
 		}
 		SDL_Point to_sdl() const

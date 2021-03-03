@@ -4,6 +4,7 @@
 #include "hex_grid.hpp"
 #include "log.hpp"
 #include "rgb.hpp"
+#include "scroll.hpp"
 #include "sdl.hpp"
 
 namespace tethys::s {
@@ -25,7 +26,8 @@ namespace tethys {
 		m_border_tx {renderer.create_hex_border(m_hex, s::color.border)},
 		m_grid_tx {m_grid.to_texture()},
 		m_grid_pos {100, 100},
-		m_renderer {renderer}
+		m_renderer {renderer},
+		m_scroll {config.window_size, m_grid_tx.size, 10}
 	{
 		log.pair("Hexagon size", m_hex.size());
 	}
@@ -33,12 +35,47 @@ namespace tethys {
 	Screen::Status
 	Screen::handle(sdl::Event& event)
 	{
-		if (event.is_keydown()) {
-			return Status::quit;
+		auto key = event.read_key();
+		if (key) {
+			return handle_key(*key);
 		}
 		auto mouse = event.read_mouse_motion();
 		if (mouse) {
 			m_active_point = m_grid.find_point(*mouse - m_grid_pos);
+		}
+		return Status::ok;
+	}
+
+	Screen::Status
+	Screen::handle_key(const sdl::KeyEvent& event)
+	{
+		switch (event.key) {
+		case sdl::Key::left:
+			if (event.down)
+				m_scroll.sub_x();
+			else
+				m_scroll.add_x();
+			break;
+		case sdl::Key::right:
+			if (event.down)
+				m_scroll.add_x();
+			else
+				m_scroll.sub_x();
+			break;
+		case sdl::Key::up:
+			if (event.down)
+				m_scroll.sub_y();
+			else
+				m_scroll.add_y();
+			break;
+		case sdl::Key::down:
+			if (event.down)
+				m_scroll.add_y();
+			else
+				m_scroll.sub_y();
+			break;
+		case sdl::Key::other:
+			return Status::quit;
 		}
 		return Status::ok;
 	}
@@ -58,5 +95,11 @@ namespace tethys {
 			);
 		}
 		rdr.present();
+	}
+
+	void
+	Screen::update()
+	{
+		m_scroll.update(m_grid_pos);
 	}
 }
