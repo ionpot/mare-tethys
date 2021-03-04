@@ -12,27 +12,55 @@ namespace tethys {
 	{}
 
 	void
-	Scroll::add_x()
+	Scroll::start_down()
 	{
-		m_state.x += m_speed;
+		m_state.y = m_speed;
 	}
 
 	void
-	Scroll::add_y()
+	Scroll::start_left()
 	{
-		m_state.y += m_speed;
+		m_state.x = -m_speed;
 	}
 
 	void
-	Scroll::sub_x()
+	Scroll::start_right()
 	{
-		m_state.x -= m_speed;
+		m_state.x = m_speed;
 	}
 
 	void
-	Scroll::sub_y()
+	Scroll::start_up()
 	{
-		m_state.y -= m_speed;
+		m_state.y = -m_speed;
+	}
+
+	void
+	Scroll::stop_down()
+	{
+		if (m_state.y > 0)
+			m_state.y = 0;
+	}
+
+	void
+	Scroll::stop_left()
+	{
+		if (m_state.x < 0)
+			m_state.x = 0;
+	}
+
+	void
+	Scroll::stop_right()
+	{
+		if (m_state.x > 0)
+			m_state.x = 0;
+	}
+
+	void
+	Scroll::stop_up()
+	{
+		if (m_state.y < 0)
+			m_state.y = 0;
 	}
 
 	void

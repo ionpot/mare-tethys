@@ -8,10 +8,14 @@ namespace tethys {
 	class Scroll {
 	public:
 		Scroll(Size screen, Size content, int speed);
-		void add_x();
-		void add_y();
-		void sub_x();
-		void sub_y();
+		void start_left();
+		void start_right();
+		void start_up();
+		void start_down();
+		void stop_left();
+		void stop_right();
+		void stop_up();
+		void stop_down();
 		void update(Point&) const;
 	private:
 		const Point m_min;
