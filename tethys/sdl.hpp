@@ -33,6 +33,7 @@ namespace tethys::sdl {
 
 	class WindowEvent {
 	public:
+		bool got_focus() const;
 		bool lost_focus() const;
 	private:
 		friend class Event;
@@ -121,6 +122,7 @@ namespace tethys::sdl {
 	class Window {
 	public:
 		Renderer create_renderer() const;
+		bool has_focus() const;
 	private:
 		friend struct Context;
 		SDL_Window* m_window;

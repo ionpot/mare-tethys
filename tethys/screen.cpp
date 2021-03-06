@@ -17,16 +17,17 @@ namespace tethys::s {
 namespace tethys {
 	Screen::Screen(
 			const Config& config,
-			const sdl::Renderer& renderer,
+			const sdl::Context& sdl,
 			Log& log
 	):
 		m_active_point {nullptr},
+		m_focus {sdl.window.has_focus()},
 		m_hex {config.hex_side},
-		m_grid {m_hex, renderer},
-		m_border_tx {renderer.create_hex_border(m_hex, s::color.border)},
+		m_grid {m_hex, sdl.renderer},
+		m_border_tx {sdl.renderer.create_hex_border(m_hex, s::color.border)},
 		m_grid_tx {m_grid.to_texture()},
 		m_grid_pos {100, 100},
-		m_renderer {renderer},
+		m_renderer {sdl.renderer},
 		m_scroll {config.window_size, m_grid_tx.size, 10}
 	{
 		log.pair("Hexagon size", m_hex.size());
@@ -36,7 +37,7 @@ namespace tethys {
 	Screen::handle(sdl::Event& event)
 	{
 		auto key = event.read_key();
-		if (key) {
+		if (m_focus && key) {
 			return handle_key(*key);
 		}
 		auto mouse = event.read_mouse_motion();
@@ -45,8 +46,16 @@ namespace tethys {
 			return Status::ok;
 		}
 		auto window = event.read_window();
-		if (window && window->lost_focus()) {
-			m_scroll.stop();
+		if (window) {
+			if (window->got_focus()) {
+				m_focus = true;
+				return Status::ok;
+			}
+			if (window->lost_focus()) {
+				m_focus = false;
+				m_scroll.stop();
+				return Status::ok;
+			}
 		}
 		return Status::ok;
 	}

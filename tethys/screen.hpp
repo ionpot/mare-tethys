@@ -13,12 +13,13 @@ namespace tethys {
 	class Screen {
 	public:
 		enum class Status { ok, quit };
-		Screen(const Config&, const sdl::Renderer&, Log&);
+		Screen(const Config&, const sdl::Context&, Log&);
 		Status handle(sdl::Event&);
 		void render() const;
 		void update();
 	private:
 		const Point* m_active_point;
+		bool m_focus;
 		Hexagon m_hex;
 		HexGrid m_grid;
 		sdl::Texture m_border_tx;

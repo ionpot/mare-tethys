@@ -189,6 +189,12 @@ namespace tethys::sdl {
 	{}
 
 	bool
+	WindowEvent::got_focus() const
+	{
+		return m_id == SDL_WINDOWEVENT_FOCUS_GAINED;
+	}
+
+	bool
 	WindowEvent::lost_focus() const
 	{
 		return m_id == SDL_WINDOWEVENT_FOCUS_LOST;
@@ -455,5 +461,12 @@ namespace tethys::sdl {
 	Window::create_renderer() const
 	{
 		return Renderer {m_window};
+	}
+
+	bool
+	Window::has_focus() const
+	{
+		auto flags = SDL_GetWindowFlags(m_window);
+		return flags & SDL_WINDOW_INPUT_FOCUS;
 	}
 }
