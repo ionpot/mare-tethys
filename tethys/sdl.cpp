@@ -165,12 +165,34 @@ namespace tethys::sdl {
 		return nullptr;
 	}
 
+	const WindowEvent*
+	Event::read_window()
+	{
+		if (m_event.type == SDL_WINDOWEVENT) {
+			m_data = WindowEvent {m_event.window.event};
+			return std::get_if<WindowEvent>(&m_data);
+		}
+		return nullptr;
+	}
+
 	// key event //
 
 	KeyEvent::KeyEvent(bool pressed, SDL_Keycode code):
 		pressed {pressed},
 		key {s::lookup_keycode(code)}
 	{}
+
+	// window event //
+
+	WindowEvent::WindowEvent(Uint8 id):
+		m_id {id}
+	{}
+
+	bool
+	WindowEvent::lost_focus() const
+	{
+		return m_id == SDL_WINDOWEVENT_FOCUS_LOST;
+	}
 
 	// renderer //
 

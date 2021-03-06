@@ -12,6 +12,7 @@ namespace tethys {
 		void start_right();
 		void start_up();
 		void start_down();
+		void stop();
 		void stop_left();
 		void stop_right();
 		void stop_up();

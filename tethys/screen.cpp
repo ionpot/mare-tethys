@@ -42,6 +42,11 @@ namespace tethys {
 		auto mouse = event.read_mouse_motion();
 		if (mouse) {
 			m_active_point = m_grid.find_point(*mouse - m_grid_pos);
+			return Status::ok;
+		}
+		auto window = event.read_window();
+		if (window && window->lost_focus()) {
+			m_scroll.stop();
 		}
 		return Status::ok;
 	}

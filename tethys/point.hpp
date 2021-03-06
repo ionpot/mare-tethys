@@ -29,6 +29,10 @@ namespace tethys {
 			a.pick_max(b);
 			return a;
 		}
+		void clear()
+		{
+			*this = {};
+		}
 		double distance(Point target)
 		{
 			Point p {target - *this};

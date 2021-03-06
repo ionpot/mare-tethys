@@ -36,6 +36,12 @@ namespace tethys {
 	}
 
 	void
+	Scroll::stop()
+	{
+		m_state.clear();
+	}
+
+	void
 	Scroll::stop_down()
 	{
 		if (m_state.y > 0)

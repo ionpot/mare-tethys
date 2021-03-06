@@ -30,17 +30,28 @@ namespace tethys::sdl {
 		KeyEvent(bool, SDL_Keycode);
 	};
 
+	class WindowEvent {
+	public:
+		bool lost_focus() const;
+	private:
+		friend class Event;
+		Uint8 m_id;
+		WindowEvent() = default;
+		WindowEvent(Uint8);
+	};
+
 	class Event {
 	public:
 		bool is_quit() const;
 		const Point* read_mouse_motion();
 		const KeyEvent* read_key();
+		const WindowEvent* read_window();
 	private:
 		friend class Base;
 		Event() = default;
 		Event(SDL_Event);
 		SDL_Event m_event;
-		std::variant<KeyEvent, Point> m_data;
+		std::variant<KeyEvent, Point, WindowEvent> m_data;
 	};
 
 	class Base {
