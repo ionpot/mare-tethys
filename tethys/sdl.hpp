@@ -26,7 +26,8 @@ namespace tethys::sdl {
 	struct KeyEvent {
 		bool pressed = false;
 		Key key = Key::other;
-		KeyEvent() = default;
+	private:
+		friend class Event;
 		KeyEvent(bool, SDL_Keycode);
 	};
 
@@ -36,7 +37,6 @@ namespace tethys::sdl {
 	private:
 		friend class Event;
 		Uint8 m_id;
-		WindowEvent() = default;
 		WindowEvent(Uint8);
 	};
 
@@ -49,7 +49,7 @@ namespace tethys::sdl {
 	private:
 		friend class Base;
 		SDL_Event m_event;
-		std::variant<KeyEvent, Point, WindowEvent> m_data;
+		std::variant<Point, KeyEvent, WindowEvent> m_data;
 		Event() = default;
 		Event(SDL_Event);
 	};
