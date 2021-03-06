@@ -33,7 +33,7 @@ namespace tethys {
 		{
 			*this = {};
 		}
-		double distance(Point target)
+		double distance(Point target) const
 		{
 			Point p {target - *this};
 			return std::sqrt(
