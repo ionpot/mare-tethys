@@ -51,25 +51,25 @@ namespace tethys {
 	{
 		switch (event.key) {
 		case sdl::Key::left:
-			if (event.down)
+			if (event.pressed)
 				m_scroll.start_left();
 			else
 				m_scroll.stop_left();
 			break;
 		case sdl::Key::right:
-			if (event.down)
+			if (event.pressed)
 				m_scroll.start_right();
 			else
 				m_scroll.stop_right();
 			break;
 		case sdl::Key::up:
-			if (event.down)
+			if (event.pressed)
 				m_scroll.start_up();
 			else
 				m_scroll.stop_up();
 			break;
 		case sdl::Key::down:
-			if (event.down)
+			if (event.pressed)
 				m_scroll.start_down();
 			else
 				m_scroll.stop_down();

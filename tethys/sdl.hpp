@@ -24,7 +24,7 @@ namespace tethys::sdl {
 	enum class Key { up, down, left, right, other };
 
 	struct KeyEvent {
-		bool down = false;
+		bool pressed = false;
 		Key key = Key::other;
 		KeyEvent() = default;
 		KeyEvent(bool, SDL_Keycode);

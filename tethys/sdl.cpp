@@ -167,8 +167,8 @@ namespace tethys::sdl {
 
 	// key event //
 
-	KeyEvent::KeyEvent(bool down, SDL_Keycode code):
-		down {down},
+	KeyEvent::KeyEvent(bool pressed, SDL_Keycode code):
+		pressed {pressed},
 		key {s::lookup_keycode(code)}
 	{}
 
