@@ -48,10 +48,10 @@ namespace tethys::sdl {
 		const WindowEvent* read_window();
 	private:
 		friend class Base;
-		Event() = default;
-		Event(SDL_Event);
 		SDL_Event m_event;
 		std::variant<KeyEvent, Point, WindowEvent> m_data;
+		Event() = default;
+		Event(SDL_Event);
 	};
 
 	class Base {
