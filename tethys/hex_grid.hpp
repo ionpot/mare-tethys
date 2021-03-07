@@ -1,6 +1,8 @@
 #ifndef TETHYS_HEX_GRID_HPP
 #define TETHYS_HEX_GRID_HPP
 
+#include "hex_textures.hpp"
+#include "hex_type.hpp"
 #include "hexagon.hpp"
 #include "point.hpp"
 #include "sdl.hpp"
@@ -13,20 +15,16 @@ namespace tethys {
 	public:
 		struct Node {
 			Point position;
-			sdl::Texture* texture;
+			HexType type;
 		};
-		HexGrid(Hexagon, const sdl::Renderer&);
+		HexGrid(Hexagon);
 		const Point* find_point(Point) const;
-		sdl::Texture to_texture() const;
+		sdl::Texture to_texture(const sdl::Renderer&, const HexTextures&) const;
 	private:
 		Hexagon m_hex;
-		sdl::Texture m_forest;
-		sdl::Texture m_mountain;
-		sdl::Texture m_sea;
 		std::list<Node> m_nodes;
 		Point m_offset;
 		Size m_size;
-		std::reference_wrapper<const sdl::Renderer> m_renderer;
 	};
 }
 

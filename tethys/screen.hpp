@@ -3,6 +3,7 @@
 
 #include "config.hpp"
 #include "hex_grid.hpp"
+#include "hex_textures.hpp"
 #include "hexagon.hpp"
 #include "log.hpp"
 #include "point.hpp"
@@ -22,6 +23,7 @@ namespace tethys {
 		bool m_focus;
 		Hexagon m_hex;
 		HexGrid m_grid;
+		HexTextures m_hex_textures;
 		sdl::Texture m_border_tx;
 		sdl::Texture m_grid_tx;
 		Point m_grid_pos;

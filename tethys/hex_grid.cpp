@@ -1,19 +1,16 @@
 #include "hex_grid.hpp"
 
+#include "hex_textures.hpp"
+#include "hex_type.hpp"
 #include "hexagon.hpp"
 #include "point.hpp"
 #include "rect.hpp"
-#include "rgb.hpp"
 #include "sdl.hpp"
 #include "size.hpp"
 
-namespace tethys::s {
-	const struct {
-		RGB forest {50, 200, 50};
-		RGB mountain {100, 100, 100};
-		RGB sea {50, 50, 200};
-	} color;
+#include <list>
 
+namespace tethys::s {
 	Point
 	find_offset(const std::list<HexGrid::Node>& nodes)
 	{
@@ -40,23 +37,19 @@ namespace tethys::s {
 }
 
 namespace tethys {
-	HexGrid::HexGrid(Hexagon hex, const sdl::Renderer& rdr):
+	HexGrid::HexGrid(Hexagon hex):
 		m_hex {hex},
-		m_forest {rdr.create_hex(hex, s::color.forest)},
-		m_mountain {rdr.create_hex(hex, s::color.mountain)},
-		m_sea {rdr.create_hex(hex, s::color.sea)},
 		m_nodes {
-			{Point {}, &m_sea},
-			{hex.above(), &m_mountain},
-			{hex.above_left(), &m_forest},
-			{hex.above_right(), &m_forest},
-			{hex.below(), &m_mountain},
-			{hex.below_left(), &m_forest},
-			{hex.below_right(), &m_forest}
+			{Point {}, HexType::sea},
+			{hex.above(), HexType::mountain},
+			{hex.above_left(), HexType::forest},
+			{hex.above_right(), HexType::forest},
+			{hex.below(), HexType::mountain},
+			{hex.below_left(), HexType::forest},
+			{hex.below_right(), HexType::forest}
 		},
 		m_offset {s::find_offset(m_nodes)},
-		m_size {s::find_size(m_nodes, hex, m_offset)},
-		m_renderer {rdr}
+		m_size {s::find_size(m_nodes, hex, m_offset)}
 	{
 		for (auto& node : m_nodes)
 			node.position += m_offset;
@@ -77,13 +70,14 @@ namespace tethys {
 	}
 
 	sdl::Texture
-	HexGrid::to_texture() const
+	HexGrid::to_texture(
+			const sdl::Renderer& rdr,
+			const HexTextures& textures) const
 	{
-		auto& rdr = m_renderer.get();
 		auto tx = rdr.create_target_texture(m_size);
 		rdr.set_target(tx);
 		for (const auto& node : m_nodes) {
-			rdr.put(*node.texture, node.position);
+			rdr.put(textures.of_type(node.type), node.position);
 		}
 		rdr.reset_target();
 		return std::move(tx);
