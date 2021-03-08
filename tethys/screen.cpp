@@ -38,8 +38,10 @@ namespace tethys {
 	Screen::handle(sdl::Event& event)
 	{
 		auto key = event.read_key();
-		if (m_focus && key) {
-			return handle_key(*key);
+		if (key) {
+			return m_focus
+				? handle_key(*key)
+				: Status::ok;
 		}
 		auto mouse = event.read_mouse_motion();
 		if (mouse) {
