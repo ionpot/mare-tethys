@@ -28,7 +28,7 @@ namespace tethys {
 		m_hex_textures {m_hex, sdl.renderer},
 		m_border_tx {sdl.renderer.create_hex_border(m_hex, s::color.border)},
 		m_grid_tx {m_grid.to_texture(sdl.renderer, m_hex_textures, m_hex)},
-		m_grid_pos {100, 100},
+		m_grid_pos {50, 50},
 		m_renderer {sdl.renderer},
 		m_scroll {config.window_size, m_grid_tx.size, 10}
 	{
