@@ -4,80 +4,108 @@
 #include "hex_type.hpp"
 #include "hexagon.hpp"
 #include "point.hpp"
-#include "rect.hpp"
 #include "sdl.hpp"
 #include "size.hpp"
 
-#include <list>
-
-namespace tethys::s {
-	Point
-	find_offset(const std::list<HexGrid::Node>& nodes)
-	{
-		Point offset;
-		for (const auto& node : nodes) {
-			offset.pick_min(node.position);
-		}
-		return offset.negate();
-	}
-
-	Size
-	find_size(
-			const std::list<HexGrid::Node>& nodes,
-			const Hexagon& hex,
-			Point offset)
-	{
-		Point p;
-		for (const auto& node : nodes) {
-			p.pick_max(node.position);
-		}
-		p += offset;
-		return Size {p.x, p.y} + hex.size();
-	}
-}
+#include <string>
+#include <vector>
 
 namespace tethys {
-	HexGrid::HexGrid(Hexagon hex):
-		m_hex {hex},
-		m_nodes {
-			{Point {}, HexType::sea},
-			{hex.above(), HexType::mountain},
-			{hex.above_left(), HexType::forest},
-			{hex.above_right(), HexType::forest},
-			{hex.below(), HexType::mountain},
-			{hex.below_left(), HexType::forest},
-			{hex.below_right(), HexType::forest}
-		},
-		m_offset {s::find_offset(m_nodes)},
-		m_size {s::find_size(m_nodes, hex, m_offset)}
+	HexGrid::HexGrid():
+		m_nodes {{
+			HexType::none,
+			HexType::mountain,
+			HexType::none,
+
+			HexType::forest,
+			HexType::sea,
+			HexType::forest,
+
+			HexType::forest,
+			HexType::mountain,
+			HexType::forest
+		}},
+		m_columns {3},
+		m_rows {static_cast<int>(m_nodes.size() / m_columns)},
+		m_found {}
 	{
-		for (auto& node : m_nodes)
-			node.position += m_offset;
+		int excess = m_nodes.size() % m_columns;
+		if (excess)
+			throw Exception {"Excess columns: " + std::to_string(excess)};
 	}
 
 	const Point*
-	HexGrid::find_point(Point p) const
+	HexGrid::find_point(Point p, const Hexagon& hex)
 	{
-		Rect rect {m_size};
-		if (rect.contains(p)) {
-			for (const auto& node : m_nodes) {
-				if (m_hex.contains(p - node.position)) {
-					return &node.position;
-				}
+		const auto* pos = &m_found.position;
+		if (m_found.ok) {
+			if (hex.contains(p - *pos))
+				return pos;
+		}
+		seek(p, hex);
+		return m_found.ok ? pos : nullptr;
+	}
+
+	Point
+	HexGrid::find_position(Nodes_i index, const Hexagon& hex) const
+	{
+		auto height = hex.below().y;
+		auto offset = hex.below_right();
+		int row = index / m_columns;
+		int col = index % m_columns;
+		Point pos {col * offset.x, row * height};
+		if (col % 2) {
+			pos.y += offset.y;
+		}
+		return pos;
+	}
+
+	Size
+	HexGrid::find_size(const Hexagon& hex) const
+	{
+		auto width = hex.width();
+		auto height = hex.height();
+		auto offset = hex.below_right();
+		Size size {m_columns * width, m_rows * height};
+		if (m_columns > 1) {
+			size.width -= (m_columns - 1) * (width - offset.x);
+			size.height += offset.y;
+		}
+		if (m_rows > 1) {
+			auto gap = hex.below().y - height;
+			size.height += (m_rows - 1) * gap;
+		}
+		return size;
+	}
+
+	void
+	HexGrid::seek(Point target, const Hexagon& hex)
+	{
+		for (Nodes_i i = 0; i < m_nodes.size(); ++i) {
+			auto pos = find_position(i, hex);
+			if (hex.contains(target - pos)) {
+				m_found.ok = (m_nodes[i] != HexType::none);
+				m_found.position = pos;
+				return;
 			}
 		}
-		return nullptr;
+		m_found.ok = false;
 	}
 
 	sdl::Texture
 	HexGrid::to_texture(
 			const sdl::Renderer& rdr,
-			const HexTextures& textures) const
+			const HexTextures& textures,
+			const Hexagon& hex) const
 	{
-		auto tx = rdr.create_target_texture(m_size);
+		auto tx = rdr.create_target_texture(find_size(hex));
 		rdr.set_target(tx);
-		for (const auto& node : m_nodes) {
-			rdr.put(textures.of_type(node.type), node.position);
+		for (Nodes_i i = 0; i < m_nodes.size(); ++i) {
+			auto type = m_nodes[i];
+			if (type == HexType::none)
+				continue;
+			auto pos = find_position(i, hex);
+			rdr.put(textures.of_type(type), pos);
 		}
 		rdr.reset_target();
 		return std::move(tx);

@@ -1,6 +1,7 @@
 #ifndef TETHYS_HEX_GRID_HPP
 #define TETHYS_HEX_GRID_HPP
 
+#include "exception.hpp"
 #include "hex_textures.hpp"
 #include "hex_type.hpp"
 #include "hexagon.hpp"
@@ -8,23 +9,37 @@
 #include "sdl.hpp"
 #include "size.hpp"
 
-#include <list>
+#include <string>
+#include <vector>
 
 namespace tethys {
 	class HexGrid {
 	public:
-		struct Node {
-			Point position;
-			HexType type;
+		struct Exception : public tethys::Exception {
+			Exception(std::string text):
+				tethys::Exception {"HexGrid", text}
+			{}
 		};
-		HexGrid(Hexagon);
-		const Point* find_point(Point) const;
-		sdl::Texture to_texture(const sdl::Renderer&, const HexTextures&) const;
+		HexGrid();
+		const Point* find_point(Point, const Hexagon&);
+		Size find_size(const Hexagon&) const;
+		sdl::Texture to_texture(
+				const sdl::Renderer&,
+				const HexTextures&,
+				const Hexagon&) const;
 	private:
-		Hexagon m_hex;
-		std::list<Node> m_nodes;
-		Point m_offset;
-		Size m_size;
+		typedef std::vector<const HexType> Nodes;
+		typedef Nodes::size_type Nodes_i;
+		struct Found {
+			bool ok {true};
+			Point position {0, 0};
+		};
+		const Nodes m_nodes;
+		const int m_columns;
+		const int m_rows;
+		Found m_found;
+		Point find_position(Nodes_i, const Hexagon&) const;
+		void seek(Point, const Hexagon&);
 	};
 }
 
