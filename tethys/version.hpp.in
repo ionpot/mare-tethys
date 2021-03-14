@@ -3,8 +3,8 @@
 
 namespace tethys {
 	const struct {
-		int major = @MareTethys_VERSION_MAJOR@;
-		int minor = @MareTethys_VERSION_MINOR@;
+		int major {@MareTethys_VERSION_MAJOR@};
+		int minor {@MareTethys_VERSION_MINOR@};
 	} version;
 }
 
