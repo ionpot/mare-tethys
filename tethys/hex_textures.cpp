@@ -8,9 +8,9 @@ namespace tethys::s {
 	const struct {
 		RGB city {100, 100, 100};
 		RGB desert {200, 200, 50};
-		RGB forest {34, 139, 34};
+		RGB forest {0, 75, 0};
 		RGB mountain {140, 70, 20};
-		RGB plains {150, 200, 100};
+		RGB plains {34, 139, 34};
 		RGB sea {50, 50, 200};
 	} color;
 }
