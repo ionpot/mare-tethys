@@ -54,7 +54,12 @@ namespace tethys {
 			log.put("Polling events...");
 			m.poll();
 		}
+		catch (const Exception& err) {
+			sdl::show_error(err.source + " Error", err.text);
+			log.error(err.what());
+		}
 		catch (const std::exception& err) {
+			sdl::show_error("System Error", err.what());
 			log.error(err.what());
 		}
 		log.put("End");

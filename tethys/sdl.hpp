@@ -141,6 +141,9 @@ namespace tethys::sdl {
 		TETHYS_NO_COPY(Context)
 		TETHYS_DEFAULT_MOVE(Context)
 	};
+
+	void show_error(const char* title, const char* text);
+	void show_error(std::string title, std::string text);
 }
 
 #endif
