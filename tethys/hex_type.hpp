@@ -2,7 +2,7 @@
 #define TETHYS_HEX_TYPE_HPP
 
 namespace tethys {
-	enum class HexType { none, forest, mountain, sea };
+	enum class HexType { none, city, desert, forest, mountain, plains, sea };
 }
 
 #endif

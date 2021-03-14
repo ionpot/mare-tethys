@@ -14,12 +14,12 @@ namespace tethys {
 	HexGrid::HexGrid():
 		m_nodes {{
 			HexType::none,
-			HexType::mountain,
+			HexType::city,
 			HexType::none,
 
-			HexType::forest,
+			HexType::desert,
 			HexType::sea,
-			HexType::forest,
+			HexType::plains,
 
 			HexType::forest,
 			HexType::mountain,
