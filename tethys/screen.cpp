@@ -29,6 +29,7 @@ namespace tethys {
 		m_border_tx {sdl.renderer.create_hex_border(m_hex, s::color.border)},
 		m_grid_tx {m_grid.to_texture(sdl.renderer, m_hex_textures, m_hex)},
 		m_grid_pos {50, 50},
+		m_mouse_pos {},
 		m_renderer {sdl.renderer},
 		m_scroll {config.window_size, m_grid_tx.size, 10}
 	{
@@ -44,9 +45,10 @@ namespace tethys {
 				? handle_key(*key)
 				: Status::ok;
 		}
-		auto mouse = event.read_mouse_motion();
-		if (mouse) {
-			m_active_point = m_grid.find_point(*mouse - m_grid_pos, m_hex);
+		auto mouse_pos = event.read_mouse_motion();
+		if (mouse_pos) {
+			m_mouse_pos = *mouse_pos;
+			update_active_point();
 			return Status::ok;
 		}
 		auto window = event.read_window();
@@ -118,6 +120,16 @@ namespace tethys {
 	void
 	Screen::update()
 	{
+		auto prev_pos = m_grid_pos;
 		m_scroll.update(m_grid_pos);
+		if (m_grid_pos != prev_pos)
+			update_active_point();
+	}
+
+	void
+	Screen::update_active_point()
+	{
+		m_active_point =
+			m_grid.find_point(m_mouse_pos - m_grid_pos, m_hex);
 	}
 }

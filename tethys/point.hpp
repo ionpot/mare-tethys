@@ -76,6 +76,14 @@ namespace tethys {
 			*this = *this - p;
 			return *this;
 		}
+		bool operator==(const Point& p) const
+		{
+			return (x == p.x) && (y == p.y);
+		}
+		bool operator!=(const Point& p) const
+		{
+			return (x != p.x) || (y != p.y);
+		}
 		SDL_Point to_sdl() const
 		{
 			SDL_Point point;

@@ -27,9 +27,11 @@ namespace tethys {
 		sdl::Texture m_border_tx;
 		sdl::Texture m_grid_tx;
 		Point m_grid_pos;
+		Point m_mouse_pos;
 		std::reference_wrapper<const sdl::Renderer> m_renderer;
 		Scroll m_scroll;
 		Status handle_key(const sdl::KeyEvent&);
+		void update_active_point();
 	};
 }
 
