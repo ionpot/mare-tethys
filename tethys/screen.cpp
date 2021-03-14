@@ -1,6 +1,7 @@
 #include "screen.hpp"
 
 #include "config.hpp"
+#include "grid_file.hpp"
 #include "hex_grid.hpp"
 #include "log.hpp"
 #include "rgb.hpp"
@@ -23,7 +24,7 @@ namespace tethys {
 		m_active_point {nullptr},
 		m_focus {sdl.window.has_focus()},
 		m_hex {config.hex_side},
-		m_grid {},
+		m_grid {GridFile::read("tethys.grid")},
 		m_hex_textures {m_hex, sdl.renderer},
 		m_border_tx {sdl.renderer.create_hex_border(m_hex, s::color.border)},
 		m_grid_tx {m_grid.to_texture(sdl.renderer, m_hex_textures, m_hex)},

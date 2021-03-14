@@ -11,22 +11,10 @@
 #include <vector>
 
 namespace tethys {
-	HexGrid::HexGrid():
-		m_nodes {{
-			HexType::none,
-			HexType::city,
-			HexType::none,
-
-			HexType::desert,
-			HexType::sea,
-			HexType::plains,
-
-			HexType::forest,
-			HexType::mountain,
-			HexType::forest
-		}},
-		m_columns {3},
-		m_rows {static_cast<int>(m_nodes.size() / m_columns)},
+	HexGrid::HexGrid(const GridFile& grid):
+		m_nodes {grid.types.begin(), grid.types.end()},
+		m_columns {grid.columns},
+		m_rows {grid.rows},
 		m_found {}
 	{
 		int excess = m_nodes.size() % m_columns;

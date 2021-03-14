@@ -2,6 +2,7 @@
 #define TETHYS_HEX_GRID_HPP
 
 #include "exception.hpp"
+#include "grid_file.hpp"
 #include "hex_textures.hpp"
 #include "hex_type.hpp"
 #include "hexagon.hpp"
@@ -20,7 +21,7 @@ namespace tethys {
 				tethys::Exception {"HexGrid", text}
 			{}
 		};
-		HexGrid();
+		HexGrid(const GridFile&);
 		const Point* find_point(Point, const Hexagon&);
 		Size find_size(const Hexagon&) const;
 		sdl::Texture to_texture(
