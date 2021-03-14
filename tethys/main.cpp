@@ -12,10 +12,7 @@ namespace tethys {
 	std::string
 	get_title()
 	{
-		return "Mare Tethys v"
-			+ std::to_string(version.major)
-			+ "."
-			+ std::to_string(version.minor);
+		return "Mare Tethys v" + version.to_string();
 	}
 
 	class Main {
