@@ -1,6 +1,9 @@
 #ifndef TETHYS_MACROS_HPP
 #define TETHYS_MACROS_HPP
 
+// base dir length defined in CMakeLists.txt
+#define TETHYS_FILE (__FILE__ + TETHYS_BASE_DIR_LENGTH)
+
 // declare move-constructor and move-assignment
 #define TETHYS_DECLARE_MOVE(T)\
 	T(T&&) noexcept;\

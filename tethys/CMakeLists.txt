@@ -2,8 +2,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
+# number of characters from absolute root to project root
+# source files can use this to obtain the relative path
+string(LENGTH "${PROJECT_SOURCE_DIR}/" BASE_DIR_LENGTH)
+add_compile_definitions(TETHYS_BASE_DIR_LENGTH=${BASE_DIR_LENGTH})
+
 # WIN32 flag removes the console window on Windows
-add_executable(tethys WIN32 cfg_file.cpp config.cpp file.cpp grid_file.cpp hex_grid.cpp hex_textures.cpp hexagon.cpp log.cpp main.cpp rect.cpp screen.cpp scroll.cpp sdl.cpp)
+add_executable(tethys WIN32 cfg_file.cpp config.cpp file.cpp grid_file.cpp hex_grid.cpp hex_textures.cpp hexagon.cpp int.cpp log.cpp main.cpp rect.cpp screen.cpp scroll.cpp sdl.cpp)
 
 configure_file(tethys.cfg tethys.cfg COPYONLY)
 configure_file(tethys.grid tethys.grid COPYONLY)

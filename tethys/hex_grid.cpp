@@ -3,6 +3,7 @@
 #include "hex_textures.hpp"
 #include "hex_type.hpp"
 #include "hexagon.hpp"
+#include "int.hpp"
 #include "point.hpp"
 #include "sdl.hpp"
 #include "size.hpp"
@@ -39,8 +40,8 @@ namespace tethys {
 	{
 		auto height = hex.below().y;
 		auto offset = hex.below_right();
-		int row = index / m_columns;
-		int col = index % m_columns;
+		auto row = TETHYS_INT(index / m_columns);
+		auto col = TETHYS_INT(index % m_columns);
 		Point pos {col * offset.x, row * height};
 		if (col % 2) {
 			pos.y += offset.y;

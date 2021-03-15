@@ -2,6 +2,7 @@
 
 #include "file.hpp"
 #include "hex_type.hpp"
+#include "int.hpp"
 
 #include <string>
 #include <vector>
@@ -40,13 +41,13 @@ namespace tethys {
 	{
 		GridFile grid;
 		auto lines = file::read_lines(filename);
-		grid.rows = lines.size();
+		grid.rows = TETHYS_INT(lines.size());
 		if (grid.rows > 0) {
-			grid.columns = lines.front().size();
+			grid.columns = TETHYS_INT(lines.front().size());
 		}
 		int row_number {1};
 		for (const auto& line : lines) {
-			int cols = line.size();
+			auto cols = TETHYS_INT(line.size());
 			if (cols != grid.columns)
 				throw Exception {
 					"Row " + std::to_string(row_number)
