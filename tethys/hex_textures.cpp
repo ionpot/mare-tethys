@@ -44,5 +44,6 @@ namespace tethys {
 		case HexType::sea:
 			return m_sea;
 		}
+		throw Exception {"Unknown hex type."};
 	}
 }
