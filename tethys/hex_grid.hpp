@@ -29,7 +29,7 @@ namespace tethys {
 				const HexTextures&,
 				const Hexagon&) const;
 	private:
-		typedef std::vector<const HexType> Nodes;
+		typedef std::vector<HexType> Nodes;
 		typedef Nodes::size_type Nodes_i;
 		struct Found {
 			bool ok {true};
