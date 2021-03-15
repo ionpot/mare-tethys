@@ -21,9 +21,10 @@ target_include_directories(tethys PUBLIC "${PROJECT_BINARY_DIR}")
 add_library(common INTERFACE)
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC"
 OR "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC")
+	# /we4062 -> enable warning C4062 as an error
 	# /W4 -> warning level 4
 	# /WX -> warnings are errors
-	target_compile_options(common INTERFACE /W4 /WX)
+	target_compile_options(common INTERFACE /we4062 /W4 /WX)
 else()
 	target_compile_options(common INTERFACE -Wall -Wextra -pedantic -Werror)
 endif()
