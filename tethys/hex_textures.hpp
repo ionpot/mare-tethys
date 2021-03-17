@@ -14,7 +14,7 @@ namespace tethys {
 				tethys::Exception {"HexTextures", text}
 			{}
 		};
-		HexTextures(Hexagon, const sdl::Renderer&);
+		HexTextures(const Hexagon&, const sdl::Renderer&);
 		const sdl::Texture& of_type(HexType) const;
 	private:
 		sdl::Texture m_city;

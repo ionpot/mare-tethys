@@ -16,7 +16,7 @@ namespace tethys::s {
 }
 
 namespace tethys {
-	HexTextures::HexTextures(Hexagon hex, const sdl::Renderer& rdr):
+	HexTextures::HexTextures(const Hexagon& hex, const sdl::Renderer& rdr):
 		m_city {rdr.create_hex(hex, s::color.city)},
 		m_desert {rdr.create_hex(hex, s::color.desert)},
 		m_forest {rdr.create_hex(hex, s::color.forest)},
