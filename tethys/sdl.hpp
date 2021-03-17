@@ -80,6 +80,7 @@ namespace tethys::sdl {
 		friend class Renderer;
 		SDL_Texture* m_texture;
 		Texture(SDL_Renderer*, Size, Uint32 flags);
+		Texture(SDL_Renderer*, SDL_Surface*);
 	};
 
 	class TargetTexture : public Texture {
@@ -99,6 +100,7 @@ namespace tethys::sdl {
 		void clear() const;
 		Texture create_hex(const Hexagon&, const RGB&) const;
 		TargetTexture create_target_texture(Size) const;
+		Texture create_texture_from_png(std::string filename) const;
 		void draw_hex(const Hexagon&) const;
 		void draw_line(Line) const;
 		void present() const;

@@ -21,8 +21,8 @@ namespace tethys {
 		m_desert {rdr.create_hex(hex, s::color.desert)},
 		m_forest {rdr.create_hex(hex, s::color.forest)},
 		m_mountain {rdr.create_hex(hex, s::color.mountain)},
-		m_plains {rdr.create_hex(hex, s::color.plains)},
-		m_sea {rdr.create_hex(hex, s::color.sea)}
+		m_plains {rdr.create_texture_from_png("hex_plains.png")},
+		m_sea {rdr.create_texture_from_png("hex_sea.png")}
 	{}
 
 	const sdl::Texture&

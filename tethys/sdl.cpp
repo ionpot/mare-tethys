@@ -10,12 +10,14 @@
 #include "size.hpp"
 
 #include <SDL.h>
+#include <SDL_image.h>
 #include <array>
 #include <string>
 #include <variant>
 
 namespace tethys::sdl::s {
 	Uint32 init_flags = SDL_INIT_VIDEO;
+	int img_init_flags = IMG_INIT_PNG;
 
 	Uint32 renderer_flags =
 		SDL_RENDERER_ACCELERATED
@@ -68,10 +70,16 @@ namespace tethys::sdl {
 		if (SDL_WasInit(s::init_flags))
 			throw Exception {"Cannot re-initialize."};
 		log.put("Initializing SDL...");
-		int error = SDL_Init(s::init_flags);
-		if (error) {
+		if (SDL_Init(s::init_flags)) {
 			std::string text {SDL_GetError()};
 			SDL_Quit();
+			throw Exception {text};
+		}
+		log.put("Initializing SDL_image...");
+		int img_ok {IMG_Init(s::img_init_flags) & s::img_init_flags};
+		if (!img_ok) {
+			std::string text {IMG_GetError()};
+			IMG_Quit();
 			throw Exception {text};
 		}
 	}
@@ -79,7 +87,10 @@ namespace tethys::sdl {
 	Base::~Base()
 	{
 		if (m_call_quit) {
-			m_log.get().put("Quitting SDL...");
+			auto& log = m_log.get();
+			log.put("Quitting SDL_image...");
+			IMG_Quit();
+			log.put("Quitting SDL...");
 			SDL_Quit();
 		}
 	}
@@ -304,6 +315,18 @@ namespace tethys::sdl {
 			throw Exception {SDL_GetError()};
 	}
 
+	Texture
+	Renderer::create_texture_from_png(std::string filename) const
+	{
+		SDL_RWops* rwops = SDL_RWFromFile(filename.c_str(), "rb");
+		if (!rwops)
+			throw Exception {SDL_GetError()};
+		SDL_Surface* surface = IMG_LoadPNG_RW(rwops);
+		if (!surface)
+			throw Exception {IMG_GetError()};
+		return {m_renderer, surface};
+	}
+
 	void
 	Renderer::reset_target() const
 	{
@@ -362,6 +385,18 @@ namespace tethys::sdl {
 		)}
 	{
 		if (!m_texture)
+			throw Exception {SDL_GetError()};
+		if (SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND))
+			throw Exception {SDL_GetError()};
+	}
+
+	Texture::Texture(SDL_Renderer* renderer, SDL_Surface* surface):
+		size {},
+		m_texture {SDL_CreateTextureFromSurface(renderer, surface)}
+	{
+		if (!m_texture)
+			throw Exception {SDL_GetError()};
+		if (SDL_QueryTexture(m_texture, NULL, NULL, &size.width, &size.height))
 			throw Exception {SDL_GetError()};
 		if (SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND))
 			throw Exception {SDL_GetError()};

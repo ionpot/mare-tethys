@@ -1,6 +1,7 @@
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 # number of characters from absolute root to project root
 # source files can use this to obtain the relative path
@@ -34,3 +35,12 @@ target_link_libraries(tethys PUBLIC common)
 find_package(SDL2 REQUIRED)
 target_include_directories(tethys PUBLIC "${SDL2_INCLUDE_DIRS}")
 target_link_libraries(tethys PUBLIC "${SDL2_LIBRARIES}")
+
+# SDL2_image lib
+find_package(SDL2_image REQUIRED)
+target_include_directories(tethys PUBLIC "${SDL2_IMAGE_INCLUDE_DIRS}")
+target_link_libraries(tethys PUBLIC "${SDL2_IMAGE_LIBRARIES}")
+
+# PNG lib used via SDL2_image
+find_package(PNG REQUIRED)
+target_link_libraries(tethys PUBLIC "${PNG_LIBRARIES}")
