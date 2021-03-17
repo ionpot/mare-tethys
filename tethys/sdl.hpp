@@ -98,10 +98,8 @@ namespace tethys::sdl {
 	public:
 		void clear() const;
 		Texture create_hex(const Hexagon&, const RGB&) const;
-		Texture create_hex_border(const Hexagon&, const RGB&) const;
 		TargetTexture create_target_texture(Size) const;
 		void draw_hex(const Hexagon&) const;
-		void draw_hex_borders(const Hexagon&) const;
 		void draw_line(Line) const;
 		void present() const;
 		void put(const Texture&, Point position) const;

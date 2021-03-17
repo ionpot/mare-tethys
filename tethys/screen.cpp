@@ -26,7 +26,7 @@ namespace tethys {
 		m_hex {config.hex_side},
 		m_grid {GridFile::read("tethys.grid")},
 		m_hex_textures {m_hex, sdl.renderer},
-		m_border_tx {sdl.renderer.create_hex_border(m_hex, s::color.border)},
+		m_border_tx {sdl.renderer.create_hex(m_hex, s::color.border)},
 		m_grid_tx {m_grid.to_texture(sdl.renderer, m_hex_textures, m_hex)},
 		m_grid_pos {50, 50},
 		m_mouse_pos {},
@@ -110,7 +110,6 @@ namespace tethys {
 		if (m_active_point) {
 			rdr.put(m_border_tx,
 				m_grid_pos
-				+ Hexagon::border_offset
 				+ *m_active_point
 			);
 		}

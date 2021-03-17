@@ -20,8 +20,6 @@ namespace tethys::s {
 }
 
 namespace tethys {
-	const Point Hexagon::border_offset = {-1, -1};
-
 	Hexagon::Hexagon(double a_side):
 		side {s::round(a_side)},
 		x1 {s::round1(a_side / 2)},
@@ -39,41 +37,6 @@ namespace tethys {
 	{
 		auto r = static_cast<double>(center.x);
 		return p.distance(center) <= r;
-	}
-
-	Size Hexagon::border_size() const
-	{
-		return {width() + 2, height() + 2};
-	}
-
-	Point Hexagon::border1() const
-	{
-		return {x1 - 1, -1};
-	}
-
-	Point Hexagon::border2() const
-	{
-		return {x2 + 1, -1};
-	}
-
-	Point Hexagon::border3() const
-	{
-		return {x3 + 1, y1};
-	}
-
-	Point Hexagon::border4() const
-	{
-		return {x2 + 1, y2 + 1};
-	}
-
-	Point Hexagon::border5() const
-	{
-		return {x1 - 1, y2 + 1};
-	}
-
-	Point Hexagon::border6() const
-	{
-		return {-1, y1};
 	}
 
 	Point Hexagon::point1() const
@@ -123,31 +86,31 @@ namespace tethys {
 
 	Point Hexagon::above() const
 	{
-		return {0, -height() - 1};
+		return {0, -height()};
 	}
 
 	Point Hexagon::above_left() const
 	{
-		return {-x2 - 2, -y1 - 1};
+		return {-x2 - 1, -y1};
 	}
 
 	Point Hexagon::above_right() const
 	{
-		return {x2 + 2, -y1 - 1};
+		return {x2 + 1, -y1};
 	}
 
 	Point Hexagon::below() const
 	{
-		return {0, height() + 1};
+		return {0, height()};
 	}
 
 	Point Hexagon::below_left() const
 	{
-		return {-x2 - 2, y1 + 1};
+		return {-x2 - 1, y1};
 	}
 
 	Point Hexagon::below_right() const
 	{
-		return {x2 + 2, y1 + 1};
+		return {x2 + 1, y1};
 	}
 }

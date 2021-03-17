@@ -42,16 +42,6 @@ namespace tethys {
 		Point below() const;
 		Point below_left() const;
 		Point below_right() const;
-
-		// borders
-		static const Point border_offset;
-		Point border1() const;
-		Point border2() const;
-		Point border3() const;
-		Point border4() const;
-		Point border5() const;
-		Point border6() const;
-		Size border_size() const;
 	};
 }
 

@@ -60,10 +60,6 @@ namespace tethys {
 			size.width -= (m_columns - 1) * (width - offset.x);
 			size.height += offset.y;
 		}
-		if (m_rows > 1) {
-			auto gap = hex.below().y - height;
-			size.height += (m_rows - 1) * gap;
-		}
 		return size;
 	}
 
