@@ -40,7 +40,3 @@ target_link_libraries(tethys PUBLIC "${SDL2_LIBRARIES}")
 find_package(SDL2_image REQUIRED)
 target_include_directories(tethys PUBLIC "${SDL2_IMAGE_INCLUDE_DIRS}")
 target_link_libraries(tethys PUBLIC "${SDL2_IMAGE_LIBRARIES}")
-
-# PNG lib used via SDL2_image
-find_package(PNG REQUIRED)
-target_link_libraries(tethys PUBLIC "${PNG_LIBRARIES}")
