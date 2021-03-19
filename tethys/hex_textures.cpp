@@ -17,6 +17,7 @@ namespace tethys::s {
 
 namespace tethys {
 	HexTextures::HexTextures(const Hexagon& hex, const sdl::Renderer& rdr):
+		m_agriculture {rdr.create_texture_from_png("hex_agriculture.png")},
 		m_city {rdr.create_hex(hex, s::color.city)},
 		m_desert {rdr.create_hex(hex, s::color.desert)},
 		m_forest {rdr.create_hex(hex, s::color.forest)},
@@ -31,6 +32,8 @@ namespace tethys {
 		switch (type) {
 		case HexType::none:
 			throw Exception {"HexType::none has no texture."};
+		case HexType::agriculture:
+			return m_agriculture;
 		case HexType::city:
 			return m_city;
 		case HexType::desert:

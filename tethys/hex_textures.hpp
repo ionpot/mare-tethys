@@ -17,6 +17,7 @@ namespace tethys {
 		HexTextures(const Hexagon&, const sdl::Renderer&);
 		const sdl::Texture& of_type(HexType) const;
 	private:
+		sdl::Texture m_agriculture;
 		sdl::Texture m_city;
 		sdl::Texture m_desert;
 		sdl::Texture m_forest;

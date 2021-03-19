@@ -12,6 +12,8 @@ namespace tethys::s {
 	get_type(char ch, int row_num)
 	{
 		switch (ch) {
+		case 'a':
+			return HexType::agriculture;
 		case 'c':
 			return HexType::city;
 		case 'd':
