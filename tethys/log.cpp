@@ -7,10 +7,8 @@
 
 namespace tethys {
 	Log::Log(std::string filename):
-		file {std::ofstream {filename, std::ofstream::trunc}}
+		file {util::file::open_w(filename)}
 	{
-		if (!file.is_open())
-			throw util::file::OpenFailed {filename};
 		file.precision(2);
 	}
 

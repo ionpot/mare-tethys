@@ -5,6 +5,15 @@
 #include <string>
 
 namespace tethys::util::file {
+	std::ofstream
+	open_w(std::string filename)
+	{
+		std::ofstream file {filename, std::ofstream::trunc};
+		if (file.is_open())
+			return file;
+		throw OpenFailed {filename};
+	}
+
 	LineList
 	read_lines(std::string filename)
 	{
