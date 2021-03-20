@@ -5,27 +5,27 @@
 #include <algorithm>
 #include <cmath>
 
-namespace tethys::s {
-	const double sqrt3 = std::sqrt(3);
-
-	int round(double d)
-	{
-		return static_cast<int>(std::lround(d));
-	}
-
-	int round1(double d)
-	{
-		return std::max(1, round(d));
-	}
-}
-
 namespace tethys {
+	namespace {
+		const double s_sqrt3 = std::sqrt(3);
+
+		int s_round(double d)
+		{
+			return static_cast<int>(std::lround(d));
+		}
+
+		int s_round1(double d)
+		{
+			return std::max(1, s_round(d));
+		}
+	}
+
 	Hexagon::Hexagon(double a_side):
-		side {s::round(a_side)},
-		x1 {s::round1(a_side / 2)},
+		side {s_round(a_side)},
+		x1 {s_round1(a_side / 2)},
 		x2 {x1 + side - 1},
 		x3 {x1 + x2},
-		y1 {s::round1(a_side / 2 * s::sqrt3)},
+		y1 {s_round1(a_side / 2 * s_sqrt3)},
 		y2 {y1 * 2},
 		center {(x3 + 1) / 2, (y2 + 1) / 2}
 	{

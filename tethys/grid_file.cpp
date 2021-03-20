@@ -7,37 +7,37 @@
 #include <string>
 #include <vector>
 
-namespace tethys::s {
-	HexType
-	get_type(char ch, int row_num)
-	{
-		switch (ch) {
-		case 'a':
-			return HexType::agriculture;
-		case 'c':
-			return HexType::city;
-		case 'd':
-			return HexType::desert;
-		case 'f':
-			return HexType::forest;
-		case 'm':
-			return HexType::mountain;
-		case 'p':
-			return HexType::plains;
-		case 's':
-			return HexType::sea;
-		case 'x':
-			return HexType::none;
-		default:
-			throw GridFile::Exception {
-				"Unrecognised character '" + std::string {ch}
-				+ "' on row " + std::to_string(row_num) + "."
-			};
+namespace tethys {
+	namespace {
+		HexType
+		s_get_type(char ch, int row_num)
+		{
+			switch (ch) {
+			case 'a':
+				return HexType::agriculture;
+			case 'c':
+				return HexType::city;
+			case 'd':
+				return HexType::desert;
+			case 'f':
+				return HexType::forest;
+			case 'm':
+				return HexType::mountain;
+			case 'p':
+				return HexType::plains;
+			case 's':
+				return HexType::sea;
+			case 'x':
+				return HexType::none;
+			default:
+				throw GridFile::Exception {
+					"Unrecognised character '" + std::string {ch}
+					+ "' on row " + std::to_string(row_num) + "."
+				};
+			}
 		}
 	}
-}
 
-namespace tethys {
 	GridFile
 	GridFile::read(std::string filename)
 	{
@@ -57,7 +57,7 @@ namespace tethys {
 					+ " characters."
 				};
 			for (const auto& ch : line) {
-				auto type = s::get_type(ch, row_number);
+				auto type = s_get_type(ch, row_number);
 				grid.types.push_back(type);
 			}
 			++row_number;

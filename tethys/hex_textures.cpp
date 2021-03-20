@@ -4,24 +4,24 @@
 #include "rgb.hpp"
 #include "sdl.hpp"
 
-namespace tethys::s {
-	const struct {
-		RGB city {100, 100, 100};
-		RGB desert {200, 200, 50};
-		RGB forest {0, 75, 0};
-		RGB mountain {140, 70, 20};
-		RGB plains {34, 139, 34};
-		RGB sea {50, 50, 200};
-	} color;
-}
-
 namespace tethys {
+	namespace {
+		const struct {
+			RGB city {100, 100, 100};
+			RGB desert {200, 200, 50};
+			RGB forest {0, 75, 0};
+			RGB mountain {140, 70, 20};
+			RGB plains {34, 139, 34};
+			RGB sea {50, 50, 200};
+		} s_color;
+	}
+
 	HexTextures::HexTextures(const Hexagon& hex, const sdl::Renderer& rdr):
 		m_agriculture {rdr.create_texture_from_png("hex_agriculture.png")},
-		m_city {rdr.create_hex(hex, s::color.city)},
-		m_desert {rdr.create_hex(hex, s::color.desert)},
-		m_forest {rdr.create_hex(hex, s::color.forest)},
-		m_mountain {rdr.create_hex(hex, s::color.mountain)},
+		m_city {rdr.create_hex(hex, s_color.city)},
+		m_desert {rdr.create_hex(hex, s_color.desert)},
+		m_forest {rdr.create_hex(hex, s_color.forest)},
+		m_mountain {rdr.create_hex(hex, s_color.mountain)},
 		m_plains {rdr.create_texture_from_png("hex_plains.png")},
 		m_sea {rdr.create_texture_from_png("hex_sea.png")}
 	{}

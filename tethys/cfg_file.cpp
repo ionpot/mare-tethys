@@ -5,43 +5,43 @@
 #include <stdexcept>
 #include <string>
 
-namespace tethys::s {
-	struct BadValue : public CfgFile::Exception {
-		const std::string expected;
-		BadValue(std::string expected):
-			CfgFile::Exception {"Value is not " + expected + "."},
-			expected {expected}
-		{}
-	};
-
-	std::string
-	key_str(std::string key, std::string section)
-	{
-		if (section.empty())
-			return key;
-		return section + " -> " + key;
-	}
-
-	double
-	to_double(std::string input)
-	try {
-		return std::stod(input);
-	}
-	catch (const std::invalid_argument&) {
-		throw BadValue {"a double"};
-	}
-
-	int
-	to_int(std::string input)
-	try {
-		return std::stoi(input);
-	}
-	catch (const std::invalid_argument&) {
-		throw BadValue {"an integer"};
-	}
-}
-
 namespace tethys {
+	namespace {
+		struct s_BadValue : public CfgFile::Exception {
+			const std::string expected;
+			s_BadValue(std::string expected):
+				CfgFile::Exception {"Value is not " + expected + "."},
+				expected {expected}
+			{}
+		};
+
+		std::string
+		s_key_str(std::string key, std::string section)
+		{
+			if (section.empty())
+				return key;
+			return section + " -> " + key;
+		}
+
+		double
+		s_to_double(std::string input)
+		try {
+			return std::stod(input);
+		}
+		catch (const std::invalid_argument&) {
+			throw s_BadValue {"a double"};
+		}
+
+		int
+		s_to_int(std::string input)
+		try {
+			return std::stoi(input);
+		}
+		catch (const std::invalid_argument&) {
+			throw s_BadValue {"an integer"};
+		}
+	}
+
 	const std::string
 	CfgFile::Pair::delimiter = " = ";
 
@@ -65,13 +65,13 @@ namespace tethys {
 	double
 	CfgFile::Pair::to_double() const
 	{
-		return to_value(s::to_double);
+		return to_value(s_to_double);
 	}
 
 	int
 	CfgFile::Pair::to_int() const
 	{
-		return to_value(s::to_int);
+		return to_value(s_to_int);
 	}
 
 	template<class T>
@@ -82,7 +82,7 @@ namespace tethys {
 	try {
 		return parse(value);
 	}
-	catch (const s::BadValue& err) {
+	catch (const s_BadValue& err) {
 		throw BadValue {key, err.expected, section};
 	}
 
@@ -148,14 +148,14 @@ namespace tethys {
 			std::string expected,
 			std::string section
 	):
-		Exception {s::key_str(key, section) + " is not " + expected + "."}
+		Exception {s_key_str(key, section) + " is not " + expected + "."}
 	{}
 
 	CfgFile::MissingKey::MissingKey(
 			std::string key,
 			std::string section
 	):
-		Exception {"Key not found: " + s::key_str(key, section)}
+		Exception {"Key not found: " + s_key_str(key, section)}
 	{}
 
 	CfgFile::MissingSection::MissingSection(std::string name):

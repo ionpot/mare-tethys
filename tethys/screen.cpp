@@ -8,14 +8,14 @@
 #include "scroll.hpp"
 #include "sdl.hpp"
 
-namespace tethys::s {
-	const struct {
-		RGB border {200, 200, 200};
-		RGB screen {rgb::black};
-	} color;
-}
-
 namespace tethys {
+	namespace {
+		const struct {
+			RGB border {200, 200, 200};
+			RGB screen {rgb::black};
+		} s_color;
+	}
+
 	Screen::Screen(
 			const Config& config,
 			const sdl::Context& sdl,
@@ -26,7 +26,7 @@ namespace tethys {
 		m_hex {config.hex_side},
 		m_grid {GridFile::read("tethys.grid")},
 		m_hex_textures {m_hex, sdl.renderer},
-		m_border_tx {sdl.renderer.create_hex(m_hex, s::color.border)},
+		m_border_tx {sdl.renderer.create_hex(m_hex, s_color.border)},
 		m_grid_tx {m_grid.to_texture(sdl.renderer, m_hex_textures, m_hex)},
 		m_grid_pos {50, 50},
 		m_mouse_pos {},
@@ -104,7 +104,7 @@ namespace tethys {
 	Screen::render() const
 	{
 		auto& rdr = m_renderer.get();
-		rdr.set_color(sdl::RGBA::opaque(s::color.screen));
+		rdr.set_color(sdl::RGBA::opaque(s_color.screen));
 		rdr.clear();
 		rdr.put(m_grid_tx, m_grid_pos);
 		if (m_active_point) {

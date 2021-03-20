@@ -15,68 +15,70 @@
 #include <string>
 #include <variant>
 
-namespace tethys::sdl::s {
-	Uint32 init_flags = SDL_INIT_VIDEO;
-	int img_init_flags = IMG_INIT_PNG;
+namespace tethys::sdl {
+	namespace {
+		const struct {
+			Uint32 init {SDL_INIT_VIDEO};
+			int img_init {IMG_INIT_PNG};
+			Uint32 renderer {
+				SDL_RENDERER_ACCELERATED
+				| SDL_RENDERER_PRESENTVSYNC
+				| SDL_RENDERER_TARGETTEXTURE
+			};
+			Uint32 texture_format {
+				SDL_PIXELFORMAT_RGBA8888
+			};
+		} s_flags;
 
-	Uint32 renderer_flags =
-		SDL_RENDERER_ACCELERATED
-		| SDL_RENDERER_PRESENTVSYNC
-		| SDL_RENDERER_TARGETTEXTURE;
-
-	Uint32 texture_format =
-		SDL_PIXELFORMAT_RGBA8888;
-
-	SDL_Window*
-	create_window(
-			std::string title,
-			Size size,
-			Uint32 flags = 0)
-	{
-		return SDL_CreateWindow(
-			title.c_str(),
-			SDL_WINDOWPOS_UNDEFINED,
-			SDL_WINDOWPOS_UNDEFINED,
-			size.width, size.height,
-			flags
-		);
-	}
-
-	Key
-	lookup_keycode(SDL_Keycode code)
-	{
-		switch (code)
+		SDL_Window*
+		s_create_window(
+				std::string title,
+				Size size,
+				Uint32 flags = 0)
 		{
-		case SDLK_DOWN:
-			return Key::down;
-		case SDLK_LEFT:
-			return Key::left;
-		case SDLK_RIGHT:
-			return Key::right;
-		case SDLK_UP:
-			return Key::up;
-		default:
-			return Key::other;
+			return SDL_CreateWindow(
+				title.c_str(),
+				SDL_WINDOWPOS_UNDEFINED,
+				SDL_WINDOWPOS_UNDEFINED,
+				size.width, size.height,
+				flags
+			);
+		}
+
+		Key
+		s_lookup_keycode(SDL_Keycode code)
+		{
+			switch (code)
+			{
+			case SDLK_DOWN:
+				return Key::down;
+			case SDLK_LEFT:
+				return Key::left;
+			case SDLK_RIGHT:
+				return Key::right;
+			case SDLK_UP:
+				return Key::up;
+			default:
+				return Key::other;
+			}
 		}
 	}
-}
 
-namespace tethys::sdl {
 	Base::Base(Log& log):
 		m_call_quit {true},
 		m_event {},
 		m_log {log}
 	{
-		if (SDL_WasInit(s::init_flags))
+		if (SDL_WasInit(s_flags.init))
 			throw Exception {"Cannot re-initialize."};
 		log.put("Initializing SDL...");
-		if (SDL_Init(s::init_flags)) {
+		if (SDL_Init(s_flags.init)) {
 			std::string text {SDL_GetError()};
 			SDL_Quit();
 			throw Exception {text};
 		}
 		log.put("Initializing SDL_image...");
-		int img_ok {IMG_Init(s::img_init_flags) & s::img_init_flags};
+		int img_ok {IMG_Init(s_flags.img_init) & s_flags.img_init};
 		if (!img_ok) {
 			std::string text {IMG_GetError()};
 			IMG_Quit();
@@ -190,7 +192,7 @@ namespace tethys::sdl {
 
 	KeyEvent::KeyEvent(bool pressed, SDL_Keycode code):
 		pressed {pressed},
-		key {s::lookup_keycode(code)}
+		key {s_lookup_keycode(code)}
 	{}
 
 	// window event //
@@ -214,7 +216,7 @@ namespace tethys::sdl {
 	// renderer //
 
 	Renderer::Renderer(SDL_Window* window):
-		m_renderer {SDL_CreateRenderer(window, -1, s::renderer_flags)}
+		m_renderer {SDL_CreateRenderer(window, -1, s_flags.renderer)}
 	{
 		if (!m_renderer)
 			throw Exception {SDL_GetError()};
@@ -379,7 +381,7 @@ namespace tethys::sdl {
 		size {size},
 		m_texture {SDL_CreateTexture(
 			renderer,
-			s::texture_format,
+			s_flags.texture_format,
 			flags,
 			size.width, size.height
 		)}
@@ -433,7 +435,7 @@ namespace tethys::sdl {
 	Window::Window(std::string title, Size size):
 		m_window {NULL}
 	{
-		m_window = s::create_window(title, size);
+		m_window = s_create_window(title, size);
 		if (!m_window) {
 			throw Exception {SDL_GetError()};
 		}
