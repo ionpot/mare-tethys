@@ -8,8 +8,6 @@
 #include "rgb.hpp"
 #include "size.hpp"
 
-#include <util/exception.hpp>
-
 #include <SDL.h>
 #include <SDL_image.h>
 #include <array>
