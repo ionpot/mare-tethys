@@ -7,11 +7,11 @@ namespace tethys::sdl {
 	struct Size {
 		int width = 0;
 		int height = 0;
-		Size operator+(const Size& size)
+		Size operator+(const Size& size) const
 		{
 			return {width + size.width, height + size.height};
 		}
-		Size operator-(const Size& size)
+		Size operator-(const Size& size) const
 		{
 			return {width - size.width, height - size.height};
 		}
