@@ -4,7 +4,7 @@
 
 namespace tethys {
 	Size
-	find_window_size(const CfgFile& file)
+	find_window_size(const util::CfgFile& file)
 	{
 		auto section = file.find_section("window");
 		return {
@@ -13,13 +13,13 @@ namespace tethys {
 		};
 	}
 
-	Config::Hex::Hex(const CfgFile::Section& section):
+	Config::Hex::Hex(const util::CfgFile::Section& section):
 		gold {section.find_pair("gold").to_double()},
 		industry {section.find_pair("industry").to_double()},
 		manpower {section.find_pair("manpower").to_double()}
 	{}
 
-	Config::Config(const CfgFile& file):
+	Config::Config(const util::CfgFile& file):
 		city {file.find_section("city hex")},
 		forest {file.find_section("forest hex")},
 		mountain {file.find_section("mountain hex")},

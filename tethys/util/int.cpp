@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <string>
 
-namespace tethys {
+namespace tethys::util {
 	int
 	int_cast(uintmax_t number, FileLine location, std::string name)
 	{

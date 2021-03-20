@@ -43,7 +43,7 @@ namespace tethys {
 	GridFile::read(std::string filename)
 	{
 		GridFile grid;
-		auto lines = file::read_lines(filename);
+		auto lines = util::file::read_lines(filename);
 		grid.rows = TETHYS_INT(lines.size());
 		if (grid.rows > 0) {
 			grid.columns = TETHYS_INT(lines.front().size());

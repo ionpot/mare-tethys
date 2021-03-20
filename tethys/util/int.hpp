@@ -8,9 +8,9 @@
 #include <string>
 
 #define TETHYS_INT(expr)\
-	tethys::int_cast(expr, TETHYS_FILE_LINE(), #expr)
+	tethys::util::int_cast(expr, TETHYS_FILE_LINE(), #expr)
 
-namespace tethys {
+namespace tethys::util {
 	struct IntException : public Exception {
 		IntException(std::string text):
 			Exception {"Integer", text}

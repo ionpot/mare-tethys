@@ -17,9 +17,9 @@
 namespace tethys {
 	class HexGrid {
 	public:
-		struct Exception : public tethys::Exception {
+		struct Exception : public util::Exception {
 			Exception(std::string text):
-				tethys::Exception {"HexGrid", text}
+				util::Exception {"HexGrid", text}
 			{}
 		};
 		HexGrid(const GridFile&);

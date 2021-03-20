@@ -10,9 +10,9 @@
 
 namespace tethys {
 	struct Hexagon {
-		struct Exception : public tethys::Exception {
+		struct Exception : public util::Exception {
 			Exception(std::string text):
-				tethys::Exception {"Hexagon", text}
+				util::Exception {"Hexagon", text}
 			{}
 		};
 		const int side;

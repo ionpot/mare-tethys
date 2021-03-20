@@ -10,9 +10,9 @@
 namespace tethys {
 	class HexTextures {
 	public:
-		struct Exception : public tethys::Exception {
+		struct Exception : public util::Exception {
 			Exception(std::string text):
-				tethys::Exception {"HexTextures", text}
+				util::Exception {"HexTextures", text}
 			{}
 		};
 		HexTextures(const Hexagon&, const sdl::Renderer&);

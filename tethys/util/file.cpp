@@ -4,7 +4,7 @@
 #include <list>
 #include <string>
 
-namespace tethys::file {
+namespace tethys::util::file {
 	LineList
 	read_lines(std::string filename)
 	{

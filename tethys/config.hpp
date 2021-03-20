@@ -11,7 +11,7 @@ namespace tethys {
 			double gold;
 			double industry;
 			double manpower;
-			Hex(const CfgFile::Section&);
+			Hex(const util::CfgFile::Section&);
 		};
 		Hex city;
 		Hex forest;
@@ -26,7 +26,7 @@ namespace tethys {
 
 		Size window_size;
 
-		Config(const CfgFile&);
+		Config(const util::CfgFile&);
 	};
 }
 

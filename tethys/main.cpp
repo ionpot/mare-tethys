@@ -20,7 +20,7 @@ namespace tethys {
 	class Main {
 	public:
 		Main(std::string title, Log& log):
-			m_config {CfgFile {"tethys.cfg"}},
+			m_config {util::CfgFile {"tethys.cfg"}},
 			m_sdl {sdl::Context {title, m_config.window_size, log}},
 			m_screen {m_config, m_sdl, log}
 		{}
@@ -56,7 +56,7 @@ namespace tethys {
 			log.put("Polling events...");
 			m.poll();
 		}
-		catch (const Exception& err) {
+		catch (const util::Exception& err) {
 			sdl::show_error(err.source + " Error", err.text);
 			log.error(err.what());
 		}

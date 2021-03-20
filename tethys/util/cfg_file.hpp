@@ -6,7 +6,7 @@
 
 #include <string>
 
-namespace tethys {
+namespace tethys::util {
 	class CfgFile {
 	public:
 		class Pair {
@@ -40,9 +40,9 @@ namespace tethys {
 		Section
 		find_section(std::string name) const;
 
-		struct Exception : public tethys::Exception {
+		struct Exception : public util::Exception {
 			Exception(std::string text):
-				tethys::Exception {"CfgFile", text}
+				util::Exception {"CfgFile", text}
 			{};
 		};
 

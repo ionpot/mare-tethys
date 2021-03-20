@@ -10,7 +10,7 @@ namespace tethys {
 		file {std::ofstream {filename, std::ofstream::trunc}}
 	{
 		if (!file.is_open())
-			throw file::OpenFailed {filename};
+			throw util::file::OpenFailed {filename};
 		file.precision(2);
 	}
 

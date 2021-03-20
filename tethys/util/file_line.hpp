@@ -7,9 +7,9 @@
 #include <sstream>
 
 #define TETHYS_FILE_LINE()\
-	tethys::FileLine {TETHYS_FILE, __LINE__}
+	tethys::util::FileLine {TETHYS_FILE, __LINE__}
 
-namespace tethys {
+namespace tethys::util {
 	struct FileLine {
 		const char* file;
 		int line;

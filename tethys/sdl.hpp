@@ -16,9 +16,9 @@
 #include <variant>
 
 namespace tethys::sdl {
-	struct Exception : public tethys::Exception {
+	struct Exception : public util::Exception {
 		Exception(std::string text):
-			tethys::Exception {"SDL", text}
+			util::Exception {"SDL", text}
 		{}
 	};
 

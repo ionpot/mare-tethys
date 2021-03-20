@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace tethys {
+namespace tethys::util {
 	namespace {
 		struct s_BadValue : public CfgFile::Exception {
 			const std::string expected;

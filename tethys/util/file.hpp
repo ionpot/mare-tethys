@@ -6,12 +6,12 @@
 #include <list>
 #include <string>
 
-namespace tethys::file {
+namespace tethys::util::file {
 	typedef std::list<std::string> LineList;
 
-	struct Exception : public tethys::Exception {
+	struct Exception : public util::Exception {
 		Exception(std::string text):
-			tethys::Exception {"File", text}
+			util::Exception {"File", text}
 		{};
 	};
 

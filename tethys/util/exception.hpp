@@ -4,7 +4,7 @@
 #include <exception>
 #include <string>
 
-namespace tethys {
+namespace tethys::util {
 	class Exception : public std::exception {
 	public:
 		const std::string source;

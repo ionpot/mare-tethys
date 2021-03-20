@@ -10,9 +10,9 @@
 
 namespace tethys {
 	struct GridFile {
-		struct Exception : public tethys::Exception {
+		struct Exception : public util::Exception {
 			Exception(std::string text):
-				tethys::Exception {"GridFile", text}
+				util::Exception {"GridFile", text}
 			{}
 		};
 		int rows;
