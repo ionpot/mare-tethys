@@ -4,6 +4,7 @@
 #include "sdl.hpp"
 
 #include <util/cfg_file.hpp>
+#include <util/exception.hpp>
 #include <tethys/version.hpp>
 
 #include <iostream>
