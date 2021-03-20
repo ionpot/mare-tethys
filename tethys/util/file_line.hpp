@@ -1,5 +1,5 @@
-#ifndef TETHYS_FILE_LINE_HPP
-#define TETHYS_FILE_LINE_HPP
+#ifndef TETHYS_UTIL_FILE_LINE_HPP
+#define TETHYS_UTIL_FILE_LINE_HPP
 
 #include "macros.hpp"
 

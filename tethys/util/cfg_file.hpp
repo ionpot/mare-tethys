@@ -1,5 +1,5 @@
-#ifndef TETHYS_CFG_FILE_HPP
-#define TETHYS_CFG_FILE_HPP
+#ifndef TETHYS_UTIL_CFG_FILE_HPP
+#define TETHYS_UTIL_CFG_FILE_HPP
 
 #include "exception.hpp"
 #include "file.hpp"

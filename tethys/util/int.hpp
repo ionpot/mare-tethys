@@ -1,5 +1,5 @@
-#ifndef TETHYS_INT_HPP
-#define TETHYS_INT_HPP
+#ifndef TETHYS_UTIL_INT_HPP
+#define TETHYS_UTIL_INT_HPP
 
 #include "exception.hpp"
 #include "file_line.hpp"

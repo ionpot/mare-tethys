@@ -1,5 +1,5 @@
-#ifndef TETHYS_MACROS_HPP
-#define TETHYS_MACROS_HPP
+#ifndef TETHYS_UTIL_MACROS_HPP
+#define TETHYS_UTIL_MACROS_HPP
 
 // base dir length defined in CMakeLists.txt
 #define TETHYS_FILE (__FILE__ + TETHYS_BASE_DIR_LENGTH)

@@ -1,6 +1,6 @@
 #include "config.hpp"
 
-#include "cfg_file.hpp"
+#include <util/cfg_file.hpp>
 
 namespace tethys {
 	Size

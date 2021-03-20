@@ -3,10 +3,11 @@
 #include "hex_textures.hpp"
 #include "hex_type.hpp"
 #include "hexagon.hpp"
-#include "int.hpp"
 #include "point.hpp"
 #include "sdl.hpp"
 #include "size.hpp"
+
+#include <util/int.hpp>
 
 #include <string>
 #include <vector>

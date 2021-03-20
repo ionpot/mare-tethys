@@ -1,6 +1,5 @@
 #include "sdl.hpp"
 
-#include "exception.hpp"
 #include "hexagon.hpp"
 #include "line.hpp"
 #include "log.hpp"
@@ -8,6 +7,8 @@
 #include "rect.hpp"
 #include "rgb.hpp"
 #include "size.hpp"
+
+#include <util/exception.hpp>
 
 #include <SDL.h>
 #include <SDL_image.h>

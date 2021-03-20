@@ -1,8 +1,9 @@
 #ifndef TETHYS_GRID_FILE_HPP
 #define TETHYS_GRID_FILE_HPP
 
-#include "exception.hpp"
 #include "hex_type.hpp"
+
+#include <util/exception.hpp>
 
 #include <string>
 #include <vector>

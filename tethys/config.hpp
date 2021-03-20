@@ -1,8 +1,9 @@
 #ifndef TETHYS_CONFIG_HPP
 #define TETHYS_CONFIG_HPP
 
-#include "cfg_file.hpp"
 #include "size.hpp"
+
+#include <util/cfg_file.hpp>
 
 namespace tethys {
 	struct Config {

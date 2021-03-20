@@ -1,9 +1,10 @@
 #ifndef TETHYS_HEXAGON_HPP
 #define TETHYS_HEXAGON_HPP
 
-#include "exception.hpp"
 #include "point.hpp"
 #include "size.hpp"
+
+#include <util/exception.hpp>
 
 #include <string>
 

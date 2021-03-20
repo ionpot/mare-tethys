@@ -1,14 +1,15 @@
 #ifndef TETHYS_SDL_HPP
 #define TETHYS_SDL_HPP
 
-#include "exception.hpp"
 #include "hexagon.hpp"
 #include "line.hpp"
 #include "log.hpp"
-#include "macros.hpp"
 #include "point.hpp"
 #include "rgb.hpp"
 #include "size.hpp"
+
+#include <util/exception.hpp>
+#include <util/macros.hpp>
 
 #include <SDL.h>
 #include <string>

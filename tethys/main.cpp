@@ -1,10 +1,11 @@
-#include "cfg_file.hpp"
 #include "config.hpp"
 #include "log.hpp"
 #include "screen.hpp"
 #include "sdl.hpp"
 
+#include <util/cfg_file.hpp>
 #include <tethys/version.hpp>
+
 #include <iostream>
 #include <string>
 

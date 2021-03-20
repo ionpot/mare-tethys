@@ -1,7 +1,6 @@
 #ifndef TETHYS_HEX_GRID_HPP
 #define TETHYS_HEX_GRID_HPP
 
-#include "exception.hpp"
 #include "grid_file.hpp"
 #include "hex_textures.hpp"
 #include "hex_type.hpp"
@@ -9,6 +8,8 @@
 #include "point.hpp"
 #include "sdl.hpp"
 #include "size.hpp"
+
+#include <util/exception.hpp>
 
 #include <string>
 #include <vector>

@@ -1,9 +1,10 @@
 #ifndef TETHYS_LOG_HPP
 #define TETHYS_LOG_HPP
 
-#include "macros.hpp"
 #include "point.hpp"
 #include "size.hpp"
+
+#include <util/macros.hpp>
 
 #include <fstream>
 #include <string>

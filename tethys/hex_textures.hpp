@@ -1,10 +1,11 @@
 #ifndef TETHYS_HEX_TEXTURES_HPP
 #define TETHYS_HEX_TEXTURES_HPP
 
-#include "exception.hpp"
 #include "hex_type.hpp"
 #include "hexagon.hpp"
 #include "sdl.hpp"
+
+#include <util/exception.hpp>
 
 namespace tethys {
 	class HexTextures {

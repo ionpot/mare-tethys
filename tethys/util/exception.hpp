@@ -1,5 +1,5 @@
-#ifndef TETHYS_EXCEPTION_HPP
-#define TETHYS_EXCEPTION_HPP
+#ifndef TETHYS_UTIL_EXCEPTION_HPP
+#define TETHYS_UTIL_EXCEPTION_HPP
 
 #include <exception>
 #include <string>

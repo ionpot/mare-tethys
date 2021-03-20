@@ -1,8 +1,9 @@
 #include "grid_file.hpp"
 
-#include "file.hpp"
 #include "hex_type.hpp"
-#include "int.hpp"
+
+#include <util/file.hpp>
+#include <util/int.hpp>
 
 #include <string>
 #include <vector>
