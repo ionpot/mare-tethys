@@ -1,4 +1,4 @@
-#include "config.hpp"
+#include "cfg_file.hpp"
 
 #include "file.hpp"
 
