@@ -18,8 +18,15 @@ endif()
 string(LENGTH "${PROJECT_SOURCE_DIR}/" BASE_DIR_LENGTH)
 add_compile_definitions(TETHYS_BASE_DIR_LENGTH=${BASE_DIR_LENGTH})
 
+# favour the <prefix/...> include syntax
+include_directories("${CMAKE_CURRENT_LIST_DIR}")
+
+# subdirectories
+add_subdirectory(util)
+add_subdirectory(sdl)
+
 # WIN32 flag removes the console window on Windows
-add_executable(tethys WIN32 config.cpp grid_file.cpp hex_grid.cpp hex_textures.cpp hexagon.cpp log.cpp main.cpp rect.cpp screen.cpp scroll.cpp sdl.cpp)
+add_executable(tethys WIN32 config.cpp grid_file.cpp hex_grid.cpp hex_textures.cpp main.cpp screen.cpp scroll.cpp)
 
 # executable needs these at runtime
 configure_file(tethys.cfg tethys.cfg COPYONLY)
@@ -29,21 +36,7 @@ configure_file(tethys.grid tethys.grid COPYONLY)
 configure_file(version.hpp.in version.hpp @ONLY)
 
 # program can include version.hpp when compiling
-target_include_directories(tethys PUBLIC "${PROJECT_BINARY_DIR}")
+target_include_directories(tethys PRIVATE "${PROJECT_BINARY_DIR}")
 
-# subdirectory can include sibling subdirectory
-target_include_directories(tethys PUBLIC "${CMAKE_CURRENT_LIST_DIR}")
-
-# tethys_util lib
-add_subdirectory(util)
-target_link_libraries(tethys PUBLIC tethys_util)
-
-# SDL2 lib
-find_package(SDL2 REQUIRED)
-target_include_directories(tethys PUBLIC "${SDL2_INCLUDE_DIRS}")
-target_link_libraries(tethys PUBLIC "${SDL2_LIBRARIES}")
-
-# SDL2_image lib
-find_package(SDL2_image REQUIRED)
-target_include_directories(tethys PUBLIC "${SDL2_IMAGE_INCLUDE_DIRS}")
-target_link_libraries(tethys PUBLIC "${SDL2_IMAGE_LIBRARIES}")
+# dependencies
+target_link_libraries(tethys PRIVATE tethys_util tethys_sdl)

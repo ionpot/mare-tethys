@@ -1,13 +1,13 @@
 #include "log.hpp"
 
-#include <util/file.hpp>
+#include "file.hpp"
 
 #include <fstream>
 #include <string>
 
-namespace tethys {
+namespace tethys::util {
 	Log::Log(std::string filename):
-		file {util::file::open_w(filename)}
+		file {file::open_w(filename)}
 	{
 		file.precision(2);
 	}

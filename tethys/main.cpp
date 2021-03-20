@@ -1,11 +1,11 @@
 #include "config.hpp"
-#include "log.hpp"
 #include "screen.hpp"
-#include "sdl.hpp"
 
+#include <sdl/sdl.hpp>
+#include <tethys/version.hpp>
 #include <util/cfg_file.hpp>
 #include <util/exception.hpp>
-#include <tethys/version.hpp>
+#include <util/log.hpp>
 
 #include <iostream>
 #include <string>
@@ -19,7 +19,7 @@ namespace tethys {
 
 	class Main {
 	public:
-		Main(std::string title, Log& log):
+		Main(std::string title, util::Log& log):
 			m_config {util::CfgFile {"tethys.cfg"}},
 			m_sdl {sdl::Context {title, m_config.window_size, log}},
 			m_screen {m_config, m_sdl, log}
@@ -46,7 +46,7 @@ namespace tethys {
 		Screen m_screen;
 	};
 
-	void start(Log&& log)
+	void start(util::Log&& log)
 	{
 		auto title = get_title();
 		log.put(title);
@@ -71,7 +71,7 @@ namespace tethys {
 int main(int, char **)
 {
 	try {
-		tethys::start(tethys::Log {"tethys.log"});
+		tethys::start(tethys::util::Log {"tethys.log"});
 	}
 	catch (const std::exception& err) {
 		std::cerr << err.what() << std::endl;

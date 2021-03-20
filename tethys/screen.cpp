@@ -3,10 +3,11 @@
 #include "config.hpp"
 #include "grid_file.hpp"
 #include "hex_grid.hpp"
-#include "log.hpp"
-#include "rgb.hpp"
 #include "scroll.hpp"
-#include "sdl.hpp"
+
+#include <sdl/rgb.hpp>
+#include <sdl/sdl.hpp>
+#include <util/log.hpp>
 
 namespace tethys {
 	namespace {
@@ -19,7 +20,7 @@ namespace tethys {
 	Screen::Screen(
 			const Config& config,
 			const sdl::Context& sdl,
-			Log& log
+			util::Log& log
 	):
 		m_active_point {nullptr},
 		m_focus {sdl.window.has_focus()},
@@ -33,7 +34,7 @@ namespace tethys {
 		m_renderer {sdl.renderer},
 		m_scroll {config.window_size, m_grid_tx.size, 10}
 	{
-		log.pair("Hexagon size", m_hex.size());
+		log.pair("Hexagon size", m_hex.size().to_str());
 	}
 
 	Screen::Status

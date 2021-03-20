@@ -2,11 +2,12 @@
 
 #include "hexagon.hpp"
 #include "line.hpp"
-#include "log.hpp"
 #include "point.hpp"
 #include "rect.hpp"
 #include "rgb.hpp"
 #include "size.hpp"
+
+#include <util/log.hpp>
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -63,7 +64,7 @@ namespace tethys::sdl {
 		}
 	}
 
-	Base::Base(Log& log):
+	Base::Base(util::Log& log):
 		m_call_quit {true},
 		m_event {},
 		m_log {log}
@@ -133,7 +134,7 @@ namespace tethys::sdl {
 
 	// context //
 
-	Context::Context(std::string title, Size size, Log& log):
+	Context::Context(std::string title, Size size, util::Log& log):
 		base {log},
 		window {title, size},
 		renderer {window.create_renderer()}

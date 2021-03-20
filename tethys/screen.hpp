@@ -4,17 +4,18 @@
 #include "config.hpp"
 #include "hex_grid.hpp"
 #include "hex_textures.hpp"
-#include "hexagon.hpp"
-#include "log.hpp"
-#include "point.hpp"
 #include "scroll.hpp"
-#include "sdl.hpp"
+
+#include <sdl/hexagon.hpp>
+#include <sdl/point.hpp>
+#include <sdl/sdl.hpp>
+#include <util/log.hpp>
 
 namespace tethys {
 	class Screen {
 	public:
 		enum class Status { ok, quit };
-		Screen(const Config&, const sdl::Context&, Log&);
+		Screen(const Config&, const sdl::Context&, util::Log&);
 		Status handle(sdl::Event&);
 		void render() const;
 		void update();

@@ -2,9 +2,9 @@
 #define TETHYS_HEX_TEXTURES_HPP
 
 #include "hex_type.hpp"
-#include "hexagon.hpp"
-#include "sdl.hpp"
 
+#include <sdl/hexagon.hpp>
+#include <sdl/sdl.hpp>
 #include <util/exception.hpp>
 
 namespace tethys {

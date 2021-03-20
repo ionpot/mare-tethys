@@ -3,12 +3,12 @@
 
 #include "hexagon.hpp"
 #include "line.hpp"
-#include "log.hpp"
 #include "point.hpp"
 #include "rgb.hpp"
 #include "size.hpp"
 
 #include <util/exception.hpp>
+#include <util/log.hpp>
 #include <util/macros.hpp>
 
 #include <SDL.h>
@@ -64,8 +64,8 @@ namespace tethys::sdl {
 		friend struct Context;
 		bool m_call_quit;
 		Event m_event;
-		std::reference_wrapper<Log> m_log;
-		Base(Log&);
+		std::reference_wrapper<util::Log> m_log;
+		Base(util::Log&);
 		~Base();
 		TETHYS_NO_COPY(Base)
 		TETHYS_DECLARE_MOVE(Base)
@@ -137,7 +137,7 @@ namespace tethys::sdl {
 		Base base;
 		Window window;
 		Renderer renderer;
-		Context(std::string title, Size size, Log&);
+		Context(std::string title, Size size, util::Log&);
 		~Context() = default;
 		TETHYS_NO_COPY(Context)
 		TETHYS_DEFAULT_MOVE(Context)

@@ -1,7 +1,7 @@
 #include "scroll.hpp"
 
-#include "point.hpp"
-#include "size.hpp"
+#include <sdl/point.hpp>
+#include <sdl/size.hpp>
 
 namespace tethys {
 	Scroll::Scroll(Size screen, Size content, int speed):

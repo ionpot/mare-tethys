@@ -1,8 +1,7 @@
 #ifndef TETHYS_CONFIG_HPP
 #define TETHYS_CONFIG_HPP
 
-#include "size.hpp"
-
+#include <sdl/size.hpp>
 #include <util/cfg_file.hpp>
 
 namespace tethys {

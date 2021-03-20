@@ -4,11 +4,11 @@
 #include "grid_file.hpp"
 #include "hex_textures.hpp"
 #include "hex_type.hpp"
-#include "hexagon.hpp"
-#include "point.hpp"
-#include "sdl.hpp"
-#include "size.hpp"
 
+#include <sdl/hexagon.hpp>
+#include <sdl/point.hpp>
+#include <sdl/sdl.hpp>
+#include <sdl/size.hpp>
 #include <util/exception.hpp>
 
 #include <string>

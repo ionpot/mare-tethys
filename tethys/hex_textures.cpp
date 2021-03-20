@@ -1,8 +1,9 @@
 #include "hex_textures.hpp"
 
 #include "hex_type.hpp"
-#include "rgb.hpp"
-#include "sdl.hpp"
+
+#include <sdl/rgb.hpp>
+#include <sdl/sdl.hpp>
 
 namespace tethys {
 	namespace {

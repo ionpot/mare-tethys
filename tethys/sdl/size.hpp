@@ -1,6 +1,8 @@
 #ifndef TETHYS_SIZE_HPP
 #define TETHYS_SIZE_HPP
 
+#include <string>
+
 namespace tethys {
 	struct Size {
 		int width = 0;
@@ -12,6 +14,12 @@ namespace tethys {
 		Size operator-(const Size& size)
 		{
 			return {width - size.width, height - size.height};
+		}
+		std::string to_str() const
+		{
+			return std::to_string(width)
+				+ "x"
+				+ std::to_string(height);
 		}
 	};
 }

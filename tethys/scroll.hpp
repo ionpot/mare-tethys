@@ -1,8 +1,8 @@
 #ifndef TETHYS_SCROLL_HPP
 #define TETHYS_SCROLL_HPP
 
-#include "point.hpp"
-#include "size.hpp"
+#include <sdl/point.hpp>
+#include <sdl/size.hpp>
 
 namespace tethys {
 	class Scroll {
