@@ -1,5 +1,5 @@
-#ifndef TETHYS_RGB_HPP
-#define TETHYS_RGB_HPP
+#ifndef TETHYS_SDL_RGB_HPP
+#define TETHYS_SDL_RGB_HPP
 
 #include <SDL.h>
 

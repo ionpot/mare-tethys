@@ -1,5 +1,5 @@
-#ifndef TETHYS_LINE_HPP
-#define TETHYS_LINE_HPP
+#ifndef TETHYS_SDL_LINE_HPP
+#define TETHYS_SDL_LINE_HPP
 
 #include "point.hpp"
 

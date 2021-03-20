@@ -1,5 +1,5 @@
-#ifndef TETHYS_SDL_HPP
-#define TETHYS_SDL_HPP
+#ifndef TETHYS_SDL_SDL_HPP
+#define TETHYS_SDL_SDL_HPP
 
 #include "hexagon.hpp"
 #include "line.hpp"

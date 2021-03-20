@@ -1,5 +1,5 @@
-#ifndef TETHYS_HEXAGON_HPP
-#define TETHYS_HEXAGON_HPP
+#ifndef TETHYS_SDL_HEXAGON_HPP
+#define TETHYS_SDL_HEXAGON_HPP
 
 #include "point.hpp"
 #include "size.hpp"

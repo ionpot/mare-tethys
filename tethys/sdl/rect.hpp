@@ -1,5 +1,5 @@
-#ifndef TETHYS_RECT_HPP
-#define TETHYS_RECT_HPP
+#ifndef TETHYS_SDL_RECT_HPP
+#define TETHYS_SDL_RECT_HPP
 
 #include "point.hpp"
 #include "size.hpp"

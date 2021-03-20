@@ -1,5 +1,5 @@
-#ifndef TETHYS_SIZE_HPP
-#define TETHYS_SIZE_HPP
+#ifndef TETHYS_SDL_SIZE_HPP
+#define TETHYS_SDL_SIZE_HPP
 
 #include <string>
 
