@@ -7,7 +7,7 @@
 namespace tethys {
 	class Scroll {
 	public:
-		Scroll(Size screen, Size content, int speed);
+		Scroll(sdl::Size screen, sdl::Size content, int speed);
 		void start_left();
 		void start_right();
 		void start_up();
@@ -17,12 +17,12 @@ namespace tethys {
 		void stop_right();
 		void stop_up();
 		void stop_down();
-		void update(Point&) const;
+		void update(sdl::Point&) const;
 	private:
-		const Point m_min;
-		const Point m_max;
+		const sdl::Point m_min;
+		const sdl::Point m_max;
 		const int m_speed;
-		Point m_state;
+		sdl::Point m_state;
 	};
 }
 

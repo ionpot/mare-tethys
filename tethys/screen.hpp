@@ -20,15 +20,15 @@ namespace tethys {
 		void render() const;
 		void update();
 	private:
-		const Point* m_active_point;
+		const sdl::Point* m_active_point;
 		bool m_focus;
-		Hexagon m_hex;
+		sdl::Hexagon m_hex;
 		HexGrid m_grid;
 		HexTextures m_hex_textures;
 		sdl::Texture m_border_tx;
 		sdl::Texture m_grid_tx;
-		Point m_grid_pos;
-		Point m_mouse_pos;
+		sdl::Point m_grid_pos;
+		sdl::Point m_mouse_pos;
 		std::reference_wrapper<const sdl::Renderer> m_renderer;
 		Scroll m_scroll;
 		Status handle_key(const sdl::KeyEvent&);

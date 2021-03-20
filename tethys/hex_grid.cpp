@@ -25,8 +25,8 @@ namespace tethys {
 			throw Exception {"Excess columns: " + std::to_string(excess)};
 	}
 
-	const Point*
-	HexGrid::find_point(Point p, const Hexagon& hex)
+	const sdl::Point*
+	HexGrid::find_point(sdl::Point p, const sdl::Hexagon& hex)
 	{
 		const auto* pos = &m_found.position;
 		if (m_found.ok) {
@@ -37,27 +37,27 @@ namespace tethys {
 		return m_found.ok ? pos : nullptr;
 	}
 
-	Point
-	HexGrid::find_position(Nodes_i index, const Hexagon& hex) const
+	sdl::Point
+	HexGrid::find_position(Nodes_i index, const sdl::Hexagon& hex) const
 	{
 		auto height = hex.below().y;
 		auto offset = hex.below_right();
 		auto row = TETHYS_INT(index / m_columns);
 		auto col = TETHYS_INT(index % m_columns);
-		Point pos {col * offset.x, row * height};
+		sdl::Point pos {col * offset.x, row * height};
 		if (col % 2) {
 			pos.y += offset.y;
 		}
 		return pos;
 	}
 
-	Size
-	HexGrid::find_size(const Hexagon& hex) const
+	sdl::Size
+	HexGrid::find_size(const sdl::Hexagon& hex) const
 	{
 		auto width = hex.width();
 		auto height = hex.height();
 		auto offset = hex.below_right();
-		Size size {m_columns * width, m_rows * height};
+		sdl::Size size {m_columns * width, m_rows * height};
 		if (m_columns > 1) {
 			size.width -= (m_columns - 1) * (width - offset.x);
 			size.height += offset.y;
@@ -66,7 +66,7 @@ namespace tethys {
 	}
 
 	void
-	HexGrid::seek(Point target, const Hexagon& hex)
+	HexGrid::seek(sdl::Point target, const sdl::Hexagon& hex)
 	{
 		for (Nodes_i i = 0; i < m_nodes.size(); ++i) {
 			auto pos = find_position(i, hex);
@@ -83,7 +83,7 @@ namespace tethys {
 	HexGrid::to_texture(
 			const sdl::Renderer& rdr,
 			const HexTextures& textures,
-			const Hexagon& hex) const
+			const sdl::Hexagon& hex) const
 	{
 		auto tx = rdr.create_target_texture(find_size(hex));
 		rdr.set_target(tx);

@@ -12,8 +12,8 @@
 namespace tethys {
 	namespace {
 		const struct {
-			RGB border {200, 200, 200};
-			RGB screen {rgb::black};
+			sdl::RGB border {200, 200, 200};
+			sdl::RGB screen {sdl::rgb::black};
 		} s_color;
 	}
 

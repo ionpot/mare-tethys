@@ -1,9 +1,10 @@
 #include "config.hpp"
 
+#include <sdl/size.hpp>
 #include <util/cfg_file.hpp>
 
 namespace tethys {
-	Size
+	sdl::Size
 	find_window_size(const util::CfgFile& file)
 	{
 		auto section = file.find_section("window");

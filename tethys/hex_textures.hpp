@@ -15,7 +15,7 @@ namespace tethys {
 				util::Exception {"HexTextures", text}
 			{}
 		};
-		HexTextures(const Hexagon&, const sdl::Renderer&);
+		HexTextures(const sdl::Hexagon&, const sdl::Renderer&);
 		const sdl::Texture& of_type(HexType) const;
 	private:
 		sdl::Texture m_agriculture;

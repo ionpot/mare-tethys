@@ -3,7 +3,7 @@
 
 #include "point.hpp"
 
-namespace tethys {
+namespace tethys::sdl {
 	struct Line {
 		Point start;
 		Point end;

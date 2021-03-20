@@ -6,7 +6,7 @@
 #include <SDL.h>
 #include <cmath>
 
-namespace tethys {
+namespace tethys::sdl {
 	struct Point {
 		int x = 0;
 		int y = 0;

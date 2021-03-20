@@ -2,22 +2,23 @@
 
 #include "hex_type.hpp"
 
+#include <sdl/hexagon.hpp>
 #include <sdl/rgb.hpp>
 #include <sdl/sdl.hpp>
 
 namespace tethys {
 	namespace {
 		const struct {
-			RGB city {100, 100, 100};
-			RGB desert {200, 200, 50};
-			RGB forest {0, 75, 0};
-			RGB mountain {140, 70, 20};
-			RGB plains {34, 139, 34};
-			RGB sea {50, 50, 200};
+			sdl::RGB city {100, 100, 100};
+			sdl::RGB desert {200, 200, 50};
+			sdl::RGB forest {0, 75, 0};
+			sdl::RGB mountain {140, 70, 20};
+			sdl::RGB plains {34, 139, 34};
+			sdl::RGB sea {50, 50, 200};
 		} s_color;
 	}
 
-	HexTextures::HexTextures(const Hexagon& hex, const sdl::Renderer& rdr):
+	HexTextures::HexTextures(const sdl::Hexagon& hex, const sdl::Renderer& rdr):
 		m_agriculture {rdr.create_texture_from_png("hex_agriculture.png")},
 		m_city {rdr.create_hex(hex, s_color.city)},
 		m_desert {rdr.create_hex(hex, s_color.desert)},

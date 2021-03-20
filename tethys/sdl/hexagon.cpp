@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace tethys {
+namespace tethys::sdl {
 	namespace {
 		const double s_sqrt3 = std::sqrt(3);
 

@@ -8,7 +8,7 @@
 
 #include <string>
 
-namespace tethys {
+namespace tethys::sdl {
 	struct Hexagon {
 		struct Exception : public util::Exception {
 			Exception(std::string text):

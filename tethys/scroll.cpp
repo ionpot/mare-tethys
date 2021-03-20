@@ -4,9 +4,9 @@
 #include <sdl/size.hpp>
 
 namespace tethys {
-	Scroll::Scroll(Size screen, Size content, int speed):
-		m_min {Point::min(screen - content)},
-		m_max {Point::max(screen - content)},
+	Scroll::Scroll(sdl::Size screen, sdl::Size content, int speed):
+		m_min {sdl::Point::min(screen - content)},
+		m_max {sdl::Point::max(screen - content)},
 		m_speed {speed},
 		m_state {}
 	{}
@@ -70,7 +70,7 @@ namespace tethys {
 	}
 
 	void
-	Scroll::update(Point& p) const
+	Scroll::update(sdl::Point& p) const
 	{
 		p -= m_state;
 		p.pick_max(m_min);

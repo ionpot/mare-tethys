@@ -23,25 +23,25 @@ namespace tethys {
 			{}
 		};
 		HexGrid(const GridFile&);
-		const Point* find_point(Point, const Hexagon&);
-		Size find_size(const Hexagon&) const;
+		const sdl::Point* find_point(sdl::Point, const sdl::Hexagon&);
+		sdl::Size find_size(const sdl::Hexagon&) const;
 		sdl::Texture to_texture(
 				const sdl::Renderer&,
 				const HexTextures&,
-				const Hexagon&) const;
+				const sdl::Hexagon&) const;
 	private:
 		typedef std::vector<HexType> Nodes;
 		typedef Nodes::size_type Nodes_i;
 		struct Found {
 			bool ok {true};
-			Point position {0, 0};
+			sdl::Point position {0, 0};
 		};
 		const Nodes m_nodes;
 		const int m_columns;
 		const int m_rows;
 		Found m_found;
-		Point find_position(Nodes_i, const Hexagon&) const;
-		void seek(Point, const Hexagon&);
+		sdl::Point find_position(Nodes_i, const sdl::Hexagon&) const;
+		void seek(sdl::Point, const sdl::Hexagon&);
 	};
 }
 

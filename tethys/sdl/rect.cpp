@@ -5,7 +5,7 @@
 
 #include <SDL.h>
 
-namespace tethys {
+namespace tethys::sdl {
 	Rect::Rect(Size s):
 		position {0, 0},
 		size {s}

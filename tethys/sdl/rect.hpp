@@ -6,7 +6,7 @@
 
 #include <SDL.h>
 
-namespace tethys {
+namespace tethys::sdl {
 	struct Rect {
 		Point position;
 		Size size;

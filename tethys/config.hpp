@@ -23,7 +23,7 @@ namespace tethys {
 
 		double hex_side;
 
-		Size window_size;
+		sdl::Size window_size;
 
 		Config(const util::CfgFile&);
 	};

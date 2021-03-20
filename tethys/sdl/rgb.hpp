@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 
-namespace tethys {
+namespace tethys::sdl {
 	struct RGB {
 		Uint8 red;
 		Uint8 green;
