@@ -1,5 +1,4 @@
-#ifndef TETHYS_CONFIG_HPP
-#define TETHYS_CONFIG_HPP
+#pragma once
 
 #include <sdl/size.hpp>
 #include <util/cfg_file.hpp>
@@ -28,5 +27,3 @@ namespace tethys {
 		Config(const util::CfgFile&);
 	};
 }
-
-#endif

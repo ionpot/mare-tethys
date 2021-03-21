@@ -1,5 +1,4 @@
-#ifndef TETHYS_UTIL_EXCEPTION_HPP
-#define TETHYS_UTIL_EXCEPTION_HPP
+#pragma once
 
 #include <exception>
 #include <string>
@@ -23,5 +22,3 @@ namespace tethys::util {
 		const std::string final_text;
 	};
 }
-
-#endif

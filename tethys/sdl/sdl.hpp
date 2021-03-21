@@ -1,5 +1,4 @@
-#ifndef TETHYS_SDL_SDL_HPP
-#define TETHYS_SDL_SDL_HPP
+#pragma once
 
 #include "hexagon.hpp"
 #include "line.hpp"
@@ -146,5 +145,3 @@ namespace tethys::sdl {
 	void show_error(const char* title, const char* text);
 	void show_error(std::string title, std::string text);
 }
-
-#endif

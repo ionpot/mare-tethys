@@ -1,5 +1,4 @@
-#ifndef TETHYS_SCREEN_HPP
-#define TETHYS_SCREEN_HPP
+#pragma once
 
 #include "config.hpp"
 #include "hex_grid.hpp"
@@ -35,5 +34,3 @@ namespace tethys {
 		void update_active_point();
 	};
 }
-
-#endif

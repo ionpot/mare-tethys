@@ -1,5 +1,4 @@
-#ifndef TETHYS_SDL_SIZE_HPP
-#define TETHYS_SDL_SIZE_HPP
+#pragma once
 
 #include <string>
 
@@ -23,5 +22,3 @@ namespace tethys::sdl {
 		}
 	};
 }
-
-#endif

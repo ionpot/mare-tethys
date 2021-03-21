@@ -1,5 +1,4 @@
-#ifndef TETHYS_GRID_FILE_HPP
-#define TETHYS_GRID_FILE_HPP
+#pragma once
 
 #include "hex_type.hpp"
 
@@ -21,5 +20,3 @@ namespace tethys {
 		static GridFile read(std::string filename);
 	};
 }
-
-#endif

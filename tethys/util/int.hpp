@@ -1,5 +1,4 @@
-#ifndef TETHYS_UTIL_INT_HPP
-#define TETHYS_UTIL_INT_HPP
+#pragma once
 
 #include "exception.hpp"
 #include "file_line.hpp"
@@ -18,5 +17,3 @@ namespace tethys::util {
 	};
 	int int_cast(uintmax_t, FileLine location, std::string name);
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef TETHYS_SDL_RECT_HPP
-#define TETHYS_SDL_RECT_HPP
+#pragma once
 
 #include "point.hpp"
 #include "size.hpp"
@@ -16,5 +15,3 @@ namespace tethys::sdl {
 		SDL_Rect to_sdl() const;
 	};
 }
-
-#endif

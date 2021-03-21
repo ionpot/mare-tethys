@@ -1,5 +1,4 @@
-#ifndef TETHYS_SDL_RGB_HPP
-#define TETHYS_SDL_RGB_HPP
+#pragma once
 
 #include <SDL.h>
 
@@ -15,5 +14,3 @@ namespace tethys::sdl {
 		const RGB red {255, 0, 0};
 	}
 }
-
-#endif

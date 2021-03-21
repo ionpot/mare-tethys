@@ -1,5 +1,4 @@
-#ifndef TETHYS_UTIL_FILE_HPP
-#define TETHYS_UTIL_FILE_HPP
+#pragma once
 
 #include "exception.hpp"
 
@@ -24,5 +23,3 @@ namespace tethys::util::file {
 
 	LineList read_lines(std::string filename);
 }
-
-#endif

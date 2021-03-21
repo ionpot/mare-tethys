@@ -1,5 +1,4 @@
-#ifndef TETHYS_SDL_POINT_HPP
-#define TETHYS_SDL_POINT_HPP
+#pragma once
 
 #include "size.hpp"
 
@@ -93,5 +92,3 @@ namespace tethys::sdl {
 		}
 	};
 }
-
-#endif

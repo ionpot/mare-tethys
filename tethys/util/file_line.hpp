@@ -1,5 +1,4 @@
-#ifndef TETHYS_UTIL_FILE_LINE_HPP
-#define TETHYS_UTIL_FILE_LINE_HPP
+#pragma once
 
 #include "macros.hpp"
 
@@ -21,5 +20,3 @@ namespace tethys::util {
 		}
 	};
 }
-
-#endif

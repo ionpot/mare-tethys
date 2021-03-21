@@ -1,5 +1,4 @@
-#ifndef TETHYS_UTIL_MACROS_HPP
-#define TETHYS_UTIL_MACROS_HPP
+#pragma once
 
 // base dir length defined in CMakeLists.txt
 #define TETHYS_FILE (__FILE__ + TETHYS_BASE_DIR_LENGTH)
@@ -18,5 +17,3 @@
 #define TETHYS_NO_COPY(T)\
 	T(const T&) = delete;\
 	T& operator=(const T&) = delete;
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef TETHYS_HEX_TEXTURES_HPP
-#define TETHYS_HEX_TEXTURES_HPP
+#pragma once
 
 #include "hex_type.hpp"
 
@@ -27,5 +26,3 @@ namespace tethys {
 		sdl::Texture m_sea;
 	};
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef TETHYS_SDL_LINE_HPP
-#define TETHYS_SDL_LINE_HPP
+#pragma once
 
 #include "point.hpp"
 
@@ -9,5 +8,3 @@ namespace tethys::sdl {
 		Point end;
 	};
 }
-
-#endif

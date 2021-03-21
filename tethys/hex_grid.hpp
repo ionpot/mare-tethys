@@ -1,5 +1,4 @@
-#ifndef TETHYS_HEX_GRID_HPP
-#define TETHYS_HEX_GRID_HPP
+#pragma once
 
 #include "grid_file.hpp"
 #include "hex_textures.hpp"
@@ -44,5 +43,3 @@ namespace tethys {
 		void seek(sdl::Point, const sdl::Hexagon&);
 	};
 }
-
-#endif

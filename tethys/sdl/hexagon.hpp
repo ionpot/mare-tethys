@@ -1,5 +1,4 @@
-#ifndef TETHYS_SDL_HEXAGON_HPP
-#define TETHYS_SDL_HEXAGON_HPP
+#pragma once
 
 #include "point.hpp"
 #include "size.hpp"
@@ -45,5 +44,3 @@ namespace tethys::sdl {
 		Point below_right() const;
 	};
 }
-
-#endif

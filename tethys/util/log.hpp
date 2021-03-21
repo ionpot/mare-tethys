@@ -1,5 +1,4 @@
-#ifndef TETHYS_UTIL_LOG_HPP
-#define TETHYS_UTIL_LOG_HPP
+#pragma once
 
 #include "macros.hpp"
 
@@ -31,5 +30,3 @@ namespace tethys::util {
 		void write_pair_key(std::string key);
 	};
 }
-
-#endif

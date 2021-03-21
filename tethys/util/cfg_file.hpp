@@ -1,5 +1,4 @@
-#ifndef TETHYS_UTIL_CFG_FILE_HPP
-#define TETHYS_UTIL_CFG_FILE_HPP
+#pragma once
 
 #include "exception.hpp"
 #include "file.hpp"
@@ -73,5 +72,3 @@ namespace tethys::util {
 		find_object_lines(std::string name) const;
 	};
 }
-
-#endif

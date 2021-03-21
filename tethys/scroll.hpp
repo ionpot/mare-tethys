@@ -1,5 +1,4 @@
-#ifndef TETHYS_SCROLL_HPP
-#define TETHYS_SCROLL_HPP
+#pragma once
 
 #include <sdl/point.hpp>
 #include <sdl/size.hpp>
@@ -25,5 +24,3 @@ namespace tethys {
 		sdl::Point m_state;
 	};
 }
-
-#endif
