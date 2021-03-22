@@ -5,8 +5,10 @@
 #include "hex_grid.hpp"
 #include "scroll.hpp"
 
+#include <sdl/context.hpp>
+#include <sdl/event.hpp>
+#include <sdl/key.hpp>
 #include <sdl/rgb.hpp>
-#include <sdl/sdl.hpp>
 #include <util/log.hpp>
 
 namespace tethys {
@@ -105,7 +107,7 @@ namespace tethys {
 	Screen::render() const
 	{
 		auto& rdr = m_renderer.get();
-		rdr.set_color(sdl::RGBA::opaque(s_color.screen));
+		rdr.set_color(sdl::rgba::opaque(s_color.screen));
 		rdr.clear();
 		rdr.put(m_grid_tx, m_grid_pos);
 		if (m_active_point) {

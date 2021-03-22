@@ -1,4 +1,4 @@
-add_library(tethys_sdl hexagon.cpp rect.cpp sdl.cpp)
+add_library(tethys_sdl base.cpp event.cpp hexagon.cpp rect.cpp renderer.cpp texture.cpp window.cpp)
 
 target_link_libraries(tethys_sdl PRIVATE tethys_util)
 

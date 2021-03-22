@@ -1,5 +1,6 @@
 #include "hexagon.hpp"
 
+#include "exception.hpp"
 #include "point.hpp"
 
 #include <algorithm>

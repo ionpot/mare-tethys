@@ -5,8 +5,9 @@
 
 #include <sdl/hexagon.hpp>
 #include <sdl/point.hpp>
-#include <sdl/sdl.hpp>
+#include <sdl/renderer.hpp>
 #include <sdl/size.hpp>
+#include <sdl/texture.hpp>
 #include <util/exception.hpp>
 #include <util/int.hpp>
 

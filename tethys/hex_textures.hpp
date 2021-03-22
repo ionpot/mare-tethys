@@ -3,7 +3,8 @@
 #include "hex_type.hpp"
 
 #include <sdl/hexagon.hpp>
-#include <sdl/sdl.hpp>
+#include <sdl/renderer.hpp>
+#include <sdl/texture.hpp>
 #include <util/exception.hpp>
 
 namespace tethys {

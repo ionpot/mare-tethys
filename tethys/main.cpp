@@ -1,7 +1,8 @@
 #include "config.hpp"
 #include "screen.hpp"
 
-#include <sdl/sdl.hpp>
+#include <sdl/context.hpp>
+#include <sdl/show_error.hpp>
 #include <tethys/version.hpp>
 #include <util/cfg_file.hpp>
 #include <util/exception.hpp>

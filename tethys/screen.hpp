@@ -5,9 +5,12 @@
 #include "hex_textures.hpp"
 #include "scroll.hpp"
 
+#include <sdl/context.hpp>
+#include <sdl/event.hpp>
 #include <sdl/hexagon.hpp>
 #include <sdl/point.hpp>
-#include <sdl/sdl.hpp>
+#include <sdl/renderer.hpp>
+#include <sdl/texture.hpp>
 #include <util/log.hpp>
 
 namespace tethys {
