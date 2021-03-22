@@ -16,9 +16,9 @@ namespace tethys::sdl {
 		)}
 	{
 		if (!m_texture)
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 		if (SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND))
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 	}
 
 	Texture::Texture(SDL_Renderer* renderer, SDL_Surface* surface):
@@ -26,11 +26,11 @@ namespace tethys::sdl {
 		m_texture {SDL_CreateTextureFromSurface(renderer, surface)}
 	{
 		if (!m_texture)
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 		if (SDL_QueryTexture(m_texture, NULL, NULL, &size.width, &size.height))
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 		if (SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND))
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 	}
 
 	Texture::~Texture()

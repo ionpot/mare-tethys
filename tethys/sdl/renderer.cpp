@@ -27,9 +27,9 @@ namespace tethys::sdl {
 		m_renderer {SDL_CreateRenderer(window, -1, s_flags)}
 	{
 		if (!m_renderer)
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 		if (SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND))
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 	}
 
 	Renderer::~Renderer()
@@ -58,7 +58,7 @@ namespace tethys::sdl {
 	{
 		auto err = SDL_RenderClear(m_renderer);
 		if (err)
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 	}
 
 	Texture
@@ -89,7 +89,7 @@ namespace tethys::sdl {
 			line.end.x, line.end.y
 		);
 		if (err)
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 	}
 
 	void
@@ -105,7 +105,7 @@ namespace tethys::sdl {
 			hex.point1().to_sdl()
 		};
 		if (SDL_RenderDrawLines(m_renderer, points.data(), (int)points.size()))
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 	}
 
 	void
@@ -122,7 +122,7 @@ namespace tethys::sdl {
 			m_renderer, texture.m_texture, NULL, &dst
 		);
 		if (err)
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 	}
 
 	Texture
@@ -130,7 +130,7 @@ namespace tethys::sdl {
 	{
 		SDL_RWops* rwops = SDL_RWFromFile(filename.c_str(), "rb");
 		if (!rwops)
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 		SDL_Surface* surface = IMG_LoadPNG_RW(rwops);
 		if (!surface)
 			throw Exception {IMG_GetError()};
@@ -142,7 +142,7 @@ namespace tethys::sdl {
 	{
 		auto err = SDL_SetRenderTarget(m_renderer, NULL);
 		if (err)
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 	}
 
 	void
@@ -162,7 +162,7 @@ namespace tethys::sdl {
 			color.alpha
 		);
 		if (err)
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 	}
 
 	void
@@ -170,6 +170,6 @@ namespace tethys::sdl {
 	{
 		auto err = SDL_SetRenderTarget(m_renderer, texture.m_texture);
 		if (err)
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 	}
 }

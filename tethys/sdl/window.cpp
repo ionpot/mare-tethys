@@ -30,7 +30,7 @@ namespace tethys::sdl {
 	{
 		m_window = s_create_window(title, size);
 		if (!m_window) {
-			throw Exception {SDL_GetError()};
+			throw Exception {};
 		}
 	}
 
