@@ -19,7 +19,7 @@ namespace tethys::sdl {
 	Base::Base(util::Log& log):
 		m_call_quit {true},
 		m_event {},
-		m_log {log}
+		m_log {&log}
 	{
 		if (SDL_WasInit(s_flags.init))
 			throw Exception {"Cannot re-initialize."};
@@ -41,10 +41,9 @@ namespace tethys::sdl {
 	Base::~Base()
 	{
 		if (m_call_quit) {
-			auto& log = m_log.get();
-			log.put("Quitting SDL_image...");
+			m_log->put("Quitting SDL_image...");
 			IMG_Quit();
-			log.put("Quitting SDL...");
+			m_log->put("Quitting SDL...");
 			SDL_Quit();
 		}
 	}

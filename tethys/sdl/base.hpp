@@ -16,7 +16,7 @@ namespace tethys::sdl {
 		friend struct Context;
 		bool m_call_quit;
 		Event m_event;
-		std::reference_wrapper<util::Log> m_log;
+		util::Log* m_log;
 		Base(util::Log&);
 		~Base();
 		TETHYS_NO_COPY(Base)
