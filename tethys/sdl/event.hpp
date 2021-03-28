@@ -7,12 +7,27 @@
 #include <variant>
 
 namespace tethys::sdl {
-	struct KeyEvent {
+	class KeyEvent {
+	public:
 		bool pressed {false};
 		Key key {Key::other};
 	private:
 		friend class Event;
 		KeyEvent(bool, SDL_Keycode);
+	};
+
+	class MouseMoveEvent {
+	public:
+		Point position;
+	private:
+		friend class Event;
+		MouseMoveEvent() = default;
+	};
+
+	class QuitEvent {
+	private:
+		friend class Event;
+		QuitEvent() = default;
 	};
 
 	class WindowEvent {
@@ -27,15 +42,21 @@ namespace tethys::sdl {
 
 	class Event {
 	public:
-		bool is_quit() const;
-		const Point* read_mouse_motion();
-		const KeyEvent* read_key();
-		const WindowEvent* read_window();
+		template<class T>
+		const T* get() const
+		{
+			return std::get_if<T>(&m_data);
+		}
 	private:
 		friend class Base;
-		SDL_Event m_event;
-		std::variant<Point, KeyEvent, WindowEvent> m_data;
+		std::variant<
+			std::monostate,
+			KeyEvent,
+			MouseMoveEvent,
+			QuitEvent,
+			WindowEvent
+		> m_data;
 		Event() = default;
-		Event(SDL_Event);
+		Event(const SDL_Event&);
 	};
 }

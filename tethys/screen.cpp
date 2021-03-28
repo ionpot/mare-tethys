@@ -8,6 +8,7 @@
 #include <sdl/context.hpp>
 #include <sdl/event.hpp>
 #include <sdl/key.hpp>
+#include <sdl/point.hpp>
 #include <sdl/rgb.hpp>
 #include <util/log.hpp>
 
@@ -40,30 +41,26 @@ namespace tethys {
 	}
 
 	Screen::Status
-	Screen::handle(sdl::Event& event)
+	Screen::handle(const sdl::Event& event)
 	{
-		auto key = event.read_key();
-		if (key) {
-			return m_focus
-				? handle_key(*key)
-				: Status::ok;
+		if (event.get<sdl::QuitEvent>()) {
+			return Status::quit;
 		}
-		auto mouse_pos = event.read_mouse_motion();
-		if (mouse_pos) {
-			m_mouse_pos = *mouse_pos;
+		if (auto* key = event.get<sdl::KeyEvent>()) {
+			if (m_focus)
+				return handle_key(*key);
+		}
+		else if (auto* mouse = event.get<sdl::MouseMoveEvent>()) {
+			m_mouse_pos = mouse->position;
 			update_active_point();
-			return Status::ok;
 		}
-		auto window = event.read_window();
-		if (window) {
+		else if (auto* window = event.get<sdl::WindowEvent>()) {
 			if (window->got_focus()) {
 				m_focus = true;
-				return Status::ok;
 			}
-			if (window->lost_focus()) {
+			else if (window->lost_focus()) {
 				m_focus = false;
 				m_scroll.stop();
-				return Status::ok;
 			}
 		}
 		return Status::ok;

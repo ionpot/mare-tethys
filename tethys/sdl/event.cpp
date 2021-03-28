@@ -27,50 +27,31 @@ namespace tethys::sdl {
 		}
 	}
 
-	Event::Event(SDL_Event event):
-		m_event {event},
-		m_data {}
-	{}
-
-	bool
-	Event::is_quit() const
+	Event::Event(const SDL_Event& event)
 	{
-		return m_event.type == SDL_QUIT;
-	}
-
-	const Point*
-	Event::read_mouse_motion()
-	{
-		if (m_event.type == SDL_MOUSEMOTION) {
-			auto motion = m_event.motion;
-			m_data = Point {motion.x, motion.y};
-			return std::get_if<Point>(&m_data);
+		switch (event.type) {
+		case SDL_KEYDOWN:
+			if (event.key.repeat == 0)
+				m_data = KeyEvent {true, event.key.keysym.sym};
+			break;
+		case SDL_KEYUP:
+			if (event.key.repeat == 0)
+				m_data = KeyEvent {false, event.key.keysym.sym};
+			break;
+		case SDL_MOUSEMOTION: {
+			auto motion = event.motion;
+			m_data = MouseMoveEvent {Point {motion.x, motion.y}};
+			break;
 		}
-		return nullptr;
-	}
-
-	const KeyEvent*
-	Event::read_key()
-	{
-		if (m_event.type == SDL_KEYDOWN && m_event.key.repeat == 0) {
-			m_data = KeyEvent {true, m_event.key.keysym.sym};
-			return std::get_if<KeyEvent>(&m_data);
+		case SDL_QUIT:
+			m_data = QuitEvent {};
+			break;
+		case SDL_WINDOWEVENT:
+			m_data = WindowEvent {event.window.event};
+			break;
+		default:
+			break;
 		}
-		if (m_event.type == SDL_KEYUP && m_event.key.repeat == 0) {
-			m_data = KeyEvent {false, m_event.key.keysym.sym};
-			return std::get_if<KeyEvent>(&m_data);
-		}
-		return nullptr;
-	}
-
-	const WindowEvent*
-	Event::read_window()
-	{
-		if (m_event.type == SDL_WINDOWEVENT) {
-			m_data = WindowEvent {m_event.window.event};
-			return std::get_if<WindowEvent>(&m_data);
-		}
-		return nullptr;
 	}
 
 	// key event //

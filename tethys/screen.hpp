@@ -18,7 +18,7 @@ namespace tethys {
 	public:
 		enum class Status { ok, quit };
 		Screen(const Config&, const sdl::Context&, util::Log&);
-		Status handle(sdl::Event&);
+		Status handle(const sdl::Event&);
 		void render() const;
 		void update();
 	private:

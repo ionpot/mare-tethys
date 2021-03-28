@@ -29,8 +29,6 @@ namespace tethys {
 		{
 			auto event = m_sdl.base.poll_event();
 			if (event) {
-				if (event->is_quit())
-					return;
 				if (m_screen.handle(*event) == Screen::Status::quit)
 					return;
 			}
