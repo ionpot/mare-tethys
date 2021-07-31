@@ -16,6 +16,7 @@ namespace tethys::sdl {
 		const RGB black {0, 0, 0};
 		const RGB dark_blue {50, 50, 150};
 		const RGB red {255, 0, 0};
+		const RGB white {255, 255, 255};
 	}
 	namespace rgba {
 		const RGBA transparent {rgb::black, SDL_ALPHA_TRANSPARENT};

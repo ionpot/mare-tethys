@@ -1,22 +1,16 @@
 #pragma once
 
-#include "hex_type.hpp"
+#include <game/grid.hpp>
 
 #include <util/exception.hpp>
 
 #include <string>
-#include <vector>
 
-namespace tethys {
-	struct GridFile {
-		struct Exception : public util::Exception {
-			Exception(std::string text):
-				util::Exception {"GridFile", text}
-			{}
-		};
-		int rows;
-		int columns;
-		std::vector<HexType> types;
-		static GridFile read(std::string filename);
+namespace tethys::grid_file {
+	struct Exception : public util::Exception {
+		Exception(std::string text):
+			util::Exception {"GridFile", text}
+		{}
 	};
+	game::Grid read(std::string filename);
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 // base dir length defined in CMakeLists.txt
-#define TETHYS_FILE (__FILE__ + TETHYS_BASE_DIR_LENGTH)
+#define TETHYS_FILE ((char*)__FILE__ + TETHYS_BASE_DIR_LENGTH)
 
 // declare move-constructor and move-assignment
 #define TETHYS_DECLARE_MOVE(T)\

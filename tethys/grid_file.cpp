@@ -1,67 +1,96 @@
 #include "grid_file.hpp"
 
-#include "hex_type.hpp"
+#include <game/grid.hpp>
+#include <game/hex_type.hpp>
 
 #include <util/file.hpp>
+#include <util/grid.hpp>
 #include <util/int.hpp>
 
 #include <string>
-#include <vector>
 
-namespace tethys {
+namespace tethys::grid_file {
 	namespace {
-		HexType
-		s_get_type(char ch, int row_num)
+		char
+		s_char_at(int i, const std::string& line)
+		{
+			return (i < TETHYS_INT(line.size())) ? line[i] : 'x';
+		}
+
+		game::HexType
+		s_get_type(char ch)
 		{
 			switch (ch) {
 			case 'a':
-				return HexType::agriculture;
+				return game::HexType::agriculture;
 			case 'c':
-				return HexType::city;
+				return game::HexType::city;
 			case 'd':
-				return HexType::desert;
+				return game::HexType::desert;
 			case 'f':
-				return HexType::forest;
+				return game::HexType::forest;
 			case 'm':
-				return HexType::mountain;
+				return game::HexType::mountain;
 			case 'p':
-				return HexType::plains;
+				return game::HexType::plains;
 			case 's':
-				return HexType::sea;
+				return game::HexType::sea;
 			case 'x':
-				return HexType::none;
+				return game::HexType::none;
 			default:
-				throw GridFile::Exception {
-					"Unrecognised character '" + std::string {ch}
-					+ "' on row " + std::to_string(row_num) + "."
+				throw Exception {
+					"Unrecognised character: " + std::string {ch}
 				};
 			}
+		}
+
+		util::GridSize
+		s_grid_size_of(const util::file::LineList& lines)
+		{
+			util::GridSize size;
+			for (const auto& line : lines) {
+				auto len = TETHYS_INT(line.size());
+				if (len > 0) {
+					++size.rows;
+					if (len > size.columns)
+						size.columns = len;
+				}
+			}
+			return size;
+		}
+
+		std::string
+		s_index_to_str(util::GridIndex i)
+		{
+			return "row " + std::to_string(i.row + 1)
+				+ ", column " + std::to_string(i.column + 1);
 		}
 	}
 
-	GridFile
-	GridFile::read(std::string filename)
+	game::Grid
+	read(std::string filename)
 	{
-		GridFile grid;
-		auto lines = util::file::read_lines(filename);
-		grid.rows = TETHYS_INT(lines.size());
-		if (grid.rows > 0) {
-			grid.columns = TETHYS_INT(lines.front().size());
-		}
-		int row_number {1};
+		const auto lines = util::file::read_lines(filename);
+		util::GridIndex index;
+		util::GridSize size {s_grid_size_of(lines)};
+		game::Grid grid {size};
 		for (const auto& line : lines) {
-			auto cols = TETHYS_INT(line.size());
-			if (cols != grid.columns)
-				throw Exception {
-					"Row " + std::to_string(row_number)
-					+ " must have " + std::to_string(grid.columns)
-					+ " characters."
-				};
-			for (const auto& ch : line) {
-				auto type = s_get_type(ch, row_number);
-				grid.types.push_back(type);
+			if (line.empty())
+				continue;
+			auto& i = index.column;
+			for (i = 0; i < size.columns; i++) {
+				auto ch = s_char_at(i, line);
+				try {
+					auto type = s_get_type(ch);
+					grid.cell(index, type);
+				}
+				catch (const Exception& ex) {
+					throw Exception {
+						"Error at " + s_index_to_str(index) + ": " + ex.text
+					};
+				}
 			}
-			++row_number;
+			++index.row;
 		}
 		return grid;
 	}

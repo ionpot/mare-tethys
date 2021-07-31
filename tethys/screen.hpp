@@ -1,16 +1,12 @@
 #pragma once
 
 #include "config.hpp"
-#include "hex_grid.hpp"
-#include "hex_textures.hpp"
-#include "scroll.hpp"
+#include "grid_view.hpp"
 
 #include <sdl/context.hpp>
 #include <sdl/event.hpp>
-#include <sdl/hexagon.hpp>
 #include <sdl/point.hpp>
 #include <sdl/renderer.hpp>
-#include <sdl/texture.hpp>
 #include <util/log.hpp>
 
 namespace tethys {
@@ -19,21 +15,12 @@ namespace tethys {
 		enum class Status { ok, quit };
 		Screen(const Config&, const sdl::Context&, util::Log&);
 		Status handle(const sdl::Event&);
-		void render() const;
+		void render(const sdl::Renderer&) const;
 		void update();
 	private:
-		const sdl::Point* m_active_point;
 		bool m_focus;
-		sdl::Hexagon m_hex;
-		HexGrid m_grid;
-		HexTextures m_hex_textures;
-		sdl::Texture m_border_tx;
-		sdl::Texture m_grid_tx;
-		sdl::Point m_grid_pos;
+		GridView m_grid_view;
 		sdl::Point m_mouse_pos;
-		std::reference_wrapper<const sdl::Renderer> m_renderer;
-		Scroll m_scroll;
 		Status handle_key(const sdl::KeyEvent&);
-		void update_active_point();
 	};
 }

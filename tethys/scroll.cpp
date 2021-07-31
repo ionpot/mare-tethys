@@ -11,6 +11,15 @@ namespace tethys {
 		m_state {}
 	{}
 
+	sdl::Point
+	Scroll::next(sdl::Point p) const
+	{
+		sdl::Point b {p - m_state};
+		b.pick_max(m_min);
+		b.pick_min(m_max);
+		return b;
+	}
+
 	void
 	Scroll::start_down()
 	{
@@ -67,13 +76,5 @@ namespace tethys {
 	{
 		if (m_state.y < 0)
 			m_state.y = 0;
-	}
-
-	void
-	Scroll::update(sdl::Point& p) const
-	{
-		p -= m_state;
-		p.pick_max(m_min);
-		p.pick_min(m_max);
 	}
 }

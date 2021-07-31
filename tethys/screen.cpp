@@ -2,14 +2,14 @@
 
 #include "config.hpp"
 #include "grid_file.hpp"
-#include "hex_grid.hpp"
-#include "scroll.hpp"
+#include "grid_view.hpp"
 
 #include <sdl/context.hpp>
 #include <sdl/event.hpp>
+#include <sdl/hexagon.hpp>
 #include <sdl/key.hpp>
-#include <sdl/point.hpp>
 #include <sdl/rgb.hpp>
+
 #include <util/log.hpp>
 
 namespace tethys {
@@ -25,20 +25,16 @@ namespace tethys {
 			const sdl::Context& sdl,
 			util::Log& log
 	):
-		m_active_point {nullptr},
 		m_focus {sdl.window.has_focus()},
-		m_hex {config.hex_side},
-		m_grid {GridFile::read("tethys.grid")},
-		m_hex_textures {m_hex, sdl.renderer},
-		m_border_tx {sdl.renderer.create_hex(m_hex, s_color.border)},
-		m_grid_tx {m_grid.to_texture(sdl.renderer, m_hex_textures, m_hex)},
-		m_grid_pos {50, 50},
-		m_mouse_pos {},
-		m_renderer {sdl.renderer},
-		m_scroll {config.window_size, m_grid_tx.size, 10}
-	{
-		log.pair("Hexagon size", m_hex.size().to_str());
-	}
+		m_grid_view {
+			grid_file::read("tethys.grid"),
+			sdl::Hexagon {config.hex_side},
+			config.window_size,
+			sdl.renderer,
+			log
+		},
+		m_mouse_pos {}
+	{}
 
 	Screen::Status
 	Screen::handle(const sdl::Event& event)
@@ -52,7 +48,6 @@ namespace tethys {
 		}
 		else if (auto* mouse = event.get<sdl::MouseMoveEvent>()) {
 			m_mouse_pos = mouse->position;
-			update_active_point();
 		}
 		else if (auto* window = event.get<sdl::WindowEvent>()) {
 			if (window->got_focus()) {
@@ -60,7 +55,7 @@ namespace tethys {
 			}
 			else if (window->lost_focus()) {
 				m_focus = false;
-				m_scroll.stop();
+				m_grid_view.scroll.stop();
 			}
 		}
 		return Status::ok;
@@ -72,27 +67,27 @@ namespace tethys {
 		switch (event.key) {
 		case sdl::Key::left:
 			if (event.pressed)
-				m_scroll.start_left();
+				m_grid_view.scroll.start_left();
 			else
-				m_scroll.stop_left();
+				m_grid_view.scroll.stop_left();
 			break;
 		case sdl::Key::right:
 			if (event.pressed)
-				m_scroll.start_right();
+				m_grid_view.scroll.start_right();
 			else
-				m_scroll.stop_right();
+				m_grid_view.scroll.stop_right();
 			break;
 		case sdl::Key::up:
 			if (event.pressed)
-				m_scroll.start_up();
+				m_grid_view.scroll.start_up();
 			else
-				m_scroll.stop_up();
+				m_grid_view.scroll.stop_up();
 			break;
 		case sdl::Key::down:
 			if (event.pressed)
-				m_scroll.start_down();
+				m_grid_view.scroll.start_down();
 			else
-				m_scroll.stop_down();
+				m_grid_view.scroll.stop_down();
 			break;
 		case sdl::Key::other:
 			return Status::quit;
@@ -101,34 +96,17 @@ namespace tethys {
 	}
 
 	void
-	Screen::render() const
+	Screen::render(const sdl::Renderer& rdr) const
 	{
-		auto& rdr = m_renderer.get();
 		rdr.set_color(sdl::rgba::opaque(s_color.screen));
 		rdr.clear();
-		rdr.put(m_grid_tx, m_grid_pos);
-		if (m_active_point) {
-			rdr.put(m_border_tx,
-				m_grid_pos
-				+ *m_active_point
-			);
-		}
+		m_grid_view.render(rdr);
 		rdr.present();
 	}
 
 	void
 	Screen::update()
 	{
-		auto prev_pos = m_grid_pos;
-		m_scroll.update(m_grid_pos);
-		if (m_grid_pos != prev_pos)
-			update_active_point();
-	}
-
-	void
-	Screen::update_active_point()
-	{
-		m_active_point =
-			m_grid.find_point(m_mouse_pos - m_grid_pos, m_hex);
+		m_grid_view.update(m_mouse_pos);
 	}
 }
