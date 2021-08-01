@@ -16,7 +16,7 @@ namespace tethys {
 		agriculture {PNG(rdr, "hex_agriculture.png")},
 		base {PNG(rdr, "hex_base.png")},
 		city {rdr.create_hex(hex, {100, 100, 100})},
-		desert {rdr.create_hex(hex, {200, 200, 50})},
+		desert {PNG(rdr, "hex_desert.png")},
 		forest {PNG(rdr, "hex_forest.png")},
 		hills {PNG(rdr, "hex_hills.png")},
 		mountain {PNG(rdr, "hex_mountain.png")},
