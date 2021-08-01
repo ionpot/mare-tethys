@@ -19,7 +19,6 @@ namespace tethys {
 	namespace {
 		typedef GridView::AbsolutePos Absolute;
 		typedef GridView::RelativePos Relative;
-		const int s_scroll_speed = 10;
 	}
 
 	// grid view visible
@@ -51,13 +50,14 @@ namespace tethys {
 			game::Grid&& grid,
 			sdl::Hexagon hex,
 			sdl::Size view_size,
+			int scroll_speed,
 			const sdl::Renderer& rdr,
 			util::Log& log
 	):
 		scroll {
 			view_size,
 			sdl::HexGrid::calculate_size(hex, grid.size),
-			s_scroll_speed
+			scroll_speed
 		},
 		m_active_i {},
 		m_cached_mouse_pos {},

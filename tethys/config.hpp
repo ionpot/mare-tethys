@@ -22,6 +22,8 @@ namespace tethys {
 
 		double hex_side;
 
+		int scroll_speed;
+
 		sdl::Size window_size;
 
 		Config(const util::CfgFile&);

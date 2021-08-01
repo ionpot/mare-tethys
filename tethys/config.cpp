@@ -29,6 +29,7 @@ namespace tethys {
 		gold_per_trade {file.find_pair("gold per trade").to_double()},
 		trade_value {file.find_pair("trade value").to_double()},
 		hex_side {file.find_pair("hex side").to_double()},
+		scroll_speed {file.find_pair("scroll speed").to_int()},
 		window_size {find_window_size(file)}
 	{}
 }

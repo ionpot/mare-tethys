@@ -30,6 +30,7 @@ namespace tethys {
 			grid_file::read("tethys.grid"),
 			sdl::Hexagon {config.hex_side},
 			config.window_size,
+			config.scroll_speed,
 			sdl.renderer,
 			log
 		},

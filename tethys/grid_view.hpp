@@ -49,7 +49,8 @@ namespace tethys {
 		GridView(
 			game::Grid&&,
 			sdl::Hexagon,
-			sdl::Size,
+			sdl::Size view_size,
+			int scroll_speed,
 			const sdl::Renderer&,
 			util::Log&);
 
