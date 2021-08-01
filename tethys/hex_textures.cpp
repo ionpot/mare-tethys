@@ -18,6 +18,7 @@ namespace tethys {
 		city {rdr.create_hex(hex, {100, 100, 100})},
 		desert {rdr.create_hex(hex, {200, 200, 50})},
 		forest {PNG(rdr, "hex_forest.png")},
+		hills {PNG(rdr, "hex_hills.png")},
 		mountain {PNG(rdr, "hex_mountain.png")},
 		plains {PNG(rdr, "hex_plains.png")},
 		sea {PNG(rdr, "hex_sea.png")}
@@ -36,7 +37,7 @@ namespace tethys {
 		case game::HexType::desert:
 			return {desert};
 		case game::HexType::forest:
-			return {base};
+		case game::HexType::hills:
 		case game::HexType::mountain:
 			return {base};
 		case game::HexType::plains:
@@ -53,6 +54,8 @@ namespace tethys {
 		switch (type) {
 		case game::HexType::forest:
 			return {Overlay {forest, {0, -15}}};
+		case game::HexType::hills:
+			return {Overlay {hills, {0, -6}}};
 		case game::HexType::mountain:
 			return {Overlay {mountain, {0, -19}}};
 		case game::HexType::none:

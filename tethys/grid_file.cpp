@@ -29,6 +29,8 @@ namespace tethys::grid_file {
 				return game::HexType::desert;
 			case 'f':
 				return game::HexType::forest;
+			case 'h':
+				return game::HexType::hills;
 			case 'm':
 				return game::HexType::mountain;
 			case 'p':

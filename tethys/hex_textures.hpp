@@ -32,6 +32,7 @@ namespace tethys {
 		sdl::Texture city;
 		sdl::Texture desert;
 		sdl::Texture forest;
+		sdl::Texture hills;
 		sdl::Texture mountain;
 		sdl::Texture plains;
 		sdl::Texture sea;
