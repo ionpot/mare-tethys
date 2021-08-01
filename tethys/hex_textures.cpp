@@ -22,26 +22,26 @@ namespace tethys {
 		sea {PNG(rdr, "hex_sea.png")}
 	{}
 
-	const sdl::Texture&
+	HexTextures::TextureMaybe
 	HexTextures::of_type(game::HexType type) const
 	{
 		switch (type) {
 		case game::HexType::none:
-			throw Exception {"game::HexType::none has no texture."};
+			return {};
 		case game::HexType::agriculture:
-			return agriculture;
+			return {agriculture};
 		case game::HexType::city:
-			return city;
+			return {city};
 		case game::HexType::desert:
-			return desert;
+			return {desert};
 		case game::HexType::forest:
-			return forest;
+			return {forest};
 		case game::HexType::mountain:
-			return mountain;
+			return {mountain};
 		case game::HexType::plains:
-			return plains;
+			return {plains};
 		case game::HexType::sea:
-			return sea;
+			return {sea};
 		}
 		throw Exception {"Unknown hex type."};
 	}

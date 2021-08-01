@@ -8,6 +8,9 @@
 
 #include <util/exception.hpp>
 
+#include <functional>
+#include <optional>
+
 namespace tethys {
 	struct HexTextures {
 		struct Exception : public util::Exception {
@@ -15,6 +18,9 @@ namespace tethys {
 				util::Exception {"HexTextures", text}
 			{}
 		};
+
+		typedef std::optional<std::reference_wrapper<const sdl::Texture>>
+			TextureMaybe;
 
 		sdl::Texture active;
 		sdl::Texture agriculture;
@@ -26,6 +32,6 @@ namespace tethys {
 		sdl::Texture sea;
 
 		HexTextures(const sdl::Hexagon&, const sdl::Renderer&);
-		const sdl::Texture& of_type(game::HexType) const;
+		TextureMaybe of_type(game::HexType) const;
 	};
 }

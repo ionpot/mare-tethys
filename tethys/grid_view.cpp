@@ -102,10 +102,9 @@ namespace tethys {
 	{
 		for (auto iter = begin(); iter.valid(); iter.next()) {
 			auto type = m_game_grid.cell(iter);
-			if (type != game::HexType::none) {
-				auto& tx = m_textures.of_type(type);
+			if (auto tx = m_textures.of_type(type)) {
 				auto pos = m_hex_grid.position_of(iter.index());
-				rdr.put(tx, to_relative(pos));
+				rdr.put(*tx, to_relative(pos));
 			}
 		}
 		if (m_active_i) {
