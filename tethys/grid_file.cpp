@@ -11,63 +11,50 @@
 
 namespace tethys::grid_file {
 	namespace {
-		char
-		s_char_at(int i, const std::string& line)
-		{
-			return (i < TETHYS_INT(line.size())) ? line[i] : 'x';
-		}
+		const int s_token_length = 3;
 
 		game::HexType
-		s_get_type(char ch)
+		s_get_type(std::string token)
 		{
-			switch (ch) {
-			case 'a':
+			if (token == "agr")
 				return game::HexType::agriculture;
-			case 'c':
+			if (token == "cit")
 				return game::HexType::city;
-			case 'd':
+			if (token == "des")
 				return game::HexType::desert;
-			case 'f':
+			if (token == "for")
 				return game::HexType::forest;
-			case 'h':
+			if (token == "hil")
 				return game::HexType::hills;
-			case 'm':
+			if (token == "mou")
 				return game::HexType::mountain;
-			case 'p':
+			if (token == "pla")
 				return game::HexType::plains;
-			case 's':
+			if (token == "sea")
 				return game::HexType::sea;
-			case 'x':
-				return game::HexType::none;
-			case 'v':
+			if (token == "vil")
 				return game::HexType::village;
-			default:
-				throw Exception {
-					"Unrecognised character: " + std::string {ch}
-				};
-			}
+			if (token == "---")
+				return game::HexType::none;
+
+			throw Exception {"Unrecognised character: " + token};
 		}
 
 		util::GridSize
 		s_grid_size_of(const util::file::LineList& lines)
 		{
 			util::GridSize size;
+			auto step = s_token_length + 1;
 			for (const auto& line : lines) {
 				auto len = TETHYS_INT(line.size());
 				if (len > 0) {
 					++size.rows;
-					if (len > size.columns)
-						size.columns = len;
+					auto cols = (len + 1) / step;
+					if (cols > size.columns)
+						size.columns = cols;
 				}
 			}
 			return size;
-		}
-
-		std::string
-		s_index_to_str(util::GridIndex i)
-		{
-			return "row " + std::to_string(i.row + 1)
-				+ ", column " + std::to_string(i.column + 1);
 		}
 	}
 
@@ -75,26 +62,22 @@ namespace tethys::grid_file {
 	read(std::string filename)
 	{
 		const auto lines = util::file::read_lines(filename);
-		util::GridIndex index;
 		util::GridSize size {s_grid_size_of(lines)};
 		game::Grid grid {size};
+		auto iter = grid.begin();
+		auto step = s_token_length + 1;
 		for (const auto& line : lines) {
 			if (line.empty())
 				continue;
-			auto& i = index.column;
-			for (i = 0; i < size.columns; i++) {
-				auto ch = s_char_at(i, line);
-				try {
-					auto type = s_get_type(ch);
-					grid.cell(index, type);
-				}
-				catch (const Exception& ex) {
-					throw Exception {
-						"Error at " + s_index_to_str(index) + ": " + ex.text
-					};
-				}
+			auto len = TETHYS_INT(line.length());
+			for (auto pos = 0; pos < len; pos += step) {
+				auto token = line.substr(pos, s_token_length);
+				auto type = s_get_type(token);
+				grid.cell(iter.index(), type);
+				iter.next();
 			}
-			++index.row;
+			if (!iter.at_new_row())
+				iter.next_row();
 		}
 		return grid;
 	}

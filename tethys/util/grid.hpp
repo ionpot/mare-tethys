@@ -28,9 +28,11 @@ namespace tethys::util {
 	class GridIterator {
 	public:
 		GridIterator(GridIndex start, GridIndex end);
+		bool at_new_row() const;
 		bool valid() const;
 		GridIndex index() const;
 		void next();
+		void next_row();
 	private:
 		GridIndex m_index;
 		const int m_column_offset;
@@ -48,6 +50,9 @@ namespace tethys::util {
 				 std::make_unique<T[]>(s.total_cells())
 			 }
 		{}
+
+		GridIterator begin() const
+		{ return {{}, size.to_index()}; }
 
 		GridIterator begin(GridIndex start, GridIndex end) const
 		{

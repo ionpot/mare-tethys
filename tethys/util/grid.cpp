@@ -97,6 +97,12 @@ namespace tethys::util {
 	{}
 
 	bool
+	GridIterator::at_new_row() const
+	{
+		return m_index.column == m_column_offset;
+	}
+
+	bool
 	GridIterator::valid() const
 	{
 		return m_index.row <= m_end.row;
@@ -111,13 +117,16 @@ namespace tethys::util {
 	void
 	GridIterator::next()
 	{
-		auto& [row, column] = m_index;
-		if (column < m_end.column) {
-			++column;
-		}
-		else {
-			column = m_column_offset;
-			++row;
-		}
+		if (m_index.column < m_end.column)
+			++m_index.column;
+		else
+			next_row();
+	}
+
+	void
+	GridIterator::next_row()
+	{
+		m_index.column = m_column_offset;
+		++m_index.row;
 	}
 }
