@@ -4,6 +4,7 @@
 
 #include <SDL.h>
 #include <cmath>
+#include <string>
 
 namespace tethys::sdl {
 	Point::Point():
@@ -78,6 +79,13 @@ namespace tethys::sdl {
 		point.x = x;
 		point.y = y;
 		return point;
+	}
+
+	std::string
+	Point::to_str() const
+	{
+		return "(" + std::to_string(x) + ", "
+			+ std::to_string(y) + ")";
 	}
 
 	Point

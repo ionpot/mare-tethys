@@ -73,6 +73,7 @@ namespace tethys {
 			+ " (" + m_hex_grid.size_of(m_game_grid.size).to_str() + ")"
 		);
 		log.pair("Max visible cells", m_visible.max.to_str());
+		log.pair("Scroll", scroll.to_str());
 	}
 
 	util::GridIterator

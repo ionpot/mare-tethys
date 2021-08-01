@@ -4,6 +4,8 @@
 
 #include <SDL.h>
 
+#include <string>
+
 namespace tethys::sdl {
 	struct Point {
 		int x = 0;
@@ -23,6 +25,7 @@ namespace tethys::sdl {
 		Point& operator-=(const Point& p);
 		bool operator==(const Point& p) const;
 		bool operator!=(const Point& p) const;
+		std::string to_str() const;
 		static Point min(Point a, Point b = {0, 0});
 		static Point max(Point a, Point b = {0, 0});
 	};

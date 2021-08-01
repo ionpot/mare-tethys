@@ -3,6 +3,8 @@
 #include <sdl/point.hpp>
 #include <sdl/size.hpp>
 
+#include <string>
+
 namespace tethys {
 	class Scroll {
 	public:
@@ -17,6 +19,8 @@ namespace tethys {
 		void stop_right();
 		void stop_up();
 		void stop_down();
+		std::string to_str() const;
+
 	private:
 		const sdl::Point m_min;
 		const sdl::Point m_max;

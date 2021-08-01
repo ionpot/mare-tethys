@@ -3,6 +3,8 @@
 #include <sdl/point.hpp>
 #include <sdl/size.hpp>
 
+#include <string>
+
 namespace tethys {
 	Scroll::Scroll(sdl::Size screen, sdl::Size content, int speed):
 		m_min {sdl::Point::min(screen - content)},
@@ -76,5 +78,11 @@ namespace tethys {
 	{
 		if (m_state.y < 0)
 			m_state.y = 0;
+	}
+
+	std::string
+	Scroll::to_str() const
+	{
+		return "min " + m_min.to_str() + ", max " + m_max.to_str();
 	}
 }
