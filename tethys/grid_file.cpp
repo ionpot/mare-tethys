@@ -43,7 +43,7 @@ namespace tethys::grid_file {
 		util::GridSize
 		s_grid_size_of(const util::file::LineList& lines)
 		{
-			util::GridSize size;
+			util::GridSize size {0, 0};
 			auto step = s_token_length + 1;
 			for (const auto& line : lines) {
 				auto len = TETHYS_INT(line.size());
