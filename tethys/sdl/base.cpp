@@ -8,12 +8,22 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+#include <string>
+
 namespace tethys::sdl {
 	namespace {
 		const struct {
 			Uint32 init {SDL_INIT_VIDEO};
 			int img_init {IMG_INIT_PNG};
 		} s_flags;
+
+		std::string
+		s_version_str(const SDL_version& v)
+		{
+			return std::to_string(v.major)
+				+ "." + std::to_string(v.minor)
+				+ "." + std::to_string(v.patch);
+		}
 	}
 
 	Base::Base(util::Log& log):
@@ -23,13 +33,18 @@ namespace tethys::sdl {
 	{
 		if (SDL_WasInit(s_flags.init))
 			throw Exception {"Cannot re-initialize."};
-		log.put("Initializing SDL...");
+
+		SDL_version sdl_ver;
+		SDL_GetVersion(&sdl_ver);
+		log.put("Initializing SDL " + s_version_str(sdl_ver) + "...");
 		if (SDL_Init(s_flags.init)) {
 			std::string text {SDL_GetError()};
 			SDL_Quit();
 			throw Exception {text};
 		}
-		log.put("Initializing SDL_image...");
+
+		auto img_ver = s_version_str(*IMG_Linked_Version());
+		log.put("Initializing SDL_image " + img_ver + "...");
 		int img_ok {IMG_Init(s_flags.img_init) & s_flags.img_init};
 		if (!img_ok) {
 			std::string text {IMG_GetError()};
