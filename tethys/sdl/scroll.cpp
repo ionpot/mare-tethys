@@ -1,22 +1,22 @@
 #include "scroll.hpp"
 
-#include <sdl/point.hpp>
-#include <sdl/size.hpp>
+#include "point.hpp"
+#include "size.hpp"
 
 #include <string>
 
-namespace tethys {
-	Scroll::Scroll(sdl::Size screen, sdl::Size content, int speed):
-		m_min {sdl::Point::min(screen - content)},
-		m_max {sdl::Point::max(screen - content)},
+namespace tethys::sdl {
+	Scroll::Scroll(Size screen, Size content, int speed):
+		m_min {Point::min(screen - content)},
+		m_max {Point::max(screen - content)},
 		m_speed {speed},
 		m_state {}
 	{}
 
-	sdl::Point
-	Scroll::next(sdl::Point p) const
+	Point
+	Scroll::next(Point p) const
 	{
-		sdl::Point b {p - m_state};
+		Point b {p - m_state};
 		b.pick_max(m_min);
 		b.pick_min(m_max);
 		return b;

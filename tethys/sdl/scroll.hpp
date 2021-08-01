@@ -1,15 +1,15 @@
 #pragma once
 
-#include <sdl/point.hpp>
-#include <sdl/size.hpp>
+#include "point.hpp"
+#include "size.hpp"
 
 #include <string>
 
-namespace tethys {
+namespace tethys::sdl {
 	class Scroll {
 	public:
-		Scroll(sdl::Size screen, sdl::Size content, int speed);
-		sdl::Point next(sdl::Point) const;
+		Scroll(Size screen, Size content, int speed);
+		Point next(Point) const;
 		void start_left();
 		void start_right();
 		void start_up();
@@ -22,9 +22,9 @@ namespace tethys {
 		std::string to_str() const;
 
 	private:
-		const sdl::Point m_min;
-		const sdl::Point m_max;
+		const Point m_min;
+		const Point m_max;
 		const int m_speed;
-		sdl::Point m_state;
+		Point m_state;
 	};
 }

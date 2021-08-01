@@ -1,7 +1,6 @@
 #pragma once
 
 #include "hex_textures.hpp"
-#include "scroll.hpp"
 
 #include <game/grid.hpp>
 
@@ -9,6 +8,7 @@
 #include <sdl/hex_grid.hpp>
 #include <sdl/point.hpp>
 #include <sdl/renderer.hpp>
+#include <sdl/scroll.hpp>
 #include <sdl/size.hpp>
 
 #include <util/exception.hpp>
@@ -44,7 +44,7 @@ namespace tethys {
 			void update(AbsolutePos, const game::Grid&, const sdl::HexGrid&);
 		};
 
-		Scroll scroll;
+		sdl::Scroll scroll;
 
 		GridView(
 			game::Grid&&,
