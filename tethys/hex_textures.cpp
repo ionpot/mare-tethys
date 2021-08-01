@@ -7,16 +7,19 @@
 #include <sdl/rgb.hpp>
 #include <sdl/texture.hpp>
 
+#define PNG(rdr, file)\
+	rdr.create_texture_from_png("assets/" file)
+
 namespace tethys {
 	HexTextures::HexTextures(const sdl::Hexagon& hex, const sdl::Renderer& rdr):
 		active {rdr.create_hex(hex, sdl::rgb::white)},
-		agriculture {rdr.create_texture_from_png("assets/hex_agriculture.png")},
+		agriculture {PNG(rdr, "hex_agriculture.png")},
 		city {rdr.create_hex(hex, {100, 100, 100})},
 		desert {rdr.create_hex(hex, {200, 200, 50})},
 		forest {rdr.create_hex(hex, {0, 75, 0})},
 		mountain {rdr.create_hex(hex, {140, 70, 20})},
-		plains {rdr.create_texture_from_png("assets/hex_plains.png")},
-		sea {rdr.create_texture_from_png("assets/hex_sea.png")}
+		plains {PNG(rdr, "hex_plains.png")},
+		sea {PNG(rdr, "hex_sea.png")}
 	{}
 
 	const sdl::Texture&
