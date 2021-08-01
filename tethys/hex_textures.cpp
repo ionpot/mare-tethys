@@ -14,16 +14,17 @@ namespace tethys {
 	HexTextures::HexTextures(const sdl::Hexagon& hex, const sdl::Renderer& rdr):
 		active {rdr.create_hex(hex, sdl::rgb::white)},
 		agriculture {PNG(rdr, "hex_agriculture.png")},
+		base {PNG(rdr, "hex_base.png")},
 		city {rdr.create_hex(hex, {100, 100, 100})},
 		desert {rdr.create_hex(hex, {200, 200, 50})},
-		forest {rdr.create_hex(hex, {0, 75, 0})},
-		mountain {rdr.create_hex(hex, {140, 70, 20})},
+		forest {PNG(rdr, "hex_forest.png")},
+		mountain {PNG(rdr, "hex_mountain.png")},
 		plains {PNG(rdr, "hex_plains.png")},
 		sea {PNG(rdr, "hex_sea.png")}
 	{}
 
-	HexTextures::TextureMaybe
-	HexTextures::of_type(game::HexType type) const
+	std::optional<HexTextures::TextureRef> 
+	HexTextures::base_of(game::HexType type) const
 	{
 		switch (type) {
 		case game::HexType::none:
@@ -35,13 +36,32 @@ namespace tethys {
 		case game::HexType::desert:
 			return {desert};
 		case game::HexType::forest:
-			return {forest};
+			return {base};
 		case game::HexType::mountain:
-			return {mountain};
+			return {base};
 		case game::HexType::plains:
 			return {plains};
 		case game::HexType::sea:
 			return {sea};
+		}
+		throw Exception {"Unknown hex type."};
+	}
+
+	std::optional<HexTextures::Overlay> 
+	HexTextures::overlay_of(game::HexType type) const
+	{
+		switch (type) {
+		case game::HexType::forest:
+			return {Overlay {forest, {0, -15}}};
+		case game::HexType::mountain:
+			return {Overlay {mountain, {0, -19}}};
+		case game::HexType::none:
+		case game::HexType::agriculture:
+		case game::HexType::city:
+		case game::HexType::desert:
+		case game::HexType::plains:
+		case game::HexType::sea:
+			return {};
 		}
 		throw Exception {"Unknown hex type."};
 	}

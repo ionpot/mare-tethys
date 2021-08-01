@@ -97,22 +97,37 @@ namespace tethys {
 		return {};
 	}
 
+	Relative
+	GridView::position_of(util::GridIndex i) const
+	{
+		return to_relative(m_hex_grid.position_of(i));
+	}
+
 	void
 	GridView::render(const sdl::Renderer& rdr) const
 	{
 		for (auto iter = begin(); iter.valid(); iter.next()) {
+			auto i = iter.index();
 			auto type = m_game_grid.cell(iter);
-			if (auto tx = m_textures.of_type(type)) {
-				auto pos = m_hex_grid.position_of(iter.index());
-				rdr.put(*tx, to_relative(pos));
+			if (auto base = m_textures.base_of(type)) {
+				auto pos = position_of(i);
+				rdr.put(*base, pos);
 			}
 		}
 		if (m_active_i) {
 			auto i = *m_active_i;
 			auto type = m_game_grid.cell(i);
-			if (type != game::HexType::none) {
-				auto pos = m_hex_grid.position_of(i);
-				rdr.put(m_textures.active, to_relative(pos));
+			if (auto base = m_textures.base_of(type)) {
+				auto pos = position_of(i);
+				rdr.put(m_textures.active, pos);
+			}
+		}
+		for (auto iter = begin(); iter.valid(); iter.next()) {
+			auto i = iter.index();
+			auto type = m_game_grid.cell(iter);
+			if (auto overlay = m_textures.overlay_of(type)) {
+				auto pos = position_of(i);
+				rdr.put(overlay->texture, pos + overlay->offset);
 			}
 		}
 	}

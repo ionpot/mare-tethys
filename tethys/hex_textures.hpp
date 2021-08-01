@@ -19,11 +19,16 @@ namespace tethys {
 			{}
 		};
 
-		typedef std::optional<std::reference_wrapper<const sdl::Texture>>
-			TextureMaybe;
+		typedef std::reference_wrapper<const sdl::Texture> TextureRef;
+
+		struct Overlay {
+			TextureRef texture;
+			sdl::Point offset;
+		};
 
 		sdl::Texture active;
 		sdl::Texture agriculture;
+		sdl::Texture base;
 		sdl::Texture city;
 		sdl::Texture desert;
 		sdl::Texture forest;
@@ -32,6 +37,7 @@ namespace tethys {
 		sdl::Texture sea;
 
 		HexTextures(const sdl::Hexagon&, const sdl::Renderer&);
-		TextureMaybe of_type(game::HexType) const;
+		std::optional<TextureRef> base_of(game::HexType) const;
+		std::optional<Overlay> overlay_of(game::HexType) const;
 	};
 }

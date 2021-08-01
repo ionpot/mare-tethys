@@ -55,6 +55,7 @@ namespace tethys {
 
 		util::GridIterator begin() const;
 		std::optional<util::GridIndex> index_of(AbsolutePos) const;
+		RelativePos position_of(util::GridIndex) const;
 		void render(const sdl::Renderer&) const;
 		void update(RelativePos mouse_position);
 		AbsolutePos to_absolute(RelativePos) const;
