@@ -13,13 +13,6 @@
 #include <util/log.hpp>
 
 namespace tethys {
-	namespace {
-		const struct {
-			sdl::RGB border {200, 200, 200};
-			sdl::RGB screen {sdl::rgb::black};
-		} s_color;
-	}
-
 	Screen::Screen(
 			const Config& config,
 			const sdl::Context& sdl,
@@ -99,7 +92,7 @@ namespace tethys {
 	void
 	Screen::render(const sdl::Renderer& rdr) const
 	{
-		rdr.set_color(sdl::rgba::opaque(s_color.screen));
+		rdr.set_color(sdl::rgba::opaque(sdl::rgb::black));
 		rdr.clear();
 		m_grid_view.render(rdr);
 		rdr.present();
