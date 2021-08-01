@@ -15,13 +15,14 @@ namespace tethys {
 		active {rdr.create_hex(hex, sdl::rgb::white)},
 		agriculture {PNG(rdr, "hex_agriculture.png")},
 		base {PNG(rdr, "hex_base.png")},
-		city {rdr.create_hex(hex, {100, 100, 100})},
+		city {PNG(rdr, "hex_nvillage.png")},
 		desert {PNG(rdr, "hex_desert.png")},
 		forest {PNG(rdr, "hex_forest.png")},
 		hills {PNG(rdr, "hex_hills.png")},
 		mountain {PNG(rdr, "hex_mountain.png")},
 		plains {PNG(rdr, "hex_plains.png")},
-		sea {PNG(rdr, "hex_sea.png")}
+		sea {PNG(rdr, "hex_sea.png")},
+		village {PNG(rdr, "hex_nvillage.png")}
 	{}
 
 	std::optional<HexTextures::TextureRef> 
@@ -33,7 +34,8 @@ namespace tethys {
 		case game::HexType::agriculture:
 			return {agriculture};
 		case game::HexType::city:
-			return {city};
+		case game::HexType::village:
+			return {village};
 		case game::HexType::desert:
 			return {desert};
 		case game::HexType::forest:
@@ -61,6 +63,7 @@ namespace tethys {
 		case game::HexType::none:
 		case game::HexType::agriculture:
 		case game::HexType::city:
+		case game::HexType::village:
 		case game::HexType::desert:
 		case game::HexType::plains:
 		case game::HexType::sea:

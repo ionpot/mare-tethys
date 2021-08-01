@@ -36,6 +36,7 @@ namespace tethys {
 		sdl::Texture mountain;
 		sdl::Texture plains;
 		sdl::Texture sea;
+		sdl::Texture village;
 
 		HexTextures(const sdl::Hexagon&, const sdl::Renderer&);
 		std::optional<TextureRef> base_of(game::HexType) const;

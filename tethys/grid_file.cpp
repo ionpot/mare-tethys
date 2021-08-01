@@ -39,6 +39,8 @@ namespace tethys::grid_file {
 				return game::HexType::sea;
 			case 'x':
 				return game::HexType::none;
+			case 'v':
+				return game::HexType::village;
 			default:
 				throw Exception {
 					"Unrecognised character: " + std::string {ch}
