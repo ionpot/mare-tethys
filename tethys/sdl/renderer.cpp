@@ -128,13 +128,16 @@ namespace tethys::sdl {
 	Texture
 	Renderer::create_texture_from_png(std::string filename) const
 	{
-		SDL_RWops* rwops = SDL_RWFromFile(filename.c_str(), "rb");
+		SDL_RWops* rwops {SDL_RWFromFile(filename.c_str(), "rb")};
 		if (!rwops)
 			throw Exception {};
-		SDL_Surface* surface = IMG_LoadPNG_RW(rwops);
+		SDL_Surface* surface {IMG_LoadPNG_RW(rwops)};
 		if (!surface)
 			throw Exception {IMG_GetError()};
-		return {m_renderer, surface};
+		Texture tx {m_renderer, surface};
+		SDL_FreeSurface(surface);
+		SDL_RWclose(rwops);
+		return tx;
 	}
 
 	void
