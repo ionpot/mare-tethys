@@ -11,6 +11,15 @@ namespace tethys::sdl {
 	struct RGBA {
 		RGB channels;
 		Uint8 alpha;
+		SDL_Color to_sdl() const
+		{
+			return {
+				channels.red,
+				channels.green,
+				channels.blue,
+				alpha
+			};
+		}
 	};
 	namespace rgb {
 		const RGB black {0, 0, 0};

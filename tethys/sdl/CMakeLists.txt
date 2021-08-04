@@ -1,4 +1,4 @@
-add_library(tethys_sdl base.cpp event.cpp hex_grid.cpp hexagon.cpp point.cpp rect.cpp renderer.cpp scroll.cpp texture.cpp window.cpp)
+add_library(tethys_sdl base.cpp event.cpp font.cpp hex_grid.cpp hexagon.cpp point.cpp rect.cpp renderer.cpp scroll.cpp texture.cpp window.cpp)
 
 target_link_libraries(tethys_sdl PRIVATE tethys_util)
 
@@ -11,3 +11,8 @@ target_link_libraries(tethys_sdl PUBLIC "${SDL2_LIBRARIES}")
 find_package(SDL2_image REQUIRED)
 target_include_directories(tethys_sdl PUBLIC "${SDL2_IMAGE_INCLUDE_DIRS}")
 target_link_libraries(tethys_sdl PUBLIC "${SDL2_IMAGE_LIBRARIES}")
+
+# SDL2_ttf lib
+find_package(SDL2_ttf REQUIRED)
+target_include_directories(tethys_sdl PUBLIC "${SDL2_TTF_INCLUDE_DIRS}")
+target_link_libraries(tethys_sdl PUBLIC "${SDL2_TTF_LIBRARIES}")

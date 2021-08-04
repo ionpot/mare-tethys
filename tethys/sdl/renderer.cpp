@@ -1,6 +1,7 @@
 #include "renderer.hpp"
 
 #include "exception.hpp"
+#include "font.hpp"
 #include "hexagon.hpp"
 #include "line.hpp"
 #include "point.hpp"
@@ -137,6 +138,21 @@ namespace tethys::sdl {
 		Texture tx {m_renderer, surface};
 		SDL_FreeSurface(surface);
 		SDL_RWclose(rwops);
+		return tx;
+	}
+
+	Texture
+	Renderer::create_text(const Font& font, std::string text) const
+	{
+		return create_text(font, text, rgba::opaque(rgb::white));
+	}
+
+	Texture
+	Renderer::create_text(const Font& font, std::string text, RGBA color) const
+	{
+		auto& surface = font.render_blended(text, color);
+		Texture tx {m_renderer, &surface};
+		SDL_FreeSurface(&surface);
 		return tx;
 	}
 

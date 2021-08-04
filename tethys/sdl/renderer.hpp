@@ -1,5 +1,6 @@
 #pragma once
 
+#include "font.hpp"
 #include "hexagon.hpp"
 #include "line.hpp"
 #include "point.hpp"
@@ -19,6 +20,8 @@ namespace tethys::sdl {
 		Texture create_hex(const Hexagon&, const RGB&) const;
 		TargetTexture create_target_texture(Size) const;
 		Texture create_texture_from_png(std::string filename) const;
+		Texture create_text(const Font&, std::string text) const;
+		Texture create_text(const Font&, std::string text, RGBA color) const;
 		void draw_hex(const Hexagon&) const;
 		void draw_line(Line) const;
 		void present() const;

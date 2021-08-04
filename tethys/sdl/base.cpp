@@ -7,6 +7,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 
 #include <string>
 
@@ -51,11 +52,21 @@ namespace tethys::sdl {
 			IMG_Quit();
 			throw Exception {text};
 		}
+
+		auto ttf_ver = s_version_str(*TTF_Linked_Version());
+		log.put("Initializing SDL_ttf " + ttf_ver + "...");
+		if (TTF_Init() == -1) {
+			std::string text {TTF_GetError()};
+			TTF_Quit();
+			throw Exception {text};
+		}
 	}
 
 	Base::~Base()
 	{
 		if (m_call_quit) {
+			m_log->put("Quitting SDL_ttf...");
+			TTF_Quit();
 			m_log->put("Quitting SDL_image...");
 			IMG_Quit();
 			m_log->put("Quitting SDL...");
@@ -80,7 +91,13 @@ namespace tethys::sdl {
 		m_log = from.m_log;
 		return *this;
 	}
-	
+
+	Font
+	Base::create_font(std::string file, int height) const
+	{
+		return {file, height};
+	}
+
 	void
 	Base::delay(Uint32 milliseconds) const
 	{

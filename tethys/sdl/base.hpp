@@ -1,15 +1,19 @@
 #pragma once
 
 #include "event.hpp"
+#include "font.hpp"
 
 #include <util/log.hpp>
 #include <util/macros.hpp>
 
 #include <SDL.h>
 
+#include <string>
+
 namespace tethys::sdl {
 	class Base {
 	public:
+		Font create_font(std::string file, int height) const;
 		void delay(Uint32 milliseconds) const;
 		Event* poll_event();
 	private:
