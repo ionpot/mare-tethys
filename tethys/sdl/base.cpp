@@ -35,31 +35,39 @@ namespace tethys::sdl {
 		if (SDL_WasInit(s_flags.init))
 			throw Exception {"Cannot re-initialize."};
 
-		SDL_version sdl_ver;
-		SDL_GetVersion(&sdl_ver);
-		log.put("Initializing SDL " + s_version_str(sdl_ver) + "...");
-		if (SDL_Init(s_flags.init)) {
-			std::string text {SDL_GetError()};
-			SDL_Quit();
-			throw Exception {text};
-		}
+		std::string error;
+		{
+			SDL_version sdl_ver;
+			SDL_GetVersion(&sdl_ver);
+			log.put("Initializing SDL " + s_version_str(sdl_ver) + "...");
+			if (SDL_Init(s_flags.init)) {
+				error = SDL_GetError();
+				goto sdl_fail;
+			}
 
-		auto img_ver = s_version_str(*IMG_Linked_Version());
-		log.put("Initializing SDL_image " + img_ver + "...");
-		int img_ok {IMG_Init(s_flags.img_init) & s_flags.img_init};
-		if (!img_ok) {
-			std::string text {IMG_GetError()};
-			IMG_Quit();
-			throw Exception {text};
-		}
+			auto img_ver = s_version_str(*IMG_Linked_Version());
+			log.put("Initializing SDL_image " + img_ver + "...");
+			int img_ok {IMG_Init(s_flags.img_init) & s_flags.img_init};
+			if (!img_ok) {
+				error = IMG_GetError();
+				goto img_fail;
+			}
 
-		auto ttf_ver = s_version_str(*TTF_Linked_Version());
-		log.put("Initializing SDL_ttf " + ttf_ver + "...");
-		if (TTF_Init() == -1) {
-			std::string text {TTF_GetError()};
-			TTF_Quit();
-			throw Exception {text};
+			auto ttf_ver = s_version_str(*TTF_Linked_Version());
+			log.put("Initializing SDL_ttf " + ttf_ver + "...");
+			if (TTF_Init() == -1) {
+				error = TTF_GetError();
+				goto ttf_fail;
+			}
 		}
+		return;
+ttf_fail:
+		TTF_Quit();
+img_fail:
+		IMG_Quit();
+sdl_fail:
+		SDL_Quit();
+		throw Exception {error};
 	}
 
 	Base::~Base()
