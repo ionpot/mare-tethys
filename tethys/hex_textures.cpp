@@ -8,7 +8,7 @@
 #include <sdl/texture.hpp>
 
 #define PNG(rdr, file)\
-	rdr.create_texture_from_png("assets/" file)
+	rdr.create_texture_from_png(TETHYS_ASSETS_DIR "/" file)
 
 namespace tethys {
 	HexTextures::HexTextures(const sdl::Hexagon& hex, const sdl::Renderer& rdr):

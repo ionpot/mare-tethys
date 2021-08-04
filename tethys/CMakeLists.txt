@@ -13,6 +13,9 @@ else()
 	add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
+# contains textures, fonts, etc.
+add_compile_definitions(TETHYS_ASSETS_DIR="assets")
+
 # number of characters from absolute root to project root
 # source files can use this to obtain the relative path
 string(LENGTH "${PROJECT_SOURCE_DIR}/" BASE_DIR_LENGTH)
