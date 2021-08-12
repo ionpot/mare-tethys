@@ -7,11 +7,7 @@
 
 namespace tethys::util {
 	struct RGB {
-		struct Exception : public util::Exception {
-			Exception(std::string text):
-				util::Exception {"RGB", text}
-			{};
-		};
+		TETHYS_EXCEPTION("RGB")
 
 		struct InvalidHex : public Exception {
 			InvalidHex(std::string hex):

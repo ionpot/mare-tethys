@@ -1,6 +1,5 @@
 #include "int.hpp"
 
-#include "exception.hpp"
 #include "file_line.hpp"
 
 #include <climits>

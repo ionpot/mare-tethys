@@ -25,11 +25,7 @@ namespace tethys::ui {
 		typedef sdl::Point AbsolutePos;
 		typedef sdl::Point RelativePos;
 
-		struct Exception : public util::Exception {
-			Exception(std::string text):
-				util::Exception {"HexGrid", text}
-			{}
-		};
+		TETHYS_EXCEPTION("HexGrid")
 
 		struct Visible {
 			const util::GridSize max;

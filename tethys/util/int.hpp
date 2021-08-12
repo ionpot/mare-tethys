@@ -25,11 +25,7 @@
 	tethys::util::int_uint8(expr, TETHYS_FILE_LINE(), #expr)
 
 namespace tethys::util {
-	struct IntException : public Exception {
-		IntException(std::string text):
-			Exception {"Integer", text}
-		{}
-	};
+	TETHYS_EXCEPTION_AS(IntException, "Integer")
 	int int_cast(uintmax_t, FileLine location, std::string name);
 	int int_index(int n, int max, FileLine location, std::string name);
 	int int_natural(int, FileLine location, std::string name);

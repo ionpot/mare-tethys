@@ -1,7 +1,5 @@
 #pragma once
 
-#include "exception.hpp"
-
 #include <util/macros.hpp>
 #include <util/rgba.hpp>
 

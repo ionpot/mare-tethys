@@ -9,15 +9,9 @@
 
 #include <util/exception.hpp>
 
-#include <string>
-
 namespace tethys::ui {
 	struct TextBoxes {
-		struct Exception : public util::Exception {
-			Exception(std::string text):
-				util::Exception {"TextBoxes", text}
-			{}
-		};
+		TETHYS_EXCEPTION("TextBoxes")
 
 		const TextBox agriculture;
 		const TextBox city;

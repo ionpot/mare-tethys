@@ -3,6 +3,16 @@
 #include <exception>
 #include <string>
 
+#define TETHYS_EXCEPTION_AS(name, category)\
+	struct name : public tethys::util::Exception {\
+		name(std::string text):\
+			tethys::util::Exception {category, text}\
+		{};\
+	};
+
+#define TETHYS_EXCEPTION(category)\
+	TETHYS_EXCEPTION_AS(Exception, category)
+
 namespace tethys::util {
 	class Exception : public std::exception {
 	public:

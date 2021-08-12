@@ -13,11 +13,7 @@
 
 namespace tethys::ui {
 	struct HexTextures {
-		struct Exception : public util::Exception {
-			Exception(std::string text):
-				util::Exception {"HexTextures", text}
-			{}
-		};
+		TETHYS_EXCEPTION("HexTextures")
 
 		struct UnknownHexType : public Exception {
 			UnknownHexType(): Exception {"Unknown hex type."} {}

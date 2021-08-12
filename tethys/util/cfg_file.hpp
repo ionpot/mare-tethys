@@ -41,11 +41,7 @@ namespace tethys::util {
 		Section
 		find_section(std::string name) const;
 
-		struct Exception : public util::Exception {
-			Exception(std::string text):
-				util::Exception {"CfgFile", text}
-			{};
-		};
+		TETHYS_EXCEPTION("CfgFile")
 
 		struct BadValue : public Exception {
 			BadValue(
