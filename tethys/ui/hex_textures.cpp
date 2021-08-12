@@ -4,7 +4,6 @@
 
 #include <sdl/hexagon.hpp>
 #include <sdl/renderer.hpp>
-#include <sdl/texture.hpp>
 
 #include <util/rgb.hpp>
 
