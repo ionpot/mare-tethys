@@ -48,7 +48,7 @@ namespace tethys::ui {
 		case game::HexType::sea:
 			return {sea};
 		}
-		throw Exception {"Unknown hex type."};
+		throw UnknownHexType {};
 	}
 
 	std::optional<HexTextures::Overlay> 
@@ -70,6 +70,6 @@ namespace tethys::ui {
 		case game::HexType::sea:
 			return {};
 		}
-		throw Exception {"Unknown hex type."};
+		throw UnknownHexType {};
 	}
 }

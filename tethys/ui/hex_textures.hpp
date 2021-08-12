@@ -19,6 +19,10 @@ namespace tethys::ui {
 			{}
 		};
 
+		struct UnknownHexType : public Exception {
+			UnknownHexType(): Exception {"Unknown hex type."} {}
+		};
+
 		typedef std::reference_wrapper<const sdl::Texture> TextureRef;
 
 		struct Overlay {
