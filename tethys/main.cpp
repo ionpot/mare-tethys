@@ -40,7 +40,7 @@ namespace tethys {
 			poll();
 		}
 	private:
-		Config m_config;
+		const Config m_config;
 		sdl::Context m_sdl;
 		Screen m_screen;
 	};
