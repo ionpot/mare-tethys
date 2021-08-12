@@ -4,10 +4,11 @@
 #include "hexagon.hpp"
 #include "line.hpp"
 #include "point.hpp"
-#include "rgb.hpp"
+#include "rect.hpp"
 #include "size.hpp"
 #include "texture.hpp"
 
+#include <util/rgba.hpp>
 #include <util/macros.hpp>
 
 #include <SDL.h>
@@ -17,18 +18,19 @@ namespace tethys::sdl {
 	class Renderer {
 	public:
 		void clear() const;
-		Texture create_hex(const Hexagon&, const RGB&) const;
+		Texture create_hex(const Hexagon&, const util::RGBA&) const;
 		TargetTexture create_target_texture(Size) const;
 		Texture create_texture_from_png(std::string filename) const;
 		Texture create_text(const Font&, std::string text) const;
-		Texture create_text(const Font&, std::string text, RGBA color) const;
+		Texture create_text(const Font&, std::string text, const util::RGBA&) const;
 		void draw_hex(const Hexagon&) const;
 		void draw_line(Line) const;
+		void draw_rect(const Rect&) const;
 		void present() const;
 		void put(const Texture&, Point position) const;
 		void reset_color() const;
 		void reset_target() const;
-		void set_color(RGBA) const;
+		void set_color(const util::RGBA&) const;
 		void set_target(const TargetTexture&) const;
 	private:
 		friend struct Context;

@@ -87,4 +87,16 @@ namespace tethys::util {
 			+ " " + s_location(loc) + "."
 		};
 	}
+
+	uint8_t
+	int_uint8(uintmax_t number, FileLine loc, std::string name)
+	{
+		if (number <= UCHAR_MAX)
+			return (uint8_t)number;
+		throw IntException {
+			s_quote(s_eq(name, number))
+			+ " is larger than " + std::to_string(UCHAR_MAX)
+			+ " " + s_location(loc) + "."
+		};
+	}
 }

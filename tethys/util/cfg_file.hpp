@@ -4,6 +4,7 @@
 #include "file.hpp"
 
 #include <string>
+#include <tuple>
 
 namespace tethys::util {
 	class CfgFile {
@@ -18,6 +19,7 @@ namespace tethys::util {
 			Pair(std::string line, std::string section = "");
 			double to_double() const;
 			int to_int() const;
+			std::tuple<int, int> to_int_pair() const;
 		private:
 			template<class T>
 			T to_value(T (*)(std::string)) const;

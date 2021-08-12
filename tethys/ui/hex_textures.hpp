@@ -11,7 +11,7 @@
 #include <functional>
 #include <optional>
 
-namespace tethys {
+namespace tethys::ui {
 	struct HexTextures {
 		struct Exception : public util::Exception {
 			Exception(std::string text):

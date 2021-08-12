@@ -21,6 +21,9 @@
 #define TETHYS_INT_WITHIN(expr, max)\
 	tethys::util::int_within(expr, max, TETHYS_FILE_LINE(), #expr)
 
+#define TETHYS_UINT8(expr)\
+	tethys::util::int_uint8(expr, TETHYS_FILE_LINE(), #expr)
+
 namespace tethys::util {
 	struct IntException : public Exception {
 		IntException(std::string text):
@@ -32,4 +35,5 @@ namespace tethys::util {
 	int int_natural(int, FileLine location, std::string name);
 	int int_positive(int, FileLine location, std::string name);
 	int int_within(int n, int max, FileLine location, std::string name);
+	uint8_t int_uint8(uintmax_t, FileLine location, std::string name);
 }

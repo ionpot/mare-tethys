@@ -7,16 +7,14 @@
 #include <string>
 
 namespace tethys::sdl {
-	Point::Point():
-		Point {0, 0}
+	const Point Point::one {1, 1};
+
+	Point::Point(int xy):
+		x {xy}, y {xy}
 	{}
 
 	Point::Point(int x, int y):
 		x {x}, y {y}
-	{}
-
-	Point::Point(Size size):
-		x {size.width}, y {size.height}
 	{}
 
 	void
@@ -89,6 +87,12 @@ namespace tethys::sdl {
 	}
 
 	Point
+	Point::operator+(int n) const
+	{
+		return *this + Point {n};
+	}
+
+	Point
 	Point::operator+(const Point& p) const
 	{
 		return {x + p.x, y + p.y};
@@ -98,6 +102,20 @@ namespace tethys::sdl {
 	Point::operator-(const Point& p) const
 	{
 		return {x - p.x, y - p.y};
+	}
+
+	Point
+	Point::operator*(int n) const
+	{
+		return {x * n, y * n};
+	}
+
+	Point
+	Point::operator++(int)
+	{
+		auto p = *this;
+		*this += one;
+		return p;
 	}
 
 	Point&

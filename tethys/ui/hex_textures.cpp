@@ -4,15 +4,16 @@
 
 #include <sdl/hexagon.hpp>
 #include <sdl/renderer.hpp>
-#include <sdl/rgb.hpp>
 #include <sdl/texture.hpp>
+
+#include <util/rgb.hpp>
 
 #define PNG(rdr, file)\
 	rdr.create_texture_from_png(TETHYS_ASSETS_DIR "/" file)
 
-namespace tethys {
+namespace tethys::ui {
 	HexTextures::HexTextures(const sdl::Hexagon& hex, const sdl::Renderer& rdr):
-		active {rdr.create_hex(hex, sdl::rgb::white)},
+		active {rdr.create_hex(hex, util::RGB::white)},
 		agriculture {PNG(rdr, "hex_agriculture.png")},
 		base {PNG(rdr, "hex_base.png")},
 		city {PNG(rdr, "hex_nvillage.png")},

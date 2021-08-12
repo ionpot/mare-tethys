@@ -1,9 +1,9 @@
 #pragma once
 
 #include "exception.hpp"
-#include "rgb.hpp"
 
 #include <util/macros.hpp>
+#include <util/rgba.hpp>
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -17,7 +17,7 @@ namespace tethys::sdl {
 		TETHYS_NO_COPY(Font)
 		TETHYS_DECLARE_MOVE(Font)
 
-		SDL_Surface& render_blended(std::string text, RGBA color) const;
+		SDL_Surface& render_blended(std::string text, const util::RGBA& color) const;
 
 	private:
 		friend class Base;

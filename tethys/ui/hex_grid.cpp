@@ -1,6 +1,7 @@
-#include "grid_view.hpp"
+#include "hex_grid.hpp"
 
 #include <game/grid.hpp>
+#include <game/hex_type.hpp>
 
 #include <sdl/hexagon.hpp>
 #include <sdl/hex_grid.hpp>
@@ -15,14 +16,14 @@
 #include <tuple>
 #include <utility>
 
-namespace tethys {
+namespace tethys::ui {
 	namespace {
-		typedef GridView::AbsolutePos Absolute;
-		typedef GridView::RelativePos Relative;
+		typedef HexGrid::AbsolutePos Absolute;
+		typedef HexGrid::RelativePos Relative;
 	}
 
-	// grid view visible
-	GridView::Visible::Visible(
+	// hex grid visible
+	HexGrid::Visible::Visible(
 			const game::Grid& game_grid,
 			const sdl::HexGrid& hex_grid,
 			sdl::Size view_size,
@@ -36,7 +37,7 @@ namespace tethys {
 	}
 
 	void
-	GridView::Visible::update(
+	HexGrid::Visible::update(
 			Absolute position,
 			const game::Grid& game_grid,
 			const sdl::HexGrid& hex_grid)
@@ -45,8 +46,8 @@ namespace tethys {
 		end = game_grid.size.clamp(start + max.to_index());
 	}
 
-	// grid view
-	GridView::GridView(
+	// hex grid
+	HexGrid::HexGrid(
 			game::Grid&& grid,
 			sdl::Hexagon hex,
 			sdl::Size view_size,
@@ -76,14 +77,22 @@ namespace tethys {
 		log.pair("Scroll", scroll.to_str());
 	}
 
+	game::HexType
+	HexGrid::active_hex_type() const
+	{
+		return m_active_i
+			? m_game_grid.cell(*m_active_i)
+			: game::HexType::none;
+	}
+
 	util::GridIterator
-	GridView::begin() const
+	HexGrid::begin() const
 	{
 		return m_game_grid.begin(m_visible.start, m_visible.end);
 	}
 
 	std::optional<util::GridIndex>
-	GridView::index_of(Absolute position) const
+	HexGrid::index_of(Absolute position) const
 	{
 		if (m_active_i) {
 			if (m_hex_grid.contains(position, *m_active_i))
@@ -98,13 +107,13 @@ namespace tethys {
 	}
 
 	Relative
-	GridView::position_of(util::GridIndex i) const
+	HexGrid::position_of(util::GridIndex i) const
 	{
 		return to_relative(m_hex_grid.position_of(i));
 	}
 
 	void
-	GridView::render(const sdl::Renderer& rdr) const
+	HexGrid::render(const sdl::Renderer& rdr) const
 	{
 		for (auto iter = begin(); iter.valid(); iter.next()) {
 			auto i = iter.index();
@@ -133,7 +142,7 @@ namespace tethys {
 	}
 
 	void
-	GridView::update(Relative mouse_pos)
+	HexGrid::update(Relative mouse_pos)
 	{
 		auto pos = scroll.next(m_offset);
 		auto offset_updated = pos != m_offset;
@@ -152,13 +161,13 @@ namespace tethys {
 	}
 
 	Absolute
-	GridView::to_absolute(Relative position) const
+	HexGrid::to_absolute(Relative position) const
 	{
 		return position - m_offset;
 	}
 
 	Relative
-	GridView::to_relative(Absolute position) const
+	HexGrid::to_relative(Absolute position) const
 	{
 		return position + m_offset;
 	}

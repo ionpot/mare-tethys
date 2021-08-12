@@ -6,12 +6,15 @@
 #include "line.hpp"
 #include "point.hpp"
 #include "rect.hpp"
-#include "rgb.hpp"
 #include "size.hpp"
 #include "texture.hpp"
 
+#include <util/rgb.hpp>
+#include <util/rgba.hpp>
+
 #include <SDL.h>
 #include <SDL_image.h>
+
 #include <array>
 #include <string>
 
@@ -63,13 +66,13 @@ namespace tethys::sdl {
 	}
 
 	Texture
-	Renderer::create_hex(const Hexagon& hex, const RGB& color) const
+	Renderer::create_hex(const Hexagon& hex, const util::RGBA& color) const
 	{
 		auto tx = create_target_texture(hex.size());
 		set_target(tx);
-		set_color(rgba::transparent);
+		set_color(util::RGBA::blank);
 		clear();
-		set_color(rgba::opaque(color));
+		set_color(color);
 		draw_hex(hex);
 		reset_target();
 		return std::move(tx);
@@ -110,6 +113,15 @@ namespace tethys::sdl {
 	}
 
 	void
+	Renderer::draw_rect(const Rect& rect) const
+	{
+		auto sdl_rect = rect.to_sdl();
+		auto err = SDL_RenderDrawRect(m_renderer, &sdl_rect);
+		if (err)
+			throw Exception {};
+	}
+
+	void
 	Renderer::present() const
 	{
 		SDL_RenderPresent(m_renderer);
@@ -144,11 +156,11 @@ namespace tethys::sdl {
 	Texture
 	Renderer::create_text(const Font& font, std::string text) const
 	{
-		return create_text(font, text, rgba::opaque(rgb::white));
+		return create_text(font, text, util::RGB::white);
 	}
 
 	Texture
-	Renderer::create_text(const Font& font, std::string text, RGBA color) const
+	Renderer::create_text(const Font& font, std::string text, const util::RGBA& color) const
 	{
 		auto& surface = font.render_blended(text, color);
 		Texture tx {m_renderer, &surface};
@@ -167,11 +179,11 @@ namespace tethys::sdl {
 	void
 	Renderer::reset_color() const
 	{
-		set_color(rgba::opaque(rgb::black));
+		set_color(util::RGB::black);
 	}
 
 	void
-	Renderer::set_color(RGBA color) const
+	Renderer::set_color(const util::RGBA& color) const
 	{
 		auto err = SDL_SetRenderDrawColor(
 			m_renderer,

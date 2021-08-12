@@ -3,6 +3,7 @@
 #include "hex_textures.hpp"
 
 #include <game/grid.hpp>
+#include <game/hex_type.hpp>
 
 #include <sdl/hexagon.hpp>
 #include <sdl/hex_grid.hpp>
@@ -18,15 +19,15 @@
 #include <optional>
 #include <string>
 
-namespace tethys {
-	class GridView {
+namespace tethys::ui {
+	class HexGrid {
 	public:
 		typedef sdl::Point AbsolutePos;
 		typedef sdl::Point RelativePos;
 
 		struct Exception : public util::Exception {
 			Exception(std::string text):
-				util::Exception {"GridView", text}
+				util::Exception {"HexGrid", text}
 			{}
 		};
 
@@ -46,7 +47,7 @@ namespace tethys {
 
 		sdl::Scroll scroll;
 
-		GridView(
+		HexGrid(
 			game::Grid&&,
 			sdl::Hexagon,
 			sdl::Size view_size,
@@ -54,6 +55,7 @@ namespace tethys {
 			const sdl::Renderer&,
 			util::Log&);
 
+		game::HexType active_hex_type() const;
 		util::GridIterator begin() const;
 		std::optional<util::GridIndex> index_of(AbsolutePos) const;
 		RelativePos position_of(util::GridIndex) const;

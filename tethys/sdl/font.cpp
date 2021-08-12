@@ -1,7 +1,9 @@
 #include "font.hpp"
 
+#include "color.hpp"
 #include "exception.hpp"
-#include "rgb.hpp"
+
+#include <util/rgba.hpp>
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -39,10 +41,10 @@ namespace tethys::sdl {
 	}
 
 	SDL_Surface&
-	Font::render_blended(std::string text, RGBA color) const
+	Font::render_blended(std::string text, const util::RGBA& color) const
 	{
 		SDL_Surface* surface {
-			TTF_RenderUTF8_Blended(m_font, text.c_str(), color.to_sdl())
+			TTF_RenderUTF8_Blended(m_font, text.c_str(), color_rgba(color))
 		};
 		if (!surface)
 			throw Exception {TTF_GetError()};

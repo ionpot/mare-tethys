@@ -4,6 +4,7 @@
 
 #include <stdexcept>
 #include <string>
+#include <tuple>
 
 namespace tethys::util {
 	namespace {
@@ -40,6 +41,18 @@ namespace tethys::util {
 		catch (const std::invalid_argument&) {
 			throw s_BadValue {"an integer"};
 		}
+
+		std::tuple<int, int>
+		s_to_int_pair(std::string input)
+		{
+			auto i = input.find(' ');
+			if (i == std::string::npos)
+				throw s_BadValue {"an integer pair"};
+			return {
+				s_to_int(input.substr(0, i)),
+				s_to_int(input.substr(i + 1))
+			};
+		}
 	}
 
 	const std::string
@@ -72,6 +85,12 @@ namespace tethys::util {
 	CfgFile::Pair::to_int() const
 	{
 		return to_value(s_to_int);
+	}
+
+	std::tuple<int, int>
+	CfgFile::Pair::to_int_pair() const
+	{
+		return to_value(s_to_int_pair);
 	}
 
 	template<class T>

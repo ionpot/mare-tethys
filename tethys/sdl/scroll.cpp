@@ -7,8 +7,8 @@
 
 namespace tethys::sdl {
 	Scroll::Scroll(Size screen, Size content, int speed):
-		m_min {Point::min(screen - content)},
-		m_max {Point::max(screen - content)},
+		m_min {Point::min((screen - content).to_point())},
+		m_max {Point::max((screen - content).to_point())},
 		m_speed {speed},
 		m_state {}
 	{}
