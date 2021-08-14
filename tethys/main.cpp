@@ -21,9 +21,12 @@ namespace tethys {
 	class Main {
 	public:
 		Main(std::string title, util::Log& log):
-			m_config {util::CfgFile {"tethys.cfg"}},
-			m_sdl {sdl::Context {title, m_config.window_size, log}},
-			m_screen {m_config, m_sdl, log}
+			m_config {
+				util::CfgFile {"game.cfg"},
+				util::CfgFile {"ui.cfg"}
+			},
+			m_sdl {sdl::Context {title, m_config.ui.window_size, log}},
+			m_screen {m_config.ui, m_sdl, log}
 		{}
 		void poll()
 		{

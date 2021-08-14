@@ -1,6 +1,5 @@
 #include "screen.hpp"
 
-#include "config.hpp"
 #include "grid_file.hpp"
 
 #include <sdl/context.hpp>
@@ -8,12 +7,14 @@
 #include <sdl/hexagon.hpp>
 #include <sdl/key.hpp>
 
+#include <ui/config.hpp>
+
 #include <util/rgb.hpp>
 #include <util/log.hpp>
 
 namespace tethys {
 	Screen::Screen(
-			const Config& config,
+			const ui::Config& config,
 			const sdl::Context& sdl,
 			util::Log& log
 	):

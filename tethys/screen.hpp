@@ -11,6 +11,7 @@
 #include <sdl/renderer.hpp>
 #include <sdl/texture.hpp>
 
+#include <ui/config.hpp>
 #include <ui/hex_grid.hpp>
 #include <ui/text_boxes.hpp>
 
@@ -20,7 +21,7 @@ namespace tethys {
 	class Screen {
 	public:
 		enum class Status { ok, quit };
-		Screen(const Config&, const sdl::Context&, util::Log&);
+		Screen(const ui::Config&, const sdl::Context&, util::Log&);
 		Status handle(const sdl::Event&);
 		void render(const sdl::Renderer&) const;
 		void update();
