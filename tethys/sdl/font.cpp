@@ -2,12 +2,15 @@
 
 #include "color.hpp"
 #include "exception.hpp"
+#include "size.hpp"
 
+#include <util/int.hpp>
 #include <util/rgba.hpp>
 
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+#include <list>
 #include <string>
 
 namespace tethys::sdl {
@@ -40,6 +43,48 @@ namespace tethys::sdl {
 		return *this;
 	}
 
+	int
+	Font::calculate_height(int lines) const
+	{
+		return (lines > 0)
+			? font_height() + line_skip() * --lines
+			: 0;
+	}
+
+	Size
+	Font::calculate_size(const std::string& text) const
+	{
+		Size size;
+		if (TTF_SizeUTF8(m_font, text.c_str(), &size.width, &size.height))
+			throw Exception {TTF_GetError()};
+		return size;
+	}
+
+	Size
+	Font::calculate_size(const std::list<std::string>& lines) const
+	{
+		auto count = TETHYS_INT(lines.size());
+		int width {0};
+		for (const auto& line : lines) {
+			auto size = calculate_size(line);
+			if (size.width > width)
+				width = size.width;
+		}
+		return {width, calculate_height(count)};
+	}
+
+	int
+	Font::font_height() const
+	{
+		return TTF_FontHeight(m_font);
+	}
+
+	int
+	Font::line_skip() const
+	{
+		return TTF_FontLineSkip(m_font);
+	}
+
 	SDL_Surface&
 	Font::render_blended(std::string text, const util::RGBA& color) const
 	{
@@ -49,5 +94,11 @@ namespace tethys::sdl {
 		if (!surface)
 			throw Exception {TTF_GetError()};
 		return *surface;
+	}
+
+	int
+	Font::y_of_line(int nth_line) const
+	{
+		return line_skip() * nth_line;
 	}
 }
