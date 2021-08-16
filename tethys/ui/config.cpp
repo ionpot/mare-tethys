@@ -43,9 +43,9 @@ namespace tethys::ui {
 				ui::Box::Config {
 					s_rgb(section.find_pair("background color")),
 					s_rgb(section.find_pair("border color")),
-					section.find_pair("border width").to_int()
+					section.find_pair("border width").to_int(),
+					s_point(section.find_pair("padding"))
 				},
-				s_point(section.find_pair("padding")),
 				s_rgb(section.find_pair("text color"))
 			};
 		}

@@ -13,9 +13,10 @@ namespace tethys::ui {
 			util::RGB background_color;
 			util::RGB border_color;
 			int border_width;
+			sdl::Point padding;
 		};
 
-		const sdl::Point border;
+		const sdl::Point content;
 		const sdl::TargetTexture texture;
 
 		Box(const Config&, const sdl::Renderer&, sdl::Size inner_size);

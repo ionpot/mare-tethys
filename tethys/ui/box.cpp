@@ -10,9 +10,9 @@ namespace tethys::ui {
 			const sdl::Renderer& rdr,
 			sdl::Size inner_size
 	):
-		border {config.border_width},
+		content {sdl::Point {config.border_width} + config.padding},
 		texture {rdr.create_target_texture(
-			inner_size + sdl::Size {config.border_width * 2}
+			inner_size + sdl::Size {content * 2}
 		)}
 	{
 		rdr.set_target(texture);

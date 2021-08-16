@@ -8,19 +8,23 @@
 
 #include <util/rgb.hpp>
 
+#include <list>
 #include <string>
 
 namespace tethys::ui {
 	struct TextBox {
 		struct Config {
 			Box::Config box;
-			sdl::Point padding;
 			util::RGB text_color;
 		};
 
 		const sdl::Texture text;
 		const Box box;
-		const sdl::Point padding;
+
+		TextBox(
+			const TextBox::Config&,
+			const sdl::Renderer&,
+			sdl::Texture&& content);
 
 		TextBox(
 			const TextBox::Config&,
