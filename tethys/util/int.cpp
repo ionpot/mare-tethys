@@ -8,8 +8,9 @@
 
 namespace tethys::util {
 	namespace {
+		template<typename T>
 		std::string
-		s_eq(std::string name, int value)
+		s_eq(std::string name, T value)
 		{
 			return name + " = " + std::to_string(value);
 		}
