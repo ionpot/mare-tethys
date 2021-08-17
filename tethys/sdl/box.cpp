@@ -1,25 +1,25 @@
 #include "box.hpp"
 
-#include <sdl/point.hpp>
-#include <sdl/renderer.hpp>
-#include <sdl/size.hpp>
+#include "point.hpp"
+#include "renderer.hpp"
+#include "size.hpp"
 
-namespace tethys::ui {
+namespace tethys::sdl {
 	Box::Box(
 			const Box::Config& config,
-			const sdl::Renderer& rdr,
-			sdl::Size inner_size
+			const Renderer& rdr,
+			Size inner_size
 	):
-		content {sdl::Point {config.border_width} + config.padding},
+		content {Point {config.border_width} + config.padding},
 		texture {rdr.create_target_texture(
-			inner_size + sdl::Size {content * 2}
+			inner_size + Size {content * 2}
 		)}
 	{
 		rdr.set_target(texture);
 		rdr.set_color(config.background_color);
 		rdr.clear();
 		rdr.set_color(config.border_color);
-		sdl::Point offset {0, 0};
+		Point offset {0, 0};
 		auto size = texture.size;
 		for (auto i = config.border_width; i > 0; --i) {
 			rdr.draw_rect({offset++, size});
@@ -29,7 +29,7 @@ namespace tethys::ui {
 	}
 
 	void
-	Box::render(const sdl::Renderer& rdr, sdl::Point pos) const
+	Box::render(const Renderer& rdr, Point pos) const
 	{
 		rdr.put(texture, pos);
 	}

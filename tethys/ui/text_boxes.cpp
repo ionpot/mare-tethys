@@ -1,15 +1,14 @@
 #include "text_boxes.hpp"
 
-#include "text_box.hpp"
-
 #include <game/hex_type.hpp>
 
 #include <sdl/font.hpp>
 #include <sdl/renderer.hpp>
+#include <sdl/text_box.hpp>
 
 namespace tethys::ui {
 	TextBoxes::TextBoxes(
-			const TextBox::Config& config,
+			const sdl::TextBox::Config& config,
 			const sdl::Font& font,
 			const sdl::Renderer& rdr
 	):
@@ -24,7 +23,7 @@ namespace tethys::ui {
 		village {config, font, rdr, "Village"}
 	{}
 
-	const TextBox*
+	const sdl::TextBox*
 	TextBoxes::find(game::HexType type) const
 	{
 		switch (type) {

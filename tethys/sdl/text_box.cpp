@@ -8,11 +8,11 @@
 #include <string>
 #include <utility>
 
-namespace tethys::ui {
+namespace tethys::sdl {
 	TextBox::TextBox(
 			const TextBox::Config& config,
-			const sdl::Renderer& rdr,
-			sdl::Texture&& content
+			const Renderer& rdr,
+			Texture&& content
 	):
 		text {std::move(content)},
 		box {config.box, rdr, text.size}
@@ -20,8 +20,8 @@ namespace tethys::ui {
 
 	TextBox::TextBox(
 			const TextBox::Config& config,
-			const sdl::Font& font,
-			const sdl::Renderer& rdr,
+			const Font& font,
+			const Renderer& rdr,
 			std::string content
 	):
 		TextBox {config, rdr,
@@ -30,7 +30,7 @@ namespace tethys::ui {
 	{}
 
 	void
-	TextBox::render(const sdl::Renderer& rdr, sdl::Point pos) const
+	TextBox::render(const Renderer& rdr, Point pos) const
 	{
 		box.render(rdr, pos);
 		rdr.put(text, pos + box.content);

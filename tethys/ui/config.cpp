@@ -1,10 +1,9 @@
 #include "config.hpp"
 
+#include <sdl/box.hpp>
 #include <sdl/point.hpp>
 #include <sdl/size.hpp>
-
-#include <ui/box.hpp>
-#include <ui/text_box.hpp>
+#include <sdl/text_box.hpp>
 
 #include <util/cfg_file.hpp>
 #include <util/rgb.hpp>
@@ -36,11 +35,11 @@ namespace tethys::ui {
 			};
 		}
 
-		ui::TextBox::Config
+		sdl::TextBox::Config
 		s_text_box(const Section& section)
 		{
 			return {
-				ui::Box::Config {
+				sdl::Box::Config {
 					s_rgb(section.find_pair("background color")),
 					s_rgb(section.find_pair("border color")),
 					section.find_pair("border width").to_int(),
