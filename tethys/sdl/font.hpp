@@ -21,7 +21,7 @@ namespace tethys::sdl {
 		int calculate_height(int lines) const;
 		Size calculate_size(const std::string& text) const;
 		Size calculate_size(const std::list<std::string>& lines) const;
-		int font_height() const;
+		int line_height() const;
 		int line_height(int nth_line) const;
 		int line_skip() const;
 		SDL_Surface& render_blended(std::string text, const util::RGBA&) const;

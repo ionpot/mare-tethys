@@ -47,7 +47,7 @@ namespace tethys::sdl {
 	Font::calculate_height(int lines) const
 	{
 		return (lines > 0)
-			? font_height() + line_skip() * --lines
+			? line_height() + line_skip() * --lines
 			: 0;
 	}
 
@@ -74,7 +74,7 @@ namespace tethys::sdl {
 	}
 
 	int
-	Font::font_height() const
+	Font::line_height() const
 	{
 		return TTF_FontHeight(m_font);
 	}
