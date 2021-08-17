@@ -3,7 +3,9 @@
 
 #include <sdl/context.hpp>
 #include <sdl/show_error.hpp>
+
 #include <tethys/version.hpp>
+
 #include <util/cfg_file.hpp>
 #include <util/exception.hpp>
 #include <util/log.hpp>
@@ -11,7 +13,9 @@
 #include <iostream>
 #include <string>
 
-namespace tethys {
+using namespace tethys;
+
+namespace {
 	std::string
 	get_title()
 	{
@@ -73,7 +77,7 @@ namespace tethys {
 int main(int, char **)
 {
 	try {
-		tethys::start(tethys::util::Log {"tethys.log"});
+		start(util::Log {"tethys.log"});
 	}
 	catch (const std::exception& err) {
 		std::cerr << err.what() << std::endl;
