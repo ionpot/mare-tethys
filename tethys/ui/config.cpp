@@ -55,6 +55,12 @@ namespace tethys::ui {
 		size {section.find_pair("size").to_int()}
 	{}
 
+	sdl::Font
+	Config::Font::create(const sdl::Context& ctx) const
+	{
+		return ctx.base.create_font(TETHYS_ASSETS_DIR "/" + file, size);
+	}
+
 	Config::Config(const util::CfgFile& file):
 		font {file.find_section("font")},
 		hex_side {file.find_pair("hex side").to_double()},

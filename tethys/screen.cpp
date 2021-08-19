@@ -20,10 +20,7 @@ namespace tethys {
 	):
 		m_active_hex {},
 		m_focus {sdl.window.has_focus()},
-		m_font {sdl.base.create_font(
-			TETHYS_ASSETS_DIR "/" + config.font.file,
-			config.font.size
-		)},
+		m_font {config.font.create(sdl)},
 		m_hex_grid {
 			grid_file::read("tethys.grid"),
 			sdl::Hexagon {config.hex_side},

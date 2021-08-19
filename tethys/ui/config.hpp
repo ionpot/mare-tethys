@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sdl/context.hpp>
 #include <sdl/size.hpp>
 #include <sdl/text_box.hpp>
 
@@ -13,6 +14,7 @@ namespace tethys::ui {
 			std::string file;
 			int size;
 			Font(const util::CfgFile::Section&);
+			sdl::Font create(const sdl::Context&) const;
 		};
 		Font font;
 		double hex_side;
