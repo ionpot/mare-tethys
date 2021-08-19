@@ -1,12 +1,10 @@
 #include "text_box.hpp"
 
-#include <sdl/font.hpp>
-#include <sdl/point.hpp>
-#include <sdl/renderer.hpp>
-#include <sdl/texture.hpp>
+#include "font.hpp"
+#include "point.hpp"
+#include "renderer.hpp"
 
 #include <string>
-#include <utility>
 
 namespace tethys::sdl {
 	TextBox::TextBox(

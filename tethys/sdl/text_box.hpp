@@ -5,6 +5,7 @@
 #include "point.hpp"
 #include "renderer.hpp"
 #include "size.hpp"
+#include "texture.hpp"
 
 #include <util/rgb.hpp>
 
