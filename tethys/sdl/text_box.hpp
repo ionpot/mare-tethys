@@ -4,6 +4,7 @@
 #include "font.hpp"
 #include "point.hpp"
 #include "renderer.hpp"
+#include "size.hpp"
 
 #include <util/rgb.hpp>
 
@@ -17,12 +18,8 @@ namespace tethys::sdl {
 		};
 
 		const Texture text;
+		const Size size;
 		const Box box;
-
-		TextBox(
-			const TextBox::Config&,
-			const Renderer&,
-			Texture&& content);
 
 		TextBox(
 			const TextBox::Config&,

@@ -11,22 +11,13 @@
 namespace tethys::sdl {
 	TextBox::TextBox(
 			const TextBox::Config& config,
-			const Renderer& rdr,
-			Texture&& content
-	):
-		text {std::move(content)},
-		box {config.box, rdr, text.size}
-	{}
-
-	TextBox::TextBox(
-			const TextBox::Config& config,
 			const Font& font,
 			const Renderer& rdr,
 			std::string content
 	):
-		TextBox {config, rdr,
-			rdr.create_text(font, content, config.text_color)
-		}
+		text {rdr.create_text(font, content, config.text_color)},
+		size {text.size.width, font.line_height() + 1},
+		box {config.box, rdr, size}
 	{}
 
 	void
