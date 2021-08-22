@@ -2,6 +2,7 @@
 
 #include "exception.hpp"
 #include "size.hpp"
+#include "surface.hpp"
 
 #include <SDL.h>
 
@@ -21,9 +22,9 @@ namespace tethys::sdl {
 			throw Exception {};
 	}
 
-	Texture::Texture(SDL_Renderer* renderer, SDL_Surface* surface):
+	Texture::Texture(SDL_Renderer* renderer, const Surface& surface):
 		size {},
-		m_texture {SDL_CreateTextureFromSurface(renderer, surface)}
+		m_texture {SDL_CreateTextureFromSurface(renderer, surface.pointer)}
 	{
 		if (!m_texture)
 			throw Exception {};

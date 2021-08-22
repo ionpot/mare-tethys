@@ -144,13 +144,11 @@ namespace tethys::sdl {
 		SDL_RWops* rwops {SDL_RWFromFile(filename.c_str(), "rb")};
 		if (!rwops)
 			throw Exception {};
-		SDL_Surface* surface {IMG_LoadPNG_RW(rwops)};
-		if (!surface)
+		Surface surface {IMG_LoadPNG_RW(rwops)};
+		if (surface.is_null())
 			throw Exception {IMG_GetError()};
-		Texture tx {m_renderer, surface};
-		SDL_FreeSurface(surface);
 		SDL_RWclose(rwops);
-		return tx;
+		return {m_renderer, surface};
 	}
 
 	Texture
@@ -162,10 +160,8 @@ namespace tethys::sdl {
 	Texture
 	Renderer::create_text(const Font& font, std::string text, const util::RGBA& color) const
 	{
-		auto& surface = font.render_blended(text, color);
-		Texture tx {m_renderer, &surface};
-		SDL_FreeSurface(&surface);
-		return tx;
+		auto surface = font.render_blended(text, color);
+		return {m_renderer, surface};
 	}
 
 	void

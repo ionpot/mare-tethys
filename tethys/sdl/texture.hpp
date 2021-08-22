@@ -1,6 +1,7 @@
 #pragma once
 
 #include "size.hpp"
+#include "surface.hpp"
 
 #include <util/macros.hpp>
 
@@ -17,7 +18,7 @@ namespace tethys::sdl {
 		friend class Renderer;
 		SDL_Texture* m_texture;
 		Texture(SDL_Renderer*, Size, Uint32 flags);
-		Texture(SDL_Renderer*, SDL_Surface*);
+		Texture(SDL_Renderer*, const Surface&);
 	};
 
 	class TargetTexture : public Texture {

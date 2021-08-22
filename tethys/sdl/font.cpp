@@ -3,6 +3,7 @@
 #include "color.hpp"
 #include "exception.hpp"
 #include "size.hpp"
+#include "surface.hpp"
 
 #include <util/int.hpp>
 #include <util/rgba.hpp>
@@ -85,15 +86,15 @@ namespace tethys::sdl {
 		return TTF_FontLineSkip(m_font);
 	}
 
-	SDL_Surface&
+	Surface
 	Font::render_blended(std::string text, const util::RGBA& color) const
 	{
-		SDL_Surface* surface {
+		Surface surface {
 			TTF_RenderUTF8_Blended(m_font, text.c_str(), color_rgba(color))
 		};
-		if (!surface)
+		if (surface.is_null())
 			throw Exception {TTF_GetError()};
-		return *surface;
+		return surface;
 	}
 
 	int
