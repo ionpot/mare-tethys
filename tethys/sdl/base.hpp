@@ -1,7 +1,6 @@
 #pragma once
 
 #include "event.hpp"
-#include "font.hpp"
 
 #include <util/log.hpp>
 #include <util/macros.hpp>
