@@ -17,9 +17,9 @@ namespace tethys::sdl {
 		Window window;
 		Renderer renderer;
 		Ttf ttf;
-		Context(std::string title, Size size, util::Log& log):
+		Context(std::string title, Size window_size, util::Log& log):
 			base {log},
-			window {title, size},
+			window {title, window_size},
 			renderer {window.create_renderer()},
 			ttf {log}
 		{}
