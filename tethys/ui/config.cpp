@@ -58,7 +58,7 @@ namespace tethys::ui {
 	sdl::Font
 	Config::Font::create(const sdl::Context& ctx) const
 	{
-		return ctx.base.create_font(TETHYS_ASSETS_DIR "/" + file, size);
+		return ctx.ttf.load_font(TETHYS_ASSETS_DIR "/" + file, size);
 	}
 
 	Config::Config(const util::CfgFile& file):

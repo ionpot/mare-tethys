@@ -28,7 +28,7 @@ namespace tethys::sdl {
 		int y_of_line(int nth_line) const;
 
 	private:
-		friend class Base;
+		friend struct Ttf;
 		TTF_Font* m_font;
 		Font(std::string file, int height);
 	};

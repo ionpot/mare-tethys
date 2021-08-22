@@ -1,4 +1,4 @@
-add_library(tethys_sdl base.cpp box.cpp event.cpp font.cpp hex_grid.cpp hexagon.cpp point.cpp rect.cpp renderer.cpp rwops.cpp scroll.cpp size.cpp surface.cpp text.cpp text_box.cpp texture.cpp window.cpp)
+add_library(tethys_sdl base.cpp box.cpp event.cpp font.cpp hex_grid.cpp hexagon.cpp point.cpp rect.cpp renderer.cpp rwops.cpp scroll.cpp size.cpp surface.cpp text.cpp text_box.cpp texture.cpp ttf.cpp window.cpp)
 
 target_link_libraries(tethys_sdl PRIVATE tethys_util)
 

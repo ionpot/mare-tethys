@@ -3,6 +3,7 @@
 #include "base.hpp"
 #include "renderer.hpp"
 #include "size.hpp"
+#include "ttf.hpp"
 #include "window.hpp"
 
 #include <util/log.hpp>
@@ -15,13 +16,14 @@ namespace tethys::sdl {
 		Base base;
 		Window window;
 		Renderer renderer;
+		Ttf ttf;
 		Context(std::string title, Size size, util::Log& log):
 			base {log},
 			window {title, size},
-			renderer {window.create_renderer()}
+			renderer {window.create_renderer()},
+			ttf {log}
 		{}
 		~Context() = default;
 		TETHYS_NO_COPY(Context)
-		TETHYS_DEFAULT_MOVE(Context)
 	};
 }

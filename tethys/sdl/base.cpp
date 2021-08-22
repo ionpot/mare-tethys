@@ -8,7 +8,6 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_ttf.h>
 
 #include <string>
 
@@ -45,17 +44,8 @@ namespace tethys::sdl {
 				error = IMG_GetError();
 				goto img_fail;
 			}
-
-			auto ttf_ver = version::to_string(*TTF_Linked_Version());
-			log.put("Initializing SDL_ttf " + ttf_ver + "...");
-			if (TTF_Init() == -1) {
-				error = TTF_GetError();
-				goto ttf_fail;
-			}
 		}
 		return;
-ttf_fail:
-		TTF_Quit();
 img_fail:
 		IMG_Quit();
 sdl_fail:
@@ -66,8 +56,6 @@ sdl_fail:
 	Base::~Base()
 	{
 		if (m_call_quit) {
-			m_log->put("Quitting SDL_ttf...");
-			TTF_Quit();
 			m_log->put("Quitting SDL_image...");
 			IMG_Quit();
 			m_log->put("Quitting SDL...");
@@ -91,12 +79,6 @@ sdl_fail:
 		m_event = from.m_event;
 		m_log = from.m_log;
 		return *this;
-	}
-
-	Font
-	Base::create_font(std::string file, int height) const
-	{
-		return {file, height};
 	}
 
 	void

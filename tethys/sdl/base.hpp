@@ -13,7 +13,6 @@
 namespace tethys::sdl {
 	class Base {
 	public:
-		Font create_font(std::string file, int height) const;
 		void delay(Uint32 milliseconds) const;
 		Event* poll_event();
 	private:
