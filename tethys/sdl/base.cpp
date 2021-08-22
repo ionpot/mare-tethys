@@ -2,6 +2,7 @@
 
 #include "exception.hpp"
 #include "event.hpp"
+#include "version.hpp"
 
 #include <util/log.hpp>
 
@@ -17,14 +18,6 @@ namespace tethys::sdl {
 			Uint32 init {SDL_INIT_VIDEO};
 			int img_init {IMG_INIT_PNG};
 		} s_flags;
-
-		std::string
-		s_version_str(const SDL_version& v)
-		{
-			return std::to_string(v.major)
-				+ "." + std::to_string(v.minor)
-				+ "." + std::to_string(v.patch);
-		}
 	}
 
 	Base::Base(util::Log& log):
@@ -39,13 +32,13 @@ namespace tethys::sdl {
 		{
 			SDL_version sdl_ver;
 			SDL_GetVersion(&sdl_ver);
-			log.put("Initializing SDL " + s_version_str(sdl_ver) + "...");
+			log.put("Initializing SDL " + version::to_string(sdl_ver) + "...");
 			if (SDL_Init(s_flags.init)) {
 				error = SDL_GetError();
 				goto sdl_fail;
 			}
 
-			auto img_ver = s_version_str(*IMG_Linked_Version());
+			auto img_ver = version::to_string(*IMG_Linked_Version());
 			log.put("Initializing SDL_image " + img_ver + "...");
 			int img_ok {IMG_Init(s_flags.img_init) & s_flags.img_init};
 			if (!img_ok) {
@@ -53,7 +46,7 @@ namespace tethys::sdl {
 				goto img_fail;
 			}
 
-			auto ttf_ver = s_version_str(*TTF_Linked_Version());
+			auto ttf_ver = version::to_string(*TTF_Linked_Version());
 			log.put("Initializing SDL_ttf " + ttf_ver + "...");
 			if (TTF_Init() == -1) {
 				error = TTF_GetError();
