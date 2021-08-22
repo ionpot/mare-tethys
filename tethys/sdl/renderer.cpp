@@ -6,6 +6,7 @@
 #include "line.hpp"
 #include "point.hpp"
 #include "rect.hpp"
+#include "rwops.hpp"
 #include "size.hpp"
 #include "texture.hpp"
 
@@ -141,13 +142,10 @@ namespace tethys::sdl {
 	Texture
 	Renderer::create_texture_from_png(std::string filename) const
 	{
-		SDL_RWops* rwops {SDL_RWFromFile(filename.c_str(), "rb")};
-		if (!rwops)
-			throw Exception {};
-		Surface surface {IMG_LoadPNG_RW(rwops)};
+		auto rwops = RWops::read_binary_file(filename);
+		Surface surface {IMG_LoadPNG_RW(rwops.pointer)};
 		if (surface.is_null())
 			throw Exception {IMG_GetError()};
-		SDL_RWclose(rwops);
 		return {m_renderer, surface};
 	}
 
