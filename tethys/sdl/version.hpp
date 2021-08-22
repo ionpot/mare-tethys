@@ -5,7 +5,7 @@
 #include <string>
 
 namespace tethys::sdl::version {
-	std::string
+	inline std::string
 	to_string(const SDL_version& v)
 	{
 		return std::to_string(v.major)
