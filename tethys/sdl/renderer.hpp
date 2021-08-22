@@ -6,6 +6,7 @@
 #include "point.hpp"
 #include "rect.hpp"
 #include "size.hpp"
+#include "surface.hpp"
 #include "texture.hpp"
 
 #include <util/rgba.hpp>
@@ -20,9 +21,9 @@ namespace tethys::sdl {
 		void clear() const;
 		Texture create_hex(const Hexagon&, const util::RGBA&) const;
 		TargetTexture create_target_texture(Size) const;
-		Texture create_texture_from_png(std::string filename) const;
 		Texture create_text(const Font&, std::string text) const;
 		Texture create_text(const Font&, std::string text, const util::RGBA&) const;
+		Texture create_texture(const Surface& surface) const;
 		void draw_hex(const Hexagon&) const;
 		void draw_line(Line) const;
 		void draw_rect(const Rect&) const;

@@ -1,8 +1,10 @@
 #pragma once
 
 #include "base.hpp"
+#include "img.hpp"
 #include "renderer.hpp"
 #include "size.hpp"
+#include "texture.hpp"
 #include "ttf.hpp"
 #include "window.hpp"
 
@@ -16,14 +18,13 @@ namespace tethys::sdl {
 		Base base;
 		Window window;
 		Renderer renderer;
+		Img img;
 		Ttf ttf;
-		Context(std::string title, Size window_size, util::Log& log):
-			base {log},
-			window {title, window_size},
-			renderer {window.create_renderer()},
-			ttf {log}
-		{}
+
+		Context(std::string window_title, Size window_size, util::Log&);
 		~Context() = default;
 		TETHYS_NO_COPY(Context)
+
+		Texture load_png(std::string path) const;
 	};
 }

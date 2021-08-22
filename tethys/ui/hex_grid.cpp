@@ -52,7 +52,7 @@ namespace tethys::ui {
 			sdl::Hexagon hex,
 			sdl::Size view_size,
 			int scroll_speed,
-			const sdl::Renderer& rdr,
+			const sdl::Context& sdl,
 			util::Log& log
 	):
 		scroll {
@@ -65,7 +65,7 @@ namespace tethys::ui {
 		m_game_grid {std::move(grid)},
 		m_hex_grid {hex},
 		m_offset {},
-		m_textures {hex, rdr},
+		m_textures {hex, sdl},
 		m_visible {m_game_grid, m_hex_grid, view_size, m_offset}
 	{
 		log.pair("Hex size", hex.size().to_str());

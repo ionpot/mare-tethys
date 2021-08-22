@@ -26,7 +26,7 @@ namespace tethys {
 			sdl::Hexagon {config.hex_side},
 			config.window_size,
 			config.scroll_speed,
-			sdl.renderer,
+			sdl,
 			log
 		},
 		m_mouse_pos {},

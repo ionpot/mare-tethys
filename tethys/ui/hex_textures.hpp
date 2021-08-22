@@ -2,8 +2,8 @@
 
 #include <game/hex_type.hpp>
 
+#include <sdl/context.hpp>
 #include <sdl/hexagon.hpp>
-#include <sdl/renderer.hpp>
 #include <sdl/texture.hpp>
 
 #include <util/exception.hpp>
@@ -38,7 +38,7 @@ namespace tethys::ui {
 		sdl::Texture sea;
 		sdl::Texture village;
 
-		HexTextures(const sdl::Hexagon&, const sdl::Renderer&);
+		HexTextures(const sdl::Hexagon&, const sdl::Context&);
 		std::optional<TextureRef> base_of(game::HexType) const;
 		std::optional<Overlay> overlay_of(game::HexType) const;
 	};

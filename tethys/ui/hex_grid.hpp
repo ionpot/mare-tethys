@@ -5,6 +5,7 @@
 #include <game/grid.hpp>
 #include <game/hex_type.hpp>
 
+#include <sdl/context.hpp>
 #include <sdl/hexagon.hpp>
 #include <sdl/hex_grid.hpp>
 #include <sdl/point.hpp>
@@ -48,7 +49,7 @@ namespace tethys::ui {
 			sdl::Hexagon,
 			sdl::Size view_size,
 			int scroll_speed,
-			const sdl::Renderer&,
+			const sdl::Context&,
 			util::Log&);
 
 		game::HexType active_hex_type() const;

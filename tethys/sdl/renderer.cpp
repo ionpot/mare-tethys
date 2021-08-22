@@ -85,6 +85,12 @@ namespace tethys::sdl {
 		return {m_renderer, size};
 	}
 
+	Texture
+	Renderer::create_texture(const Surface& surface) const
+	{
+		return {m_renderer, surface};
+	}
+
 	void
 	Renderer::draw_line(Line line) const
 	{
@@ -140,16 +146,6 @@ namespace tethys::sdl {
 	}
 
 	Texture
-	Renderer::create_texture_from_png(std::string filename) const
-	{
-		auto rwops = RWops::read_binary_file(filename);
-		Surface surface {IMG_LoadPNG_RW(rwops.pointer)};
-		if (surface.is_null())
-			throw Exception {IMG_GetError()};
-		return {m_renderer, surface};
-	}
-
-	Texture
 	Renderer::create_text(const Font& font, std::string text) const
 	{
 		return create_text(font, text, util::RGB::white);
@@ -159,7 +155,7 @@ namespace tethys::sdl {
 	Renderer::create_text(const Font& font, std::string text, const util::RGBA& color) const
 	{
 		auto surface = font.render_blended(text, color);
-		return {m_renderer, surface};
+		return create_texture(surface);
 	}
 
 	void

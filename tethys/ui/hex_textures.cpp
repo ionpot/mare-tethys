@@ -2,27 +2,27 @@
 
 #include <game/hex_type.hpp>
 
+#include <sdl/context.hpp>
 #include <sdl/hexagon.hpp>
-#include <sdl/renderer.hpp>
 
 #include <util/rgb.hpp>
 
-#define PNG(rdr, file)\
-	rdr.create_texture_from_png(TETHYS_ASSETS_DIR "/" file)
+#define PNG(ctx, file)\
+	ctx.load_png(TETHYS_ASSETS_DIR "/" file)
 
 namespace tethys::ui {
-	HexTextures::HexTextures(const sdl::Hexagon& hex, const sdl::Renderer& rdr):
-		active {rdr.create_hex(hex, util::RGB::white)},
-		agriculture {PNG(rdr, "hex_agriculture.png")},
-		base {PNG(rdr, "hex_base.png")},
-		city {PNG(rdr, "hex_nvillage.png")},
-		desert {PNG(rdr, "hex_desert.png")},
-		forest {PNG(rdr, "hex_forest.png")},
-		hills {PNG(rdr, "hex_hills.png")},
-		mountain {PNG(rdr, "hex_mountain.png")},
-		plains {PNG(rdr, "hex_plains.png")},
-		sea {PNG(rdr, "hex_sea.png")},
-		village {PNG(rdr, "hex_nvillage.png")}
+	HexTextures::HexTextures(const sdl::Hexagon& hex, const sdl::Context& ctx):
+		active {ctx.renderer.create_hex(hex, util::RGB::white)},
+		agriculture {PNG(ctx, "hex_agriculture.png")},
+		base {PNG(ctx, "hex_base.png")},
+		city {PNG(ctx, "hex_nvillage.png")},
+		desert {PNG(ctx, "hex_desert.png")},
+		forest {PNG(ctx, "hex_forest.png")},
+		hills {PNG(ctx, "hex_hills.png")},
+		mountain {PNG(ctx, "hex_mountain.png")},
+		plains {PNG(ctx, "hex_plains.png")},
+		sea {PNG(ctx, "hex_sea.png")},
+		village {PNG(ctx, "hex_nvillage.png")}
 	{}
 
 	std::optional<HexTextures::TextureRef> 
