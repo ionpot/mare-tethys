@@ -27,8 +27,11 @@ namespace tethys::sdl {
 		log.put("Initializing SDL_image " + ver);
 
 		auto flags = IMG_Init(init_flags) & init_flags;
-		if (flags != init_flags)
-			throw ImgException {};
+		if (flags != init_flags) {
+			ImgException ex;
+			IMG_Quit();
+			throw ex;
+		}
 
 		was_init = true;
 	}
