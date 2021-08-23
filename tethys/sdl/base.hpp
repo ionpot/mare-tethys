@@ -14,6 +14,7 @@ namespace tethys::sdl {
 	class Base {
 	public:
 		static Uint32 init_flags;
+		static bool was_init();
 		void delay(Uint32 milliseconds) const;
 		Event* poll_event();
 		RWops read_binary_file(std::string filename) const;
