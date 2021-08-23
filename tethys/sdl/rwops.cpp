@@ -16,6 +16,7 @@ namespace tethys::sdl {
 	{
 		if (pointer) {
 			SDL_RWclose(pointer);
+			pointer = NULL;
 		}
 	}
 

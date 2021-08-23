@@ -34,8 +34,10 @@ namespace tethys::sdl {
 
 	Window::~Window()
 	{
-		if (m_window)
+		if (m_window) {
 			SDL_DestroyWindow(m_window);
+			m_window = NULL;
+		}
 	}
 
 	Window::Window(Window&& from) noexcept:

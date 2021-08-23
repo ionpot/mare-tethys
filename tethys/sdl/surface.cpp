@@ -11,6 +11,7 @@ namespace tethys::sdl {
 	{
 		if (pointer) {
 			SDL_FreeSurface(pointer);
+			pointer = NULL;
 		}
 	}
 

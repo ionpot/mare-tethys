@@ -38,6 +38,7 @@ namespace tethys::sdl {
 	{
 		if (m_texture) {
 			SDL_DestroyTexture(m_texture);
+			m_texture = NULL;
 		}
 	}
 

@@ -41,6 +41,7 @@ namespace tethys::sdl {
 	{
 		if (m_renderer) {
 			SDL_DestroyRenderer(m_renderer);
+			m_renderer = NULL;
 		}
 	}
 
