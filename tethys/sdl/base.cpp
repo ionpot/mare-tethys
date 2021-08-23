@@ -25,9 +25,9 @@ namespace tethys::sdl {
 		log.put("Initializing SDL " + version::to_string(ver));
 
 		if (SDL_Init(init_flags)) {
-			std::string error {SDL_GetError()};
+			Exception ex;
 			SDL_Quit();
-			throw Exception {error};
+			throw ex;
 		}
 	}
 
