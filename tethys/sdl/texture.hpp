@@ -17,6 +17,7 @@ namespace tethys::sdl {
 	protected:
 		friend class Renderer;
 		SDL_Texture* m_texture;
+		Texture(SDL_Texture*, Size = {});
 		Texture(SDL_Renderer*, Size, Uint32 flags);
 		Texture(SDL_Renderer*, const Surface&);
 	};

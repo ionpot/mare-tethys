@@ -7,14 +7,9 @@
 #include <SDL.h>
 
 namespace tethys::sdl {
-	Texture::Texture(SDL_Renderer* renderer, Size size, Uint32 flags):
+	Texture::Texture(SDL_Texture* texture, Size size):
 		size {size},
-		m_texture {SDL_CreateTexture(
-			renderer,
-			SDL_PIXELFORMAT_RGBA8888,
-			flags,
-			size.width, size.height
-		)}
+		m_texture {texture}
 	{
 		if (!m_texture)
 			throw Exception {};
@@ -22,15 +17,20 @@ namespace tethys::sdl {
 			throw Exception {};
 	}
 
+	Texture::Texture(SDL_Renderer* renderer, Size size, Uint32 flags):
+		Texture {
+			SDL_CreateTexture(
+				renderer,
+				SDL_PIXELFORMAT_RGBA8888,
+				flags,
+				size.width, size.height),
+			size}
+	{}
+
 	Texture::Texture(SDL_Renderer* renderer, const Surface& surface):
-		size {},
-		m_texture {SDL_CreateTextureFromSurface(renderer, surface.pointer)}
+		Texture {SDL_CreateTextureFromSurface(renderer, surface.pointer)}
 	{
-		if (!m_texture)
-			throw Exception {};
 		if (SDL_QueryTexture(m_texture, NULL, NULL, &size.width, &size.height))
-			throw Exception {};
-		if (SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND))
 			throw Exception {};
 	}
 
