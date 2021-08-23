@@ -15,15 +15,14 @@ namespace tethys::sdl {
 	Base::init_flags {SDL_INIT_VIDEO};
 
 	Base::Base(util::Log& log):
-		m_event {},
-		m_log {&log}
+		m_event {}
 	{
 		if (SDL_WasInit(init_flags))
 			throw Exception {"Cannot re-initialize."};
 
-		SDL_version sdl_ver;
-		SDL_GetVersion(&sdl_ver);
-		log.put("Initializing SDL " + version::to_string(sdl_ver) + "...");
+		SDL_version ver;
+		SDL_GetVersion(&ver);
+		log.put("Initializing SDL " + version::to_string(ver));
 
 		if (SDL_Init(init_flags)) {
 			std::string error {SDL_GetError()};
@@ -34,10 +33,8 @@ namespace tethys::sdl {
 
 	Base::~Base()
 	{
-		if (SDL_WasInit(init_flags)) {
-			m_log->put("Quitting SDL...");
+		if (SDL_WasInit(init_flags))
 			SDL_Quit();
-		}
 	}
 
 	void

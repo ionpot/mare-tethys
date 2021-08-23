@@ -18,7 +18,6 @@ namespace tethys::sdl {
 	private:
 		friend struct Context;
 		Event m_event;
-		util::Log* m_log;
 		Base(util::Log&);
 		~Base();
 		TETHYS_NO_COPY(Base)
