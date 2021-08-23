@@ -25,8 +25,11 @@ namespace tethys::sdl {
 		auto ver = version::to_string(*TTF_Linked_Version());
 		log.put("Initializing SDL_ttf " + ver);
 
-		if (TTF_Init() == -1)
-			throw TtfException {};
+		if (TTF_Init() == -1) {
+			TtfException ex;
+			TTF_Quit();
+			throw ex;
+		}
 	}
 
 	Ttf::~Ttf()
