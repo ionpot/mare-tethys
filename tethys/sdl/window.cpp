@@ -26,19 +26,16 @@ namespace tethys::sdl {
 	}
 
 	Window::Window(std::string title, Size size):
-		m_window {NULL}
+		m_window {s_create_window(title, size)}
 	{
-		m_window = s_create_window(title, size);
-		if (!m_window) {
+		if (!m_window)
 			throw Exception {};
-		}
 	}
 
 	Window::~Window()
 	{
-		if (m_window) {
+		if (m_window)
 			SDL_DestroyWindow(m_window);
-		}
 	}
 
 	Window::Window(Window&& from) noexcept:
