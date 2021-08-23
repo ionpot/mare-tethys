@@ -8,7 +8,7 @@ namespace tethys::sdl {
 	RWops::RWops(SDL_RWops* ptr):
 		pointer {ptr}
 	{
-		if (is_null())
+		if (!pointer)
 			throw Exception {};
 	}
 
@@ -31,11 +31,5 @@ namespace tethys::sdl {
 		pointer = from.pointer;
 		from.pointer = NULL;
 		return *this;
-	}
-
-	bool
-	RWops::is_null() const
-	{
-		return pointer == NULL;
 	}
 }

@@ -13,8 +13,6 @@ namespace tethys::sdl {
 		TETHYS_NO_COPY(RWops)
 		TETHYS_DECLARE_MOVE(RWops)
 
-		bool is_null() const;
-
 	private:
 		friend class Base;
 		RWops(SDL_RWops*);
