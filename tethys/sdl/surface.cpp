@@ -27,10 +27,4 @@ namespace tethys::sdl {
 		from.pointer = NULL;
 		return *this;
 	}
-
-	bool
-	Surface::is_null() const
-	{
-		return pointer == NULL;
-	}
 }

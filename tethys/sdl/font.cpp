@@ -91,7 +91,7 @@ namespace tethys::sdl {
 		Surface surface {
 			TTF_RenderUTF8_Blended(m_font, text.c_str(), color_rgba(color))
 		};
-		if (surface.is_null())
+		if (!surface.pointer)
 			throw TtfException {};
 		return surface;
 	}

@@ -48,7 +48,7 @@ namespace tethys::sdl {
 	Img::load_png(const RWops& rwops) const
 	{
 		Surface surface {IMG_LoadPNG_RW(rwops.pointer)};
-		if (surface.is_null())
+		if (!surface.pointer)
 			throw ImgException {};
 		return surface;
 	}
