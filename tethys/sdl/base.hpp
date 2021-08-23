@@ -12,6 +12,7 @@
 namespace tethys::sdl {
 	class Base {
 	public:
+		static Uint32 init_flags;
 		void delay(Uint32 milliseconds) const;
 		Event* poll_event();
 	private:

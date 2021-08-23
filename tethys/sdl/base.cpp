@@ -11,25 +11,22 @@
 #include <string>
 
 namespace tethys::sdl {
-	namespace {
-		const struct {
-			Uint32 init {SDL_INIT_VIDEO};
-		} s_flags;
-	}
+	Uint32
+	Base::init_flags {SDL_INIT_VIDEO};
 
 	Base::Base(util::Log& log):
 		m_call_quit {true},
 		m_event {},
 		m_log {&log}
 	{
-		if (SDL_WasInit(s_flags.init))
+		if (SDL_WasInit(init_flags))
 			throw Exception {"Cannot re-initialize."};
 
 		SDL_version sdl_ver;
 		SDL_GetVersion(&sdl_ver);
 		log.put("Initializing SDL " + version::to_string(sdl_ver) + "...");
 
-		if (SDL_Init(s_flags.init)) {
+		if (SDL_Init(init_flags)) {
 			std::string error {SDL_GetError()};
 			SDL_Quit();
 			throw Exception {error};
