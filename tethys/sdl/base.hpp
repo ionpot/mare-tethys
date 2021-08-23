@@ -17,12 +17,10 @@ namespace tethys::sdl {
 		Event* poll_event();
 	private:
 		friend struct Context;
-		bool m_call_quit;
 		Event m_event;
 		util::Log* m_log;
 		Base(util::Log&);
 		~Base();
 		TETHYS_NO_COPY(Base)
-		TETHYS_DECLARE_MOVE(Base)
 	};
 }

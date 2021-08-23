@@ -15,7 +15,6 @@ namespace tethys::sdl {
 	Base::init_flags {SDL_INIT_VIDEO};
 
 	Base::Base(util::Log& log):
-		m_call_quit {true},
 		m_event {},
 		m_log {&log}
 	{
@@ -35,28 +34,10 @@ namespace tethys::sdl {
 
 	Base::~Base()
 	{
-		if (m_call_quit) {
+		if (SDL_WasInit(init_flags)) {
 			m_log->put("Quitting SDL...");
 			SDL_Quit();
 		}
-	}
-
-	Base::Base(Base&& from) noexcept:
-		m_call_quit {true},
-		m_event {from.m_event},
-		m_log {from.m_log}
-	{
-		from.m_call_quit = false;
-	}
-
-	Base&
-	Base::operator=(Base&& from) noexcept
-	{
-		m_call_quit = true;
-		from.m_call_quit = false;
-		m_event = from.m_event;
-		m_log = from.m_log;
-		return *this;
 	}
 
 	void
