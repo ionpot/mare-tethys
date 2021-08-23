@@ -1,6 +1,7 @@
 #pragma once
 
 #include "event.hpp"
+#include "rwops.hpp"
 
 #include <util/log.hpp>
 #include <util/macros.hpp>
@@ -15,6 +16,7 @@ namespace tethys::sdl {
 		static Uint32 init_flags;
 		void delay(Uint32 milliseconds) const;
 		Event* poll_event();
+		RWops read_binary_file(std::string filename) const;
 	private:
 		friend struct Context;
 		Event m_event;

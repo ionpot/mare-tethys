@@ -19,7 +19,8 @@ namespace tethys::sdl {
 	Texture
 	Context::load_png(std::string path) const
 	{
-		auto surface = img.load_png(path);
+		auto rwops = base.read_binary_file(path);
+		auto surface = img.load_png(rwops);
 		return renderer.create_texture(surface);
 	}
 }

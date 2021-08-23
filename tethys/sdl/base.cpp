@@ -53,4 +53,10 @@ namespace tethys::sdl {
 		}
 		return nullptr;
 	}
+
+	RWops
+	Base::read_binary_file(std::string path) const
+	{
+		return {SDL_RWFromFile(path.c_str(), "rb")};
+	}
 }

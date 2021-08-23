@@ -1,5 +1,6 @@
 #pragma once
 
+#include "rwops.hpp"
 #include "surface.hpp"
 
 #include <util/log.hpp>
@@ -16,6 +17,6 @@ namespace tethys::sdl {
 		~Img();
 		TETHYS_NO_COPY(Img)
 
-		Surface load_png(std::string file) const;
+		Surface load_png(const RWops&) const;
 	};
 }

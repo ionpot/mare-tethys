@@ -4,13 +4,9 @@
 
 #include <SDL.h>
 
-#include <string>
-
 namespace tethys::sdl {
 	class RWops {
 	public:
-		static RWops read_binary_file(std::string filename);
-
 		SDL_RWops* pointer;
 
 		~RWops();
@@ -20,6 +16,7 @@ namespace tethys::sdl {
 		bool is_null() const;
 
 	private:
+		friend class Base;
 		RWops(SDL_RWops*);
 	};
 }

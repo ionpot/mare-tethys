@@ -42,9 +42,8 @@ namespace tethys::sdl {
 	}
 
 	Surface
-	Img::load_png(std::string file) const
+	Img::load_png(const RWops& rwops) const
 	{
-		auto rwops = RWops::read_binary_file(file);
 		Surface surface {IMG_LoadPNG_RW(rwops.pointer)};
 		if (surface.is_null())
 			throw ImgException {};
