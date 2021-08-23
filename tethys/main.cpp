@@ -1,12 +1,9 @@
-#include "config.hpp"
-#include "screen.hpp"
+#include "app.hpp"
 
-#include <sdl/context.hpp>
 #include <sdl/show_error.hpp>
 
 #include <tethys/version.hpp>
 
-#include <util/cfg_file.hpp>
 #include <util/exception.hpp>
 #include <util/log.hpp>
 
@@ -22,45 +19,16 @@ namespace {
 		return "Mare Tethys v" + version.to_string();
 	}
 
-	class Main {
-	public:
-		Main(std::string title, util::Log& log):
-			m_config {
-				util::CfgFile {"game.cfg"},
-				util::CfgFile {"ui.cfg"}
-			},
-			m_sdl {sdl::Context {title, m_config.ui.window_size, log}},
-			m_screen {m_config.ui, m_sdl, log}
-		{}
-		void poll()
-		{
-			auto event = m_sdl.base.poll_event();
-			if (event) {
-				if (m_screen.handle(*event) == Screen::Status::quit)
-					return;
-			}
-			else {
-				m_screen.update();
-				m_screen.render(m_sdl.renderer);
-				m_sdl.base.delay(1000 / 30);
-			}
-			poll();
-		}
-	private:
-		const Config m_config;
-		sdl::Context m_sdl;
-		Screen m_screen;
-	};
-
-	void start(util::Log&& log)
+	void
+	start(util::Log&& log)
 	{
 		auto title = get_title();
 		log.put(title);
 		log.put("Begin");
 		try {
-			Main m {title, log};
+			App app {title, log};
 			log.put("Polling events...");
-			m.poll();
+			app.poll();
 		}
 		catch (const util::Exception& err) {
 			sdl::show_error(err.source + " Error", err.text);

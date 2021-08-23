@@ -31,7 +31,7 @@ add_subdirectory(game)
 add_subdirectory(ui)
 
 # WIN32 flag removes the console window on Windows
-add_executable(tethys WIN32 grid_file.cpp main.cpp screen.cpp)
+add_executable(tethys WIN32 app.cpp grid_file.cpp main.cpp screen.cpp)
 
 # executable needs these at runtime
 configure_file(game.cfg game.cfg COPYONLY)
