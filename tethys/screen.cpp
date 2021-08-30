@@ -14,23 +14,28 @@
 
 namespace tethys {
 	Screen::Screen(
-			const ui::Config& config,
+			const Config& config,
 			const sdl::Context& sdl,
 			util::Log& log
 	):
 		m_active_hex {},
 		m_focus {sdl.window.has_focus()},
-		m_font {config.font.create(sdl)},
+		m_font {config.ui.font.create(sdl)},
 		m_hex_grid {
 			grid_file::read("tethys.grid"),
-			sdl::Hexagon {config.hex_side},
-			config.window_size,
-			config.scroll_speed,
+			sdl::Hexagon {config.ui.hex_side},
+			config.ui.window_size,
+			config.ui.scroll_speed,
 			sdl,
 			log
 		},
 		m_mouse_pos {},
-		m_text_boxes {config.text_box, m_font, sdl.renderer}
+		m_text_boxes {
+			config.ui.text_box,
+			config.game,
+			m_font,
+			sdl.renderer
+		}
 	{}
 
 	Screen::Status

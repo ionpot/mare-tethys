@@ -1,16 +1,13 @@
 #include "font.hpp"
 
 #include "color.hpp"
-#include "size.hpp"
 #include "surface.hpp"
 #include "ttf_exception.hpp"
 
-#include <util/int.hpp>
 #include <util/rgba.hpp>
 
 #include <SDL_ttf.h>
 
-#include <list>
 #include <string>
 
 namespace tethys::sdl {
@@ -44,36 +41,6 @@ namespace tethys::sdl {
 	}
 
 	int
-	Font::calculate_height(int lines) const
-	{
-		return (lines > 0)
-			? line_height() + line_skip() * --lines
-			: 0;
-	}
-
-	Size
-	Font::calculate_size(const std::string& text) const
-	{
-		Size size;
-		if (TTF_SizeUTF8(m_font, text.c_str(), &size.width, &size.height))
-			throw TtfException {};
-		return size;
-	}
-
-	Size
-	Font::calculate_size(const std::list<std::string>& lines) const
-	{
-		auto count = TETHYS_INT(lines.size());
-		int width {0};
-		for (const auto& line : lines) {
-			auto size = calculate_size(line);
-			if (size.width > width)
-				width = size.width;
-		}
-		return {width, calculate_height(count)};
-	}
-
-	int
 	Font::line_height() const
 	{
 		return TTF_FontHeight(m_font);
@@ -94,11 +61,5 @@ namespace tethys::sdl {
 		if (!surface.pointer)
 			throw TtfException {};
 		return surface;
-	}
-
-	int
-	Font::y_of_line(int nth_line) const
-	{
-		return line_skip() * nth_line;
 	}
 }

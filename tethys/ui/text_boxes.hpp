@@ -1,10 +1,12 @@
 #pragma once
 
+#include <game/config.hpp>
 #include <game/hex_type.hpp>
 
 #include <sdl/font.hpp>
 #include <sdl/renderer.hpp>
 #include <sdl/text_box.hpp>
+#include <sdl/text_lines_box.hpp>
 
 #include <util/exception.hpp>
 
@@ -12,21 +14,22 @@ namespace tethys::ui {
 	struct TextBoxes {
 		TETHYS_EXCEPTION("TextBoxes")
 
-		const sdl::TextBox agriculture;
-		const sdl::TextBox city;
-		const sdl::TextBox desert;
-		const sdl::TextBox forest;
-		const sdl::TextBox hills;
-		const sdl::TextBox mountain;
-		const sdl::TextBox plains;
-		const sdl::TextBox sea;
-		const sdl::TextBox village;
+		const sdl::TextLinesBox agriculture;
+		const sdl::TextLinesBox city;
+		const sdl::TextLinesBox desert;
+		const sdl::TextLinesBox forest;
+		const sdl::TextLinesBox hills;
+		const sdl::TextLinesBox mountain;
+		const sdl::TextLinesBox plains;
+		const sdl::TextLinesBox sea;
+		const sdl::TextLinesBox village;
 
 		TextBoxes(
 			const sdl::TextBox::Config&,
+			const game::Config&,
 			const sdl::Font&,
 			const sdl::Renderer&);
 
-		const sdl::TextBox* find(game::HexType) const;
+		const sdl::TextLinesBox* find(game::HexType) const;
 	};
 }

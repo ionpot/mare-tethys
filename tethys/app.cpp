@@ -14,7 +14,7 @@ namespace tethys {
 			util::CfgFile {"ui.cfg"}
 		},
 		m_sdl {title, m_config.ui.window_size, log},
-		m_screen {m_config.ui, m_sdl, log}
+		m_screen {m_config, m_sdl, log}
 	{
 		log.put("Ready");
 	}

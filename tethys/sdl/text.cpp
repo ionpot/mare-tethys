@@ -16,7 +16,7 @@ namespace tethys::sdl {
 			const util::RGBA& color
 	):
 		texture {rdr.create_text(font, content, color)},
-		size {texture.size.width, font.line_height() + 1}
+		size {texture.size.width, font.line_height()}
 	{}
 
 	void
