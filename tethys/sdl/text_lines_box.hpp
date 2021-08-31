@@ -11,10 +11,8 @@
 #include <vector>
 
 namespace tethys::sdl {
-	struct TextLinesBox {
-		TextLines lines;
-		Box box;
-
+	class TextLinesBox {
+	public:
 		TextLinesBox(
 			const Box::Config&,
 			const Renderer&,
@@ -27,5 +25,9 @@ namespace tethys::sdl {
 			const std::vector<std::string>& lines);
 
 		void render(const Renderer&, Point position) const;
+
+	private:
+		TextLines m_lines;
+		Box m_box;
 	};
 }

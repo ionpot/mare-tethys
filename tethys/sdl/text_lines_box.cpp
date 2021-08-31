@@ -17,8 +17,8 @@ namespace tethys::sdl {
 			const Renderer& rdr,
 			TextLines&& content
 	):
-		lines {std::move(content)},
-		box {config, rdr, lines.size}
+		m_lines {std::move(content)},
+		m_box {config, rdr, m_lines.size}
 	{}
 
 	TextLinesBox::TextLinesBox(
@@ -37,7 +37,7 @@ namespace tethys::sdl {
 	void
 	TextLinesBox::render(const Renderer& rdr, Point position) const
 	{
-		box.render(rdr, position);
-		lines.render(rdr, box.content(position));
+		m_box.render(rdr, position);
+		m_lines.render(rdr, m_box.content(position));
 	}
 }
