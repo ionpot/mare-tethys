@@ -12,14 +12,12 @@
 #include <string>
 
 namespace tethys::sdl {
-	struct TextBox {
+	class TextBox {
+	public:
 		struct Config {
 			Box::Config box;
 			util::RGB text_color;
 		};
-
-		Text text;
-		Box box;
 
 		TextBox(
 			const TextBox::Config&,
@@ -33,5 +31,9 @@ namespace tethys::sdl {
 			std::string content);
 
 		void render(const Renderer&, Point position) const;
+
+	private:
+		Text m_text;
+		Box m_box;
 	};
 }

@@ -14,8 +14,8 @@ namespace tethys::sdl {
 			const Renderer& rdr,
 			Text&& content
 	):
-		text {std::move(content)},
-		box {config.box, rdr, text.size}
+		m_text {std::move(content)},
+		m_box {config.box, rdr, m_text.size}
 	{}
 
 	TextBox::TextBox(
@@ -30,7 +30,7 @@ namespace tethys::sdl {
 	void
 	TextBox::render(const Renderer& rdr, Point pos) const
 	{
-		box.render(rdr, pos);
-		text.render(rdr, box.content(pos));
+		m_box.render(rdr, pos);
+		m_text.render(rdr, m_box.content(pos));
 	}
 }
