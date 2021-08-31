@@ -38,6 +38,6 @@ namespace tethys::sdl {
 	TextLinesBox::render(const Renderer& rdr, Point position) const
 	{
 		box.render(rdr, position);
-		lines.render(rdr, box.content + position);
+		lines.render(rdr, box.content(position));
 	}
 }

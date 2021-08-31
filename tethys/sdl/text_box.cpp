@@ -31,6 +31,6 @@ namespace tethys::sdl {
 	TextBox::render(const Renderer& rdr, Point pos) const
 	{
 		box.render(rdr, pos);
-		text.render(rdr, pos + box.content);
+		text.render(rdr, box.content(pos));
 	}
 }

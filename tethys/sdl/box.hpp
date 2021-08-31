@@ -8,7 +8,8 @@
 #include <util/rgb.hpp>
 
 namespace tethys::sdl {
-	struct Box {
+	class Box {
+	public:
 		struct Config {
 			util::RGB background_color;
 			util::RGB border_color;
@@ -16,11 +17,14 @@ namespace tethys::sdl {
 			Point padding;
 		};
 
-		const Point content;
-		const TargetTexture texture;
-
 		Box(const Config&, const Renderer&, Size inner_size);
 
+		Point content(Point offset) const;
+
 		void render(const Renderer&, Point position) const;
+
+	private:
+		Point m_content;
+		TargetTexture m_texture;
 	};
 }
