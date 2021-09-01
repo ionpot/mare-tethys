@@ -15,7 +15,7 @@ namespace tethys::sdl {
 			Text&& content
 	):
 		m_text {std::move(content)},
-		m_box {config.box, rdr, m_text.size}
+		m_box {config.box, rdr, m_text.size()}
 	{}
 
 	TextBox::TextBox(

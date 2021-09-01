@@ -11,10 +11,8 @@
 #include <string>
 
 namespace tethys::sdl {
-	struct Text {
-		Texture texture;
-		Size size;
-
+	class Text {
+	public:
 		Text(
 			const Font&,
 			const Renderer&,
@@ -22,5 +20,13 @@ namespace tethys::sdl {
 			const util::RGBA& text_color);
 
 		void render(const Renderer&, Point position) const;
+
+		Size size() const;
+		int width() const;
+		int height() const;
+
+	private:
+		Texture m_texture;
+		Size m_size;
 	};
 }

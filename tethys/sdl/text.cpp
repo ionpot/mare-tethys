@@ -15,13 +15,31 @@ namespace tethys::sdl {
 			std::string content,
 			const util::RGBA& color
 	):
-		texture {rdr.create_text(font, content, color)},
-		size {texture.size.width, font.line_height()}
+		m_texture {rdr.create_text(font, content, color)},
+		m_size {m_texture.size.width, font.line_height()}
 	{}
 
 	void
 	Text::render(const Renderer& rdr, Point pos) const
 	{
-		rdr.put(texture, pos);
+		rdr.put(m_texture, pos);
+	}
+
+	Size
+	Text::size() const
+	{
+		return m_size;
+	}
+
+	int
+	Text::width() const
+	{
+		return m_size.width;
+	}
+
+	int
+	Text::height() const
+	{
+		return m_size.height;
 	}
 }

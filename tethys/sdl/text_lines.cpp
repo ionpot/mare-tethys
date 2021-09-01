@@ -40,11 +40,11 @@ namespace tethys::sdl {
 	{
 		auto& [width, height] = m_size;
 		for (const auto& line : m_lines) {
-			if (auto w = line.size.width; w > width)
+			if (auto w = line.width(); w > width)
 				width = w;
 		}
 		if (auto sz = m_lines.size()) {
-			auto h = m_lines.front().size.height;
+			auto h = m_lines.front().height();
 			height = h + m_line_skip * TETHYS_INT(--sz);
 		}
 	}
