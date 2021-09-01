@@ -12,11 +12,8 @@
 #include <vector>
 
 namespace tethys::sdl {
-	struct TextLines {
-		std::vector<Text> lines;
-		int line_skip;
-		Size size;
-
+	class TextLines {
+	public:
 		TextLines(int line_skip, std::vector<Text>&& lines);
 		TextLines(const Font&, std::vector<Text>&& lines);
 		TextLines(
@@ -26,5 +23,12 @@ namespace tethys::sdl {
 			const util::RGBA& text_color);
 
 		void render(const Renderer&, Point position) const;
+
+		Size size() const;
+
+	private:
+		std::vector<Text> m_lines;
+		int m_line_skip;
+		Size m_size;
 	};
 }

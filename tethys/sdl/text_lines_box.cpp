@@ -18,7 +18,7 @@ namespace tethys::sdl {
 			TextLines&& content
 	):
 		m_lines {std::move(content)},
-		m_box {config, rdr, m_lines.size}
+		m_box {config, rdr, m_lines.size()}
 	{}
 
 	TextLinesBox::TextLinesBox(

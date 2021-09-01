@@ -3,6 +3,7 @@
 #include "font.hpp"
 #include "point.hpp"
 #include "renderer.hpp"
+#include "size.hpp"
 #include "text.hpp"
 
 #include <util/int.hpp>
@@ -33,18 +34,18 @@ namespace tethys::sdl {
 			int lskip,
 			std::vector<Text>&& lns
 	):
-		lines {std::move(lns)},
-		line_skip {lskip},
-		size {}
+		m_lines {std::move(lns)},
+		m_line_skip {lskip},
+		m_size {}
 	{
-		auto& [width, height] = size;
-		for (const auto& line : lines) {
+		auto& [width, height] = m_size;
+		for (const auto& line : m_lines) {
 			if (auto w = line.size.width; w > width)
 				width = w;
 		}
-		if (auto sz = lines.size()) {
-			auto h = lines.front().size.height;
-			height = h + line_skip * TETHYS_INT(--sz);
+		if (auto sz = m_lines.size()) {
+			auto h = m_lines.front().size.height;
+			height = h + m_line_skip * TETHYS_INT(--sz);
 		}
 	}
 
@@ -67,9 +68,15 @@ namespace tethys::sdl {
 	void
 	TextLines::render(const Renderer& rdr, Point position) const
 	{
-		for (const auto& line : lines) {
+		for (const auto& line : m_lines) {
 			line.render(rdr, position);
-			position.y += line_skip;
+			position.y += m_line_skip;
 		}
+	}
+
+	Size
+	TextLines::size() const
+	{
+		return m_size;
 	}
 }
