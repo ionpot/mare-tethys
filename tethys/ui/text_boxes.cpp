@@ -2,6 +2,7 @@
 
 #include <game/config.hpp>
 #include <game/hex_type.hpp>
+#include <game/value.hpp>
 
 #include <sdl/font.hpp>
 #include <sdl/renderer.hpp>
@@ -15,14 +16,26 @@
 
 namespace tethys::ui {
 	namespace {
+		std::string
+		s_kv(std::string key)
+		{
+			return util::string::kv(key, "?");
+		}
+
+		std::string
+		s_kv(std::string key, const game::Value& value)
+		{
+			return util::string::kv<std::string>(key, value);
+		}
+
 		std::vector<std::string>
 		s_hex(std::string name, const game::Config::Hex& hex)
 		{
 			return {
 				name,
-				util::string::kv("Gold", hex.gold),
-				util::string::kv("Industry", hex.industry),
-				util::string::kv("Manpower", hex.manpower)
+				s_kv("Gold", hex.gold),
+				s_kv("Industry", hex.industry),
+				s_kv("Manpower", hex.manpower)
 			};
 		}
 
@@ -31,9 +44,9 @@ namespace tethys::ui {
 		{
 			return {
 				name,
-				util::string::kv("Gold", "?"),
-				util::string::kv("Industry", "?"),
-				util::string::kv("Manpower", "?")
+				s_kv("Gold"),
+				s_kv("Industry"),
+				s_kv("Manpower")
 			};
 		}
 	}
