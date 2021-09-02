@@ -1,6 +1,7 @@
 .DS_Store
 *.sw[po]
 /.vs/
+/bin/
 /build/
 /lib/sdl2/*
 !/lib/sdl2/sdl2-config.cmake

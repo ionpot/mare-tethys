@@ -33,11 +33,6 @@ add_subdirectory(ui)
 # WIN32 flag removes the console window on Windows
 add_executable(tethys WIN32 app.cpp grid_file.cpp main.cpp screen.cpp)
 
-# executable needs these at runtime
-configure_file(game.cfg game.cfg COPYONLY)
-configure_file(ui.cfg ui.cfg COPYONLY)
-configure_file(tethys.grid tethys.grid COPYONLY)
-
 # project version/build numbers placed here
 configure_file(version.hpp.in version.hpp @ONLY)
 
@@ -47,8 +42,8 @@ target_include_directories(tethys PRIVATE "${PROJECT_BINARY_DIR}")
 # dependencies
 target_link_libraries(tethys PRIVATE tethys_util tethys_sdl tethys_game tethys_ui)
 
-# copy assets dir next to the binary when compilation succeeds
-add_custom_command(TARGET tethys POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_directory
-		${CMAKE_CURRENT_SOURCE_DIR}/assets
-		${CMAKE_CURRENT_BINARY_DIR}/assets)
+# place the executable and the files/dirs it needs
+# "TYPE BIN" puts them next to the executable
+install(TARGETS tethys)
+install(FILES game.cfg ui.cfg tethys.grid TYPE BIN)
+install(DIRECTORY assets TYPE BIN)
