@@ -18,6 +18,9 @@
 #define TETHYS_INT_POSITIVE(expr)\
 	tethys::util::int_positive(expr, TETHYS_FILE_LINE(), #expr)
 
+#define TETHYS_INT_ROUND(expr)\
+	tethys::util::int_round(expr, TETHYS_FILE_LINE(), #expr)
+
 #define TETHYS_INT_WITHIN(expr, max)\
 	tethys::util::int_within(expr, max, TETHYS_FILE_LINE(), #expr)
 
@@ -30,6 +33,7 @@ namespace tethys::util {
 	int int_index(int n, int max, FileLine location, std::string name);
 	int int_natural(int, FileLine location, std::string name);
 	int int_positive(int, FileLine location, std::string name);
+	int int_round(double d, FileLine loc, std::string name);
 	int int_within(int n, int max, FileLine location, std::string name);
 	uint8_t int_uint8(uintmax_t, FileLine location, std::string name);
 }

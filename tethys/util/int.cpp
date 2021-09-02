@@ -3,6 +3,7 @@
 #include "file_line.hpp"
 
 #include <climits>
+#include <cmath>
 #include <cstdint>
 #include <string>
 
@@ -72,6 +73,19 @@ namespace tethys::util {
 		throw IntException {
 			s_quote(s_eq(name, number))
 			+ " must have a positive value "
+			+ s_location(loc) + "."
+		};
+	}
+
+	int
+	int_round(double d, FileLine loc, std::string name)
+	{
+		long x {std::lround(d)};
+		if (INT_MIN <= x || x <= INT_MAX)
+			return (int)x;
+		throw IntException {
+			s_quote(s_eq(name, d))
+			+ " does not fit in an int "
 			+ s_location(loc) + "."
 		};
 	}

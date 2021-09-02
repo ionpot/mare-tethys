@@ -11,19 +11,14 @@ namespace tethys::sdl {
 	namespace {
 		const double s_sqrt3 = std::sqrt(3);
 
-		int s_round(double d)
-		{
-			return static_cast<int>(std::lround(d));
-		}
-
 		int s_round1(double d)
 		{
-			return std::max(1, s_round(d));
+			return std::max(1, TETHYS_INT_ROUND(d));
 		}
 	}
 
 	Hexagon::Hexagon(double a_side):
-		side {TETHYS_INT_POSITIVE(s_round(a_side))},
+		side {TETHYS_INT_POSITIVE(TETHYS_INT_ROUND(a_side))},
 		x1 {s_round1(a_side / 2)},
 		x2 {x1 + side - 1},
 		x3 {x1 + x2},
