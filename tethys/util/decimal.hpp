@@ -17,7 +17,10 @@ namespace tethys::util {
 			m_value {i * P}
 		{}
 
-		operator std::string() const
+		bool is_positive() const
+		{ return m_value > 0; }
+
+		std::string to_string() const
 		{
 			auto [quot, rem] = std::div(m_value, P);
 			auto integral = std::to_string(quot);

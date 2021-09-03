@@ -1,8 +1,8 @@
 #include "text_boxes.hpp"
 
+#include <game/bonus.hpp>
 #include <game/config.hpp>
 #include <game/hex_type.hpp>
-#include <game/value.hpp>
 
 #include <sdl/font.hpp>
 #include <sdl/renderer.hpp>
@@ -23,9 +23,9 @@ namespace tethys::ui {
 		}
 
 		std::string
-		s_kv(std::string key, const game::Value& value)
+		s_kv(std::string key, const game::Bonus& bonus)
 		{
-			return util::string::kv<std::string>(key, value);
+			return util::string::kv(key, bonus.to_string());
 		}
 
 		std::vector<std::string>

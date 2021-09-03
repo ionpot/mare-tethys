@@ -1,5 +1,6 @@
 #pragma once
 
+#include "bonus.hpp"
 #include "value.hpp"
 
 #include <util/cfg_file.hpp>
@@ -7,9 +8,9 @@
 namespace tethys::game {
 	struct Config {
 		struct Hex {
-			Value gold;
-			Value industry;
-			Value manpower;
+			Bonus gold;
+			Bonus industry;
+			Bonus manpower;
 			Hex(const util::CfgFile::Section&);
 		};
 
