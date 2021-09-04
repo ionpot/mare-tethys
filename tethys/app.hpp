@@ -1,9 +1,10 @@
 #pragma once
 
-#include "config.hpp"
 #include "screen.hpp"
 
 #include <sdl/context.hpp>
+
+#include <ui/config.hpp>
 
 #include <util/log.hpp>
 
@@ -12,10 +13,9 @@
 namespace tethys {
 	class App {
 	public:
-		App(std::string window_title, util::Log&);
+		App(std::string window_title, const ui::Config&, util::Log&);
 		void poll();
 	private:
-		const Config m_config;
 		sdl::Context m_sdl;
 		Screen m_screen;
 	};

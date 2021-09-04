@@ -4,6 +4,7 @@
 
 #include <tethys/version.hpp>
 
+#include <util/cfg_file.hpp>
 #include <util/exception.hpp>
 #include <util/log.hpp>
 
@@ -26,7 +27,7 @@ namespace {
 		log.put(title);
 		log.put("Begin");
 		try {
-			App app {title, log};
+			App app {title, util::CfgFile {"ui.cfg"}, log};
 			log.put("Polling events...");
 			app.poll();
 		}

@@ -2,19 +2,16 @@
 
 #include "screen.hpp"
 
-#include <util/cfg_file.hpp>
+#include <ui/config.hpp>
+
 #include <util/log.hpp>
 
 #include <string>
 
 namespace tethys {
-	App::App(std::string title, util::Log& log):
-		m_config {
-			util::CfgFile {"game.cfg"},
-			util::CfgFile {"ui.cfg"}
-		},
-		m_sdl {title, m_config.ui.window_size, log},
-		m_screen {m_config, m_sdl, log}
+	App::App(std::string title, const ui::Config& ui, util::Log& log):
+		m_sdl {title, ui.window_size, log},
+		m_screen {ui, m_sdl, log}
 	{
 		log.put("Ready");
 	}

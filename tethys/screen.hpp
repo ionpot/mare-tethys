@@ -1,12 +1,11 @@
 #pragma once
 
-#include "config.hpp"
-
 #include <sdl/context.hpp>
 #include <sdl/event.hpp>
 #include <sdl/point.hpp>
 #include <sdl/renderer.hpp>
 
+#include <ui/config.hpp>
 #include <ui/hex_grid.hpp>
 #include <ui/hud.hpp>
 
@@ -17,7 +16,7 @@ namespace tethys {
 	public:
 		enum class Status { ok, quit };
 
-		Screen(const Config&, const sdl::Context&, util::Log&);
+		Screen(const ui::Config&, const sdl::Context&, util::Log&);
 
 		Status handle(const sdl::Event&);
 		void render(const sdl::Renderer&) const;

@@ -7,25 +7,28 @@
 #include <sdl/hexagon.hpp>
 #include <sdl/key.hpp>
 
-#include <util/rgb.hpp>
+#include <ui/config.hpp>
+
+#include <util/cfg_file.hpp>
 #include <util/log.hpp>
+#include <util/rgb.hpp>
 
 namespace tethys {
 	Screen::Screen(
-			const Config& config,
+			const ui::Config& ui,
 			const sdl::Context& sdl,
 			util::Log& log
 	):
 		m_focus {sdl.window.has_focus()},
 		m_hex_grid {
 			grid_file::read("tethys.grid"),
-			sdl::Hexagon {config.ui.hex_side},
-			config.ui.window_size,
-			config.ui.scroll_speed,
+			sdl::Hexagon {ui.hex_side},
+			ui.window_size,
+			ui.scroll_speed,
 			sdl,
 			log
 		},
-		m_hud {config.game, config.ui, sdl},
+		m_hud {util::CfgFile {"game.cfg"}, ui, sdl},
 		m_mouse_pos {}
 	{}
 
