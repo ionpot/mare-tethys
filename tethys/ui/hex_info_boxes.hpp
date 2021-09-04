@@ -11,25 +11,27 @@
 #include <util/exception.hpp>
 
 namespace tethys::ui {
-	struct TextBoxes {
-		TETHYS_EXCEPTION("TextBoxes")
+	class HexInfoBoxes {
+	public:
+		TETHYS_EXCEPTION("HexInfoBoxes")
 
-		const sdl::TextLinesBox agriculture;
-		const sdl::TextLinesBox city;
-		const sdl::TextLinesBox desert;
-		const sdl::TextLinesBox forest;
-		const sdl::TextLinesBox hills;
-		const sdl::TextLinesBox mountain;
-		const sdl::TextLinesBox plains;
-		const sdl::TextLinesBox sea;
-		const sdl::TextLinesBox village;
-
-		TextBoxes(
+		HexInfoBoxes(
 			const sdl::TextBox::Config&,
 			const game::Config&,
 			const sdl::Font&,
 			const sdl::Renderer&);
 
 		const sdl::TextLinesBox* find(game::HexType) const;
+
+	private:
+		sdl::TextLinesBox m_agriculture;
+		sdl::TextLinesBox m_city;
+		sdl::TextLinesBox m_desert;
+		sdl::TextLinesBox m_forest;
+		sdl::TextLinesBox m_hills;
+		sdl::TextLinesBox m_mountain;
+		sdl::TextLinesBox m_plains;
+		sdl::TextLinesBox m_sea;
+		sdl::TextLinesBox m_village;
 	};
 }

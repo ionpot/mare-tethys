@@ -1,4 +1,4 @@
-#include "text_boxes.hpp"
+#include "hex_info_boxes.hpp"
 
 #include <game/bonus.hpp>
 #include <game/config.hpp>
@@ -51,47 +51,47 @@ namespace tethys::ui {
 		}
 	}
 
-	TextBoxes::TextBoxes(
+	HexInfoBoxes::HexInfoBoxes(
 			const sdl::TextBox::Config& config,
 			const game::Config& game,
 			const sdl::Font& font,
 			const sdl::Renderer& rdr
 	):
-		agriculture {config, font, rdr, s_hex_unknown("Agriculture")},
-		city {config, font, rdr, s_hex("City", game.city)},
-		desert {config, font, rdr, s_hex_unknown("Desert")},
-		forest {config, font, rdr, s_hex("Forest", game.forest)},
-		hills {config, font, rdr, s_hex_unknown("Hills")},
-		mountain {config, font, rdr, s_hex("Mountain", game.mountain)},
-		plains {config, font, rdr, s_hex("Plains", game.plains)},
-		sea {config, font, rdr, s_hex("Sea", game.sea)},
-		village {config, font, rdr, s_hex_unknown("Village")}
+		m_agriculture {config, font, rdr, s_hex_unknown("Agriculture")},
+		m_city {config, font, rdr, s_hex("City", game.city)},
+		m_desert {config, font, rdr, s_hex_unknown("Desert")},
+		m_forest {config, font, rdr, s_hex("Forest", game.forest)},
+		m_hills {config, font, rdr, s_hex_unknown("Hills")},
+		m_mountain {config, font, rdr, s_hex("Mountain", game.mountain)},
+		m_plains {config, font, rdr, s_hex("Plains", game.plains)},
+		m_sea {config, font, rdr, s_hex("Sea", game.sea)},
+		m_village {config, font, rdr, s_hex_unknown("Village")}
 	{}
 
 	const sdl::TextLinesBox*
-	TextBoxes::find(game::HexType type) const
+	HexInfoBoxes::find(game::HexType type) const
 	{
 		switch (type) {
 		case game::HexType::none:
 			return nullptr;
 		case game::HexType::agriculture:
-			return &agriculture;
+			return &m_agriculture;
 		case game::HexType::city:
-			return &city;
+			return &m_city;
 		case game::HexType::desert:
-			return &desert;
+			return &m_desert;
 		case game::HexType::forest:
-			return &forest;
+			return &m_forest;
 		case game::HexType::hills:
-			return &hills;
+			return &m_hills;
 		case game::HexType::mountain:
-			return &mountain;
+			return &m_mountain;
 		case game::HexType::plains:
-			return &plains;
+			return &m_plains;
 		case game::HexType::sea:
-			return &sea;
+			return &m_sea;
 		case game::HexType::village:
-			return &village;
+			return &m_village;
 		}
 		throw Exception {"Unknown hex type."};
 	}

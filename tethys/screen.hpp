@@ -12,7 +12,7 @@
 #include <sdl/texture.hpp>
 
 #include <ui/hex_grid.hpp>
-#include <ui/text_boxes.hpp>
+#include <ui/hex_info_boxes.hpp>
 
 #include <util/log.hpp>
 
@@ -29,8 +29,8 @@ namespace tethys {
 		bool m_focus;
 		sdl::Font m_font;
 		ui::HexGrid m_hex_grid;
+		ui::HexInfoBoxes m_hex_info;
 		sdl::Point m_mouse_pos;
 		Status handle_key(const sdl::KeyEvent&);
-		ui::TextBoxes m_text_boxes;
 	};
 }

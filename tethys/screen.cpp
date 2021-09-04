@@ -29,13 +29,13 @@ namespace tethys {
 			sdl,
 			log
 		},
-		m_mouse_pos {},
-		m_text_boxes {
+		m_hex_info {
 			config.ui.text_box,
 			config.game,
 			m_font,
 			sdl.renderer
-		}
+		},
+		m_mouse_pos {}
 	{}
 
 	Screen::Status
@@ -103,7 +103,7 @@ namespace tethys {
 		rdr.set_color(util::RGB::black);
 		rdr.clear();
 		m_hex_grid.render(rdr);
-		if (auto box = m_text_boxes.find(m_active_hex)) {
+		if (auto box = m_hex_info.find(m_active_hex)) {
 			box->render(rdr, {10});
 		}
 		rdr.present();
