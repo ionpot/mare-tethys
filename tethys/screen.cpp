@@ -7,8 +7,6 @@
 #include <sdl/hexagon.hpp>
 #include <sdl/key.hpp>
 
-#include <ui/config.hpp>
-
 #include <util/rgb.hpp>
 #include <util/log.hpp>
 
@@ -18,9 +16,7 @@ namespace tethys {
 			const sdl::Context& sdl,
 			util::Log& log
 	):
-		m_active_hex {},
 		m_focus {sdl.window.has_focus()},
-		m_font {config.ui.font.create(sdl)},
 		m_hex_grid {
 			grid_file::read("tethys.grid"),
 			sdl::Hexagon {config.ui.hex_side},
@@ -29,12 +25,7 @@ namespace tethys {
 			sdl,
 			log
 		},
-		m_hex_info {
-			config.ui.text_box,
-			config.game,
-			m_font,
-			sdl.renderer
-		},
+		m_hud {config.game, config.ui, sdl},
 		m_mouse_pos {}
 	{}
 
@@ -103,9 +94,7 @@ namespace tethys {
 		rdr.set_color(util::RGB::black);
 		rdr.clear();
 		m_hex_grid.render(rdr);
-		if (auto box = m_hex_info.find(m_active_hex)) {
-			box->render(rdr, {10});
-		}
+		m_hud.render(rdr);
 		rdr.present();
 	}
 
@@ -113,6 +102,6 @@ namespace tethys {
 	Screen::update()
 	{
 		m_hex_grid.update(m_mouse_pos);
-		m_active_hex = m_hex_grid.active_hex_type();
+		m_hud.update(m_hex_grid);
 	}
 }
