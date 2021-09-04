@@ -15,8 +15,7 @@ namespace tethys::ui {
 			const sdl::Context& sdl
 	):
 		m_active_hex {},
-		m_font {ui.font.create(sdl)},
-		m_hex_info {ui.text_box, game, m_font, sdl.renderer}
+		m_hex_info {ui.text_box, game, ui.font.create(sdl), sdl.renderer}
 	{}
 
 	void

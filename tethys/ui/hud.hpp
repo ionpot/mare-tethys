@@ -8,7 +8,6 @@
 #include <game/hex_type.hpp>
 
 #include <sdl/context.hpp>
-#include <sdl/font.hpp>
 #include <sdl/renderer.hpp>
 
 namespace tethys::ui {
@@ -21,7 +20,6 @@ namespace tethys::ui {
 
 	private:
 		game::HexType m_active_hex;
-		sdl::Font m_font;
 		HexInfoBoxes m_hex_info;
 	};
 }
