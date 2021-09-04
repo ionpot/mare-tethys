@@ -1,21 +1,26 @@
 #include "hud.hpp"
 
-#include "config.hpp"
 #include "hex_grid.hpp"
 
 #include <game/config.hpp>
 
+#include <sdl/config.hpp>
 #include <sdl/context.hpp>
 #include <sdl/renderer.hpp>
 
 namespace tethys::ui {
 	HUD::HUD(
 			const game::Config& game,
-			const Config& ui,
+			const sdl::Config& config,
 			const sdl::Context& sdl
 	):
 		m_active_hex {},
-		m_hex_info {ui.text_box, game, ui.font.create(sdl), sdl.renderer}
+		m_hex_info {
+			config.text_box,
+			game,
+			config.font.create(sdl),
+			sdl.renderer
+		}
 	{}
 
 	void

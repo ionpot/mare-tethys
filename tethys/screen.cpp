@@ -2,12 +2,11 @@
 
 #include "grid_file.hpp"
 
+#include <sdl/config.hpp>
 #include <sdl/context.hpp>
 #include <sdl/event.hpp>
 #include <sdl/hexagon.hpp>
 #include <sdl/key.hpp>
-
-#include <ui/config.hpp>
 
 #include <util/cfg_file.hpp>
 #include <util/log.hpp>
@@ -15,20 +14,20 @@
 
 namespace tethys {
 	Screen::Screen(
-			const ui::Config& ui,
+			const sdl::Config& config,
 			const sdl::Context& sdl,
 			util::Log& log
 	):
 		m_focus {sdl.window.has_focus()},
 		m_hex_grid {
 			grid_file::read("tethys.grid"),
-			sdl::Hexagon {ui.hex_side},
-			ui.window_size,
-			ui.scroll_speed,
+			sdl::Hexagon {config.hex_side},
+			config.window_size,
+			config.scroll_speed,
 			sdl,
 			log
 		},
-		m_hud {util::CfgFile {"game.cfg"}, ui, sdl},
+		m_hud {util::CfgFile {"game.cfg"}, config, sdl},
 		m_mouse_pos {}
 	{}
 

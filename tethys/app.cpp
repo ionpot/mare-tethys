@@ -2,16 +2,16 @@
 
 #include "screen.hpp"
 
-#include <ui/config.hpp>
+#include <sdl/config.hpp>
 
 #include <util/log.hpp>
 
 #include <string>
 
 namespace tethys {
-	App::App(std::string title, const ui::Config& ui, util::Log& log):
-		m_sdl {title, ui.window_size, log},
-		m_screen {ui, m_sdl, log}
+	App::App(std::string title, const sdl::Config& config, util::Log& log):
+		m_sdl {title, config.window_size, log},
+		m_screen {config, m_sdl, log}
 	{
 		log.put("Ready");
 	}

@@ -2,9 +2,8 @@
 
 #include "screen.hpp"
 
+#include <sdl/config.hpp>
 #include <sdl/context.hpp>
-
-#include <ui/config.hpp>
 
 #include <util/log.hpp>
 
@@ -13,7 +12,7 @@
 namespace tethys {
 	class App {
 	public:
-		App(std::string window_title, const ui::Config&, util::Log&);
+		App(std::string window_title, const sdl::Config&, util::Log&);
 		void poll();
 	private:
 		sdl::Context m_sdl;

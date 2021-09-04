@@ -45,5 +45,5 @@ target_link_libraries(tethys PRIVATE tethys_util tethys_sdl tethys_game tethys_u
 # place the executable and the files/dirs it needs
 # "TYPE BIN" puts them next to the executable
 install(TARGETS tethys)
-install(FILES game.cfg ui.cfg tethys.grid TYPE BIN)
+install(FILES game.cfg sdl.cfg tethys.grid TYPE BIN)
 install(DIRECTORY assets TYPE BIN)

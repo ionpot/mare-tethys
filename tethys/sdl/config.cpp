@@ -1,19 +1,20 @@
 #include "config.hpp"
 
-#include <sdl/box.hpp>
-#include <sdl/point.hpp>
-#include <sdl/size.hpp>
-#include <sdl/text_box.hpp>
+#include "box.hpp"
+#include "font.hpp"
+#include "point.hpp"
+#include "size.hpp"
+#include "text_box.hpp"
 
 #include <util/cfg_file.hpp>
 #include <util/rgb.hpp>
 
-namespace tethys::ui {
+namespace tethys::sdl {
 	namespace {
 		typedef util::CfgFile::Pair Pair;
 		typedef util::CfgFile::Section Section;
 
-		sdl::Point
+		Point
 		s_point(const Pair& pair)
 		{
 			auto [a, b] = pair.to_int_pair();
@@ -26,7 +27,7 @@ namespace tethys::ui {
 			return util::RGB::from_hex(pair.value);
 		}
 
-		sdl::Size
+		Size
 		s_size(const Section& section)
 		{
 			return {
@@ -35,11 +36,11 @@ namespace tethys::ui {
 			};
 		}
 
-		sdl::TextBox::Config
+		TextBox::Config
 		s_text_box(const Section& section)
 		{
 			return {
-				sdl::Box::Config {
+				Box::Config {
 					s_rgb(section.find_pair("background color")),
 					s_rgb(section.find_pair("border color")),
 					section.find_pair("border width").to_int(),
@@ -56,7 +57,7 @@ namespace tethys::ui {
 	{}
 
 	sdl::Font
-	Config::Font::create(const sdl::Context& ctx) const
+	Config::Font::create(const Context& ctx) const
 	{
 		return ctx.ttf.load_font(TETHYS_ASSETS_DIR "/" + file, size);
 	}

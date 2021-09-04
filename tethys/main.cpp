@@ -27,7 +27,7 @@ namespace {
 		log.put(title);
 		log.put("Begin");
 		try {
-			App app {title, util::CfgFile {"ui.cfg"}, log};
+			App app {title, util::CfgFile {"sdl.cfg"}, log};
 			log.put("Polling events...");
 			app.poll();
 		}
