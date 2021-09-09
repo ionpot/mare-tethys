@@ -50,7 +50,7 @@ namespace tethys::sdl {
 		SDL_Delay(milliseconds);
 	}
 
-	Event*
+	const Event*
 	Base::poll_event()
 	{
 		SDL_Event event;
