@@ -19,6 +19,5 @@ namespace tethys::sdl {
 		Window(std::string title, Size window_size);
 		~Window();
 		TETHYS_NO_COPY(Window)
-		TETHYS_DECLARE_MOVE(Window)
 	};
 }

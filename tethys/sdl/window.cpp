@@ -40,20 +40,6 @@ namespace tethys::sdl {
 		}
 	}
 
-	Window::Window(Window&& from) noexcept:
-		m_window {from.m_window}
-	{
-		from.m_window = NULL;
-	}
-
-	Window&
-	Window::operator=(Window&& from) noexcept
-	{
-		m_window = from.m_window;
-		from.m_window = NULL;
-		return *this;
-	}
-
 	Renderer
 	Window::create_renderer() const
 	{
