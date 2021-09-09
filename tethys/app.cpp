@@ -19,9 +19,10 @@ namespace tethys {
 	void
 	App::poll()
 	{
-		auto event = m_sdl.base.poll_event();
+		auto event = m_sdl.poll_event();
 		if (event) {
-			if (m_screen.handle(*event) == Screen::Status::quit)
+			auto status = m_screen.handle(*event, m_sdl);
+			if (status == Screen::Status::quit)
 				return;
 		}
 		else {

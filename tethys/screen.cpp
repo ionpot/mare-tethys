@@ -18,7 +18,6 @@ namespace tethys {
 			const sdl::Context& sdl,
 			util::Log& log
 	):
-		m_focus {sdl.window.has_focus()},
 		m_hex_grid {
 			grid_file::read("tethys.grid"),
 			sdl::Hexagon {config.hex_side},
@@ -32,26 +31,21 @@ namespace tethys {
 	{}
 
 	Screen::Status
-	Screen::handle(const sdl::Event& event)
+	Screen::handle(const sdl::Event& event, const sdl::Context& context)
 	{
 		if (event.get<sdl::QuitEvent>()) {
 			return Status::quit;
 		}
 		if (auto* key = event.get<sdl::KeyEvent>()) {
-			if (m_focus)
+			if (context.window.has_focus())
 				return handle_key(*key);
 		}
 		else if (auto* mouse = event.get<sdl::MouseMoveEvent>()) {
 			m_mouse_pos = mouse->position;
 		}
 		else if (auto* window = event.get<sdl::WindowEvent>()) {
-			if (window->got_focus()) {
-				m_focus = true;
-			}
-			else if (window->lost_focus()) {
-				m_focus = false;
+			if (window->lost_focus())
 				m_hex_grid.scroll.stop();
-			}
 		}
 		return Status::ok;
 	}

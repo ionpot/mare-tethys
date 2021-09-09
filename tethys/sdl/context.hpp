@@ -1,6 +1,7 @@
 #pragma once
 
 #include "base.hpp"
+#include "event.hpp"
 #include "img.hpp"
 #include "renderer.hpp"
 #include "size.hpp"
@@ -26,5 +27,6 @@ namespace tethys::sdl {
 		TETHYS_NO_COPY(Context)
 
 		Texture load_png(std::string path) const;
+		const Event* poll_event();
 	};
 }

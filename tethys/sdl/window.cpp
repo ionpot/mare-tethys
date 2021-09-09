@@ -1,6 +1,7 @@
 #include "window.hpp"
 
 #include "exception.hpp"
+#include "event.hpp"
 #include "renderer.hpp"
 #include "size.hpp"
 
@@ -13,7 +14,7 @@ namespace tethys::sdl {
 		s_create_window(
 				std::string title,
 				Size size,
-				Uint32 flags = 0)
+				Window::Flags flags = 0)
 		{
 			return SDL_CreateWindow(
 				title.c_str(),
@@ -26,10 +27,12 @@ namespace tethys::sdl {
 	}
 
 	Window::Window(std::string title, Size size):
+		m_focus {false},
 		m_window {s_create_window(title, size)}
 	{
 		if (!m_window)
 			throw Exception {};
+		m_focus = check_flags(SDL_WINDOW_INPUT_FOCUS);
 	}
 
 	Window::~Window()
@@ -40,16 +43,33 @@ namespace tethys::sdl {
 		}
 	}
 
+	bool
+	Window::check_flags(Flags flags) const
+	{
+		auto active = SDL_GetWindowFlags(m_window);
+		return active & flags;
+	}
+
 	Renderer
 	Window::create_renderer() const
 	{
 		return Renderer {m_window};
 	}
 
+	void
+	Window::handle(const Event& event)
+	{
+		if (auto* window = event.get<WindowEvent>()) {
+			if (window->got_focus())
+				m_focus = true;
+			else if (window->lost_focus())
+				m_focus = false;
+		}
+	}
+
 	bool
 	Window::has_focus() const
 	{
-		auto flags = SDL_GetWindowFlags(m_window);
-		return flags & SDL_WINDOW_INPUT_FOCUS;
+		return m_focus;
 	}
 }

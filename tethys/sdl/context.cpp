@@ -1,5 +1,6 @@
 #include "context.hpp"
 
+#include "event.hpp"
 #include "size.hpp"
 #include "texture.hpp"
 
@@ -22,5 +23,14 @@ namespace tethys::sdl {
 		auto rwops = base.read_binary_file(path);
 		auto surface = img.load_png(rwops);
 		return renderer.create_texture(surface);
+	}
+
+	const Event*
+	Context::poll_event()
+	{
+		auto* event = base.poll_event();
+		if (event)
+			window.handle(*event);
+		return event;
 	}
 }
