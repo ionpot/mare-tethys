@@ -1,20 +1,24 @@
 #include "context.hpp"
 
+#include "config.hpp"
 #include "event.hpp"
-#include "size.hpp"
+#include "text_lines_box.hpp"
 #include "texture.hpp"
 
 #include <util/log.hpp>
 
 #include <string>
+#include <vector>
 
 namespace tethys::sdl {
-	Context::Context(std::string title, Size window_size, util::Log& log):
+	Context::Context(std::string title, const Config& config, util::Log& log):
 		base {log},
-		window {title, window_size},
+		window {title, config.window_size},
 		renderer {window.create_renderer()},
 		img {log},
-		ttf {log}
+		ttf {log},
+		font {ttf.load_font(config.font)},
+		text_box_cfg {config.text_box}
 	{}
 
 	Texture
@@ -32,5 +36,11 @@ namespace tethys::sdl {
 		if (event)
 			window.handle(*event);
 		return event;
+	}
+
+	TextLinesBox
+	Context::text_lines_box(const std::vector<std::string>& lines) const
+	{
+		return {text_box_cfg, font, renderer, lines};
 	}
 }

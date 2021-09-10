@@ -13,7 +13,7 @@
 namespace tethys::ui {
 	class HUD {
 	public:
-		HUD(const game::Config&, const sdl::Config&, const sdl::Context&);
+		HUD(const game::Config&, const sdl::Context&);
 
 		void render(const sdl::Renderer&) const;
 		void update(const HexGrid&);

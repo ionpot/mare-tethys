@@ -4,9 +4,7 @@
 #include <game/config.hpp>
 #include <game/hex_type.hpp>
 
-#include <sdl/font.hpp>
-#include <sdl/renderer.hpp>
-#include <sdl/text.hpp>
+#include <sdl/context.hpp>
 #include <sdl/text_lines_box.hpp>
 
 #include <util/string.hpp>
@@ -52,20 +50,18 @@ namespace tethys::ui {
 	}
 
 	HexInfoBoxes::HexInfoBoxes(
-			const sdl::TextBox::Config& config,
 			const game::Config& game,
-			const sdl::Font& font,
-			const sdl::Renderer& rdr
+			const sdl::Context& sdl
 	):
-		m_agriculture {config, font, rdr, s_hex_unknown("Agriculture")},
-		m_city {config, font, rdr, s_hex("City", game.city)},
-		m_desert {config, font, rdr, s_hex_unknown("Desert")},
-		m_forest {config, font, rdr, s_hex("Forest", game.forest)},
-		m_hills {config, font, rdr, s_hex_unknown("Hills")},
-		m_mountain {config, font, rdr, s_hex("Mountain", game.mountain)},
-		m_plains {config, font, rdr, s_hex("Plains", game.plains)},
-		m_sea {config, font, rdr, s_hex("Sea", game.sea)},
-		m_village {config, font, rdr, s_hex_unknown("Village")}
+		m_agriculture {sdl.text_lines_box(s_hex_unknown("Agriculture"))},
+		m_city {sdl.text_lines_box(s_hex("City", game.city))},
+		m_desert {sdl.text_lines_box(s_hex_unknown("Desert"))},
+		m_forest {sdl.text_lines_box(s_hex("Forest", game.forest))},
+		m_hills {sdl.text_lines_box(s_hex_unknown("Hills"))},
+		m_mountain {sdl.text_lines_box(s_hex("Mountain", game.mountain))},
+		m_plains {sdl.text_lines_box(s_hex("Plains", game.plains))},
+		m_sea {sdl.text_lines_box(s_hex("Sea", game.sea))},
+		m_village {sdl.text_lines_box(s_hex_unknown("Village"))}
 	{}
 
 	const sdl::TextLinesBox*

@@ -26,7 +26,7 @@ namespace tethys {
 			sdl,
 			log
 		},
-		m_hud {util::CfgFile {"game.cfg"}, config, sdl},
+		m_hud {util::CfgFile {"game.cfg"}, sdl},
 		m_mouse_pos {}
 	{}
 

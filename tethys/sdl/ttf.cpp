@@ -8,8 +8,6 @@
 
 #include <SDL_ttf.h>
 
-#include <string>
-
 namespace tethys::sdl {
 	bool
 	Ttf::was_init()
@@ -39,8 +37,9 @@ namespace tethys::sdl {
 	}
 
 	Font
-	Ttf::load_font(std::string file, int height) const
+	Ttf::load_font(Font::Config config) const
 	{
-		return {file, height};
+		config.file = TETHYS_ASSETS_DIR "/" + config.file;
+		return {config};
 	}
 }

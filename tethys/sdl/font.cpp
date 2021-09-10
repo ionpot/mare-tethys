@@ -11,8 +11,8 @@
 #include <string>
 
 namespace tethys::sdl {
-	Font::Font(std::string file, int height):
-		m_font {TTF_OpenFont(file.c_str(), height)}
+	Font::Font(const Config& config):
+		m_font {TTF_OpenFont(config.file.c_str(), config.height)}
 	{
 		if (!m_font)
 			throw TtfException {};

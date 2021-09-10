@@ -14,6 +14,15 @@ namespace tethys::sdl {
 		typedef util::CfgFile::Pair Pair;
 		typedef util::CfgFile::Section Section;
 
+		Font::Config
+		s_font(const Section& section)
+		{
+			return {
+				section.find_pair("file").value,
+				section.find_pair("size").to_int()
+			};
+		}
+
 		Point
 		s_point(const Pair& pair)
 		{
@@ -51,19 +60,8 @@ namespace tethys::sdl {
 		}
 	}
 
-	Config::Font::Font(const Section& section):
-		file {section.find_pair("file").value},
-		size {section.find_pair("size").to_int()}
-	{}
-
-	sdl::Font
-	Config::Font::create(const Context& ctx) const
-	{
-		return ctx.ttf.load_font(TETHYS_ASSETS_DIR "/" + file, size);
-	}
-
 	Config::Config(const util::CfgFile& file):
-		font {file.find_section("font")},
+		font {s_font(file.find_section("font"))},
 		hex_side {file.find_pair("hex side").to_double()},
 		scroll_speed {file.find_pair("scroll speed").to_int()},
 		text_box {s_text_box(file.find_section("text box"))},

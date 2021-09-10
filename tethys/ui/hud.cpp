@@ -11,16 +11,10 @@
 namespace tethys::ui {
 	HUD::HUD(
 			const game::Config& game,
-			const sdl::Config& config,
 			const sdl::Context& sdl
 	):
 		m_active_hex {},
-		m_hex_info {
-			config.text_box,
-			game,
-			config.font.create(sdl),
-			sdl.renderer
-		}
+		m_hex_info {game, sdl}
 	{}
 
 	void

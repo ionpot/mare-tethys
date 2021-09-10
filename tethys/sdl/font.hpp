@@ -12,6 +12,11 @@
 namespace tethys::sdl {
 	class Font {
 	public:
+		struct Config {
+			std::string file;
+			int height;
+		};
+
 		~Font();
 		TETHYS_NO_COPY(Font)
 		TETHYS_DECLARE_MOVE(Font)
@@ -24,6 +29,6 @@ namespace tethys::sdl {
 	private:
 		friend struct Ttf;
 		TTF_Font* m_font;
-		Font(std::string file, int height);
+		Font(const Config&);
 	};
 }

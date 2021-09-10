@@ -10,7 +10,7 @@
 
 namespace tethys {
 	App::App(std::string title, const sdl::Config& config, util::Log& log):
-		m_sdl {title, config.window_size, log},
+		m_sdl {title, config, log},
 		m_screen {config, m_sdl, log}
 	{
 		log.put("Ready");
