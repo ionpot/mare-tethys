@@ -8,6 +8,7 @@
 
 #include <SDL.h>
 
+#include <optional>
 #include <string>
 
 namespace tethys::sdl {
@@ -21,8 +22,7 @@ namespace tethys::sdl {
 		return on == init_flags;
 	}
 
-	Base::Base(util::Log& log):
-		m_event {}
+	Base::Base(util::Log& log)
 	{
 		if (was_init())
 			throw Exception {"Cannot re-initialize."};
@@ -50,15 +50,14 @@ namespace tethys::sdl {
 		SDL_Delay(milliseconds);
 	}
 
-	const Event*
-	Base::poll_event()
+	std::optional<Event>
+	Base::poll_event() const
 	{
 		SDL_Event event;
 		if (SDL_PollEvent(&event)) {
-			m_event = Event {event};
-			return &m_event;
+			return {Event {event}};
 		}
-		return nullptr;
+		return {};
 	}
 
 	RWops

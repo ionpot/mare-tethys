@@ -15,6 +15,7 @@
 #include <util/log.hpp>
 #include <util/macros.hpp>
 
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -33,7 +34,7 @@ namespace tethys::sdl {
 		TETHYS_NO_COPY(Context)
 
 		Texture load_png(std::string path) const;
-		const Event* poll_event();
+		std::optional<Event> poll_event();
 
 		TextLinesBox text_lines_box(const std::vector<std::string>& lines) const;
 	};

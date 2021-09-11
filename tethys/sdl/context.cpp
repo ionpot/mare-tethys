@@ -7,6 +7,7 @@
 
 #include <util/log.hpp>
 
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,10 +30,10 @@ namespace tethys::sdl {
 		return renderer.create_texture(surface);
 	}
 
-	const Event*
+	std::optional<Event>
 	Context::poll_event()
 	{
-		auto* event = base.poll_event();
+		auto event = base.poll_event();
 		if (event)
 			window.handle(*event);
 		return event;

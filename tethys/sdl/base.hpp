@@ -8,6 +8,7 @@
 
 #include <SDL.h>
 
+#include <optional>
 #include <string>
 
 namespace tethys::sdl {
@@ -16,11 +17,10 @@ namespace tethys::sdl {
 		static Uint32 init_flags;
 		static bool was_init();
 		void delay(Uint32 milliseconds) const;
-		const Event* poll_event();
+		std::optional<Event> poll_event() const;
 		RWops read_binary_file(std::string filename) const;
 	private:
 		friend struct Context;
-		Event m_event;
 		Base(util::Log&);
 		~Base();
 		TETHYS_NO_COPY(Base)
