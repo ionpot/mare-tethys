@@ -3,7 +3,6 @@
 #include <sdl/config.hpp>
 #include <sdl/context.hpp>
 #include <sdl/event.hpp>
-#include <sdl/point.hpp>
 #include <sdl/renderer.hpp>
 
 #include <ui/hex_grid.hpp>
@@ -20,12 +19,11 @@ namespace tethys {
 
 		Status handle(const sdl::Event&, const sdl::Context&);
 		void render(const sdl::Renderer&) const;
-		void update();
+		void update(const sdl::Context&);
 
 	private:
 		ui::HexGrid m_hex_grid;
 		ui::HUD m_hud;
-		sdl::Point m_mouse_pos;
 
 		Status handle_key(const sdl::KeyEvent&);
 	};

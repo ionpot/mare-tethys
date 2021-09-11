@@ -1,6 +1,7 @@
 #pragma once
 
 #include "event.hpp"
+#include "point.hpp"
 #include "renderer.hpp"
 #include "size.hpp"
 
@@ -15,11 +16,13 @@ namespace tethys::sdl {
 		typedef Uint32 Flags;
 
 		bool has_focus() const;
+		sdl::Point mouse_position() const;
 
 	private:
 		friend struct Context;
 
 		bool m_focus;
+		sdl::Point m_mouse_pos;
 		SDL_Window* m_window;
 
 		Window(std::string title, Size window_size);

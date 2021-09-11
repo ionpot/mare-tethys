@@ -26,8 +26,7 @@ namespace tethys {
 			sdl,
 			log
 		},
-		m_hud {util::CfgFile {"game.cfg"}, sdl},
-		m_mouse_pos {}
+		m_hud {util::CfgFile {"game.cfg"}, sdl}
 	{}
 
 	Screen::Status
@@ -39,9 +38,6 @@ namespace tethys {
 		if (auto* key = event.get<sdl::KeyEvent>()) {
 			if (context.window.has_focus())
 				return handle_key(*key);
-		}
-		else if (auto* mouse = event.get<sdl::MouseMoveEvent>()) {
-			m_mouse_pos = mouse->position;
 		}
 		else if (auto* window = event.get<sdl::WindowEvent>()) {
 			if (window->lost_focus())
@@ -95,9 +91,9 @@ namespace tethys {
 	}
 
 	void
-	Screen::update()
+	Screen::update(const sdl::Context& ctx)
 	{
-		m_hex_grid.update(m_mouse_pos);
+		m_hex_grid.update(ctx.window.mouse_position());
 		m_hud.update(m_hex_grid);
 	}
 }

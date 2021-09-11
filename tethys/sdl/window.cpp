@@ -28,6 +28,7 @@ namespace tethys::sdl {
 
 	Window::Window(std::string title, Size size):
 		m_focus {false},
+		m_mouse_pos {},
 		m_window {s_create_window(title, size)}
 	{
 		if (!m_window)
@@ -65,11 +66,20 @@ namespace tethys::sdl {
 			else if (window->lost_focus())
 				m_focus = false;
 		}
+		else if (auto* mouse = event.get<MouseMoveEvent>()) {
+			m_mouse_pos = mouse->position;
+		}
 	}
 
 	bool
 	Window::has_focus() const
 	{
 		return m_focus;
+	}
+
+	sdl::Point
+	Window::mouse_position() const
+	{
+		return m_mouse_pos;
 	}
 }
