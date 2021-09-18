@@ -18,7 +18,6 @@
 #include <util/log.hpp>
 
 #include <optional>
-#include <string>
 
 namespace tethys::ui {
 	class HexGrid {
