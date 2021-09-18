@@ -27,20 +27,6 @@ namespace tethys::ui {
 
 		TETHYS_EXCEPTION("HexGrid")
 
-		struct Visible {
-			const util::GridSize max;
-			util::GridIndex start;
-			util::GridIndex end;
-
-			Visible(
-				const game::Grid&,
-				const sdl::HexGrid&,
-				sdl::Size view_size,
-				AbsolutePos offset);
-
-			void update(AbsolutePos, const game::Grid&, const sdl::HexGrid&);
-		};
-
 		sdl::Scroll scroll;
 
 		HexGrid(
@@ -67,6 +53,9 @@ namespace tethys::ui {
 		const sdl::HexGrid m_hex_grid;
 		sdl::Point m_offset;
 		const HexTextures m_textures;
-		Visible m_visible;
+		util::GridSize m_visible_size;
+		util::GridSection m_visible;
+
+		void update_section(AbsolutePos);
 	};
 }

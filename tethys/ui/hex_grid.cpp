@@ -22,30 +22,6 @@ namespace tethys::ui {
 		typedef HexGrid::RelativePos Relative;
 	}
 
-	// hex grid visible
-	HexGrid::Visible::Visible(
-			const game::Grid& game_grid,
-			const sdl::HexGrid& hex_grid,
-			sdl::Size view_size,
-			Absolute offset
-	):
-		max {hex_grid.max_visible(view_size)},
-		start {},
-		end {}
-	{
-		update(offset, game_grid, hex_grid);
-	}
-
-	void
-	HexGrid::Visible::update(
-			Absolute position,
-			const game::Grid& game_grid,
-			const sdl::HexGrid& hex_grid)
-	{
-		start = game_grid.size.clamp(hex_grid.get_visible_index(position));
-		end = game_grid.size.clamp(start + max.to_index());
-	}
-
 	// hex grid
 	HexGrid::HexGrid(
 			game::Grid&& grid,
@@ -66,14 +42,14 @@ namespace tethys::ui {
 		m_hex_grid {hex},
 		m_offset {},
 		m_textures {hex, sdl},
-		m_visible {m_game_grid, m_hex_grid, view_size, m_offset}
+		m_visible_size {m_hex_grid.max_visible(view_size)},
+		m_visible {m_visible_size}
 	{
 		log.pair("Hex size", hex.size().to_str());
 		log.pair("Grid size",
 			m_game_grid.size.to_str()
 			+ " (" + m_hex_grid.size_of(m_game_grid.size).to_str() + ")"
 		);
-		log.pair("Max visible cells", m_visible.max.to_str());
 		log.pair("Scroll", scroll.to_str());
 	}
 
@@ -88,7 +64,7 @@ namespace tethys::ui {
 	util::GridIterator
 	HexGrid::begin() const
 	{
-		return m_game_grid.begin(m_visible.start, m_visible.end);
+		return m_game_grid.begin(m_visible);
 	}
 
 	std::optional<util::GridIndex>
@@ -148,7 +124,7 @@ namespace tethys::ui {
 		auto offset_updated = pos != m_offset;
 		if (offset_updated) {
 			m_offset = pos;
-			m_visible.update(pos.negate(), m_game_grid, m_hex_grid);
+			update_section(pos.negate());
 		}
 		auto mouse_updated = mouse_pos != m_cached_mouse_pos;
 		if (mouse_updated) {
@@ -158,6 +134,14 @@ namespace tethys::ui {
 			pos = to_absolute(mouse_pos);
 			m_active_i = index_of(pos);
 		}
+	}
+
+	void
+	HexGrid::update_section(Absolute position)
+	{
+		auto start = m_hex_grid.get_visible_index(position);
+		util::GridSection section {m_visible_size, start};
+		m_visible = section.clamp(m_game_grid.size);
 	}
 
 	Absolute

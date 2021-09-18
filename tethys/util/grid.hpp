@@ -25,9 +25,24 @@ namespace tethys::util {
 		std::string to_str() const;
 	};
 
+	class GridSection {
+	public:
+		GridSection(GridIndex start, GridIndex end);
+		GridSection(GridSize, GridIndex start = {});
+		void assert_valid(const GridSize& bounds) const;
+		GridSection clamp(const GridSize&) const;
+		GridIndex start() const;
+		GridIndex end() const;
+	private:
+		GridIndex m_start;
+		GridIndex m_end;
+	};
+
 	class GridIterator {
 	public:
 		GridIterator(GridIndex start, GridIndex end);
+		GridIterator(const GridSection&);
+		GridIterator(const GridSize&);
 		bool at_new_row() const;
 		bool valid() const;
 		GridIndex index() const;
@@ -52,13 +67,12 @@ namespace tethys::util {
 		{}
 
 		GridIterator begin() const
-		{ return {{}, size.to_index()}; }
+		{ return {size}; }
 
-		GridIterator begin(GridIndex start, GridIndex end) const
+		GridIterator begin(const GridSection& section) const
 		{
-			size.assert_valid(start);
-			size.assert_valid(end);
-			return {start, end};
+			section.assert_valid(size);
+			return {section};
 		}
 
 		T cell(GridIndex i) const

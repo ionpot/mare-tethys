@@ -87,13 +87,53 @@ namespace tethys::util {
 			+ std::to_string(columns) + " columns";
 	}
 
+	// grid section
+	GridSection::GridSection(GridIndex start, GridIndex end):
+		m_start {start},
+		m_end {end}
+	{}
+
+	GridSection::GridSection(GridSize size, GridIndex start):
+		GridSection {start, start + size.to_index()}
+	{}
+
+	void
+	GridSection::assert_valid(const GridSize& bounds) const
+	{
+		bounds.assert_valid(m_start);
+		bounds.assert_valid(m_end);
+	}
+
+	GridSection
+	GridSection::clamp(const GridSize& bounds) const
+	{
+		return {
+			bounds.clamp(m_start),
+			bounds.clamp(m_end)
+		};
+	}
+
+	GridIndex
+	GridSection::start() const
+	{ return m_start; }
+
+	GridIndex
+	GridSection::end() const
+	{ return m_end; }
+
 	// grid iterator
-	GridIterator::GridIterator(
-			GridIndex start,
-			GridIndex end):
+	GridIterator::GridIterator(GridIndex start, GridIndex end):
 		m_index {start},
 		m_column_offset {start.column},
 		m_end {end}
+	{}
+
+	GridIterator::GridIterator(const GridSection& section):
+		GridIterator {section.start(), section.end()}
+	{}
+
+	GridIterator::GridIterator(const GridSize& size):
+		GridIterator {GridIndex {}, size.to_index()}
 	{}
 
 	bool
