@@ -50,28 +50,26 @@ namespace tethys::util {
 		void next_row();
 	private:
 		GridIndex m_index;
-		const int m_column_offset;
-		const GridIndex m_end;
+		int m_column_offset;
+		GridIndex m_end;
 	};
 
 	template<class T>
 	class Grid {
 	public:
-		const GridSize size;
-
 		Grid(GridSize s):
-			size {s},
-			 m_cells {
-				 std::make_unique<T[]>(s.total_cells())
-			 }
+			m_size {s},
+			m_cells {
+				std::make_unique<T[]>(s.total_cells())
+			}
 		{}
 
 		GridIterator begin() const
-		{ return {size}; }
+		{ return {m_size}; }
 
 		GridIterator begin(const GridSection& section) const
 		{
-			section.assert_valid(size);
+			section.assert_valid(m_size);
 			return {section};
 		}
 
@@ -84,10 +82,14 @@ namespace tethys::util {
 		void cell(GridIndex i, T v)
 		{ m_cells[cell_of(i)] = v; }
 
+		GridSize size() const
+		{ return m_size; }
+
 	private:
+		GridSize m_size;
 		std::unique_ptr<T[]> m_cells;
 
 		int cell_of(GridIndex i) const
-		{ return i.row * size.columns + i.column; }
+		{ return i.row * m_size.columns + i.column; }
 	};
 }

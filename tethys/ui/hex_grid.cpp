@@ -33,7 +33,7 @@ namespace tethys::ui {
 	):
 		scroll {
 			view_size,
-			sdl::HexGrid::calculate_size(hex, grid.size),
+			sdl::HexGrid::calculate_size(hex, grid.size()),
 			scroll_speed
 		},
 		m_active_i {},
@@ -47,8 +47,8 @@ namespace tethys::ui {
 	{
 		log.pair("Hex size", hex.size().to_str());
 		log.pair("Grid size",
-			m_game_grid.size.to_str()
-			+ " (" + m_hex_grid.size_of(m_game_grid.size).to_str() + ")"
+			m_game_grid.size().to_str()
+			+ " (" + m_hex_grid.size_of(m_game_grid.size()).to_str() + ")"
 		);
 		log.pair("Scroll", scroll.to_str());
 	}
@@ -141,7 +141,7 @@ namespace tethys::ui {
 	{
 		auto start = m_hex_grid.get_visible_index(position);
 		util::GridSection section {m_visible_size, start};
-		m_visible = section.clamp(m_game_grid.size);
+		m_visible = section.clamp(m_game_grid.size());
 	}
 
 	Absolute
