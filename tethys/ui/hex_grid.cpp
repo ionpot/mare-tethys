@@ -43,7 +43,7 @@ namespace tethys::ui {
 		m_offset {},
 		m_textures {hex, sdl},
 		m_visible_size {m_hex_grid.max_visible(view_size)},
-		m_visible {m_visible_size}
+		m_visible {m_game_grid.size().clamp(m_visible_size)}
 	{
 		log.pair("Hex size", hex.size().to_str());
 		log.pair("Grid size",
