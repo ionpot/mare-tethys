@@ -50,6 +50,7 @@ namespace tethys::ui {
 			m_game_grid.size().to_str()
 			+ " (" + m_hex_grid.size_of(m_game_grid.size()).to_str() + ")"
 		);
+		log.pair("Max visible size", m_visible_size.to_str());
 		log.pair("Scroll", scroll.to_str());
 	}
 
