@@ -114,6 +114,8 @@ namespace tethys::util {
 		bool section_found {false};
 		for (auto const& line : lines) {
 			if (section_found) {
+				if (line.empty())
+					continue;
 				if (line.front() != '\t')
 					break;
 				m_lines.push_back(line.substr(1));
