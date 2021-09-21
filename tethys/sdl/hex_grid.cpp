@@ -99,11 +99,10 @@ namespace tethys::sdl {
 	{
 		if (size <= 0)
 			return 0;
-		auto h = hex.y2;
-		auto base = h + 2;
+		auto base = hex.y1 + 2;
 		if (size < base)
 			return 2;
-		auto n = (size - base) / h;
+		auto n = (size - base) / hex.y2;
 		return 3 + n;
 	}
 
