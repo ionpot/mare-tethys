@@ -10,52 +10,36 @@
 #include <sdl/hex_grid.hpp>
 #include <sdl/point.hpp>
 #include <sdl/renderer.hpp>
-#include <sdl/scroll.hpp>
 #include <sdl/size.hpp>
 
-#include <util/exception.hpp>
 #include <util/grid.hpp>
-#include <util/log.hpp>
 
 #include <optional>
 
 namespace tethys::ui {
 	class HexGrid {
 	public:
-		typedef sdl::Point AbsolutePos;
-		typedef sdl::Point RelativePos;
-
-		TETHYS_EXCEPTION("HexGrid")
-
-		sdl::Scroll scroll;
-
 		HexGrid(
 			game::Grid&&,
+			const util::GridSection&,
 			sdl::Hexagon,
-			sdl::Size view_size,
-			int scroll_speed,
-			const sdl::Context&,
-			util::Log&);
+			const sdl::Context&);
 
 		game::HexType active_hex_type() const;
-		util::GridIterator begin() const;
-		std::optional<util::GridIndex> index_of(AbsolutePos) const;
-		RelativePos position_of(util::GridIndex) const;
-		void render(const sdl::Renderer&) const;
-		void update(RelativePos mouse_position);
-		AbsolutePos to_absolute(RelativePos) const;
-		RelativePos to_relative(AbsolutePos) const;
+		void render(const sdl::Renderer&, sdl::Point offset) const;
+		sdl::Size size_in_pixels() const;
+
+		void update_active(sdl::Point mouse_pos, sdl::Point offset);
+		void update_section(const util::GridSection&);
 
 	private:
 		std::optional<util::GridIndex> m_active_i;
-		RelativePos m_cached_mouse_pos;
-		const game::Grid m_game_grid;
-		const sdl::HexGrid m_hex_grid;
-		sdl::Point m_offset;
-		const HexTextures m_textures;
-		util::GridSize m_visible_size;
-		util::GridSection m_visible;
+		game::Grid m_game_grid;
+		sdl::HexGrid m_hex_grid;
+		util::GridSection m_section;
+		HexTextures m_textures;
 
-		void update_section(AbsolutePos);
+		util::GridIterator begin() const;
+		sdl::Point position_of(util::GridIndex, sdl::Point offset) const;
 	};
 }
