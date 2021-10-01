@@ -19,17 +19,18 @@ namespace tethys {
 	void
 	App::poll()
 	{
-		auto event = m_sdl.poll_event();
-		if (event) {
-			auto status = m_screen.handle(*event, m_sdl);
-			if (status == Screen::Status::quit)
-				return;
+		while (true) {
+			auto event = m_sdl.poll_event();
+			if (event) {
+				auto status = m_screen.handle(*event, m_sdl);
+				if (status == Screen::Status::quit)
+					return;
+			}
+			else {
+				m_screen.update(m_sdl);
+				m_screen.render(m_sdl.renderer);
+				m_sdl.base.delay(1000 / 30);
+			}
 		}
-		else {
-			m_screen.update(m_sdl);
-			m_screen.render(m_sdl.renderer);
-			m_sdl.base.delay(1000 / 30);
-		}
-		poll();
 	}
 }
