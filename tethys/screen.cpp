@@ -41,7 +41,7 @@ namespace tethys {
 		}
 		else if (auto* window = event.get<sdl::WindowEvent>()) {
 			if (window->lost_focus())
-				m_hex_grid.scroll.stop();
+				m_hex_grid.on_focus_lost();
 		}
 		return Status::ok;
 	}
@@ -50,32 +50,10 @@ namespace tethys {
 	Screen::handle_key(const sdl::KeyEvent& event)
 	{
 		switch (event.key) {
-		case sdl::Key::left:
-			if (event.pressed)
-				m_hex_grid.scroll.start_left();
-			else
-				m_hex_grid.scroll.stop_left();
-			break;
-		case sdl::Key::right:
-			if (event.pressed)
-				m_hex_grid.scroll.start_right();
-			else
-				m_hex_grid.scroll.stop_right();
-			break;
-		case sdl::Key::up:
-			if (event.pressed)
-				m_hex_grid.scroll.start_up();
-			else
-				m_hex_grid.scroll.stop_up();
-			break;
-		case sdl::Key::down:
-			if (event.pressed)
-				m_hex_grid.scroll.start_down();
-			else
-				m_hex_grid.scroll.stop_down();
-			break;
 		case sdl::Key::other:
 			return Status::quit;
+		default:
+			m_hex_grid.on_key(event);
 		}
 		return Status::ok;
 	}

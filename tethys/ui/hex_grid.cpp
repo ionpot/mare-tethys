@@ -3,8 +3,10 @@
 #include <game/grid.hpp>
 #include <game/hex_type.hpp>
 
+#include <sdl/context.hpp>
+#include <sdl/event.hpp>
 #include <sdl/hexagon.hpp>
-#include <sdl/hex_grid.hpp>
+#include <sdl/key.hpp>
 #include <sdl/point.hpp>
 #include <sdl/renderer.hpp>
 #include <sdl/size.hpp>
@@ -13,45 +15,38 @@
 #include <util/log.hpp>
 
 #include <optional>
-#include <tuple>
-#include <utility>
+#include <utility> // std::move
 
 namespace tethys::ui {
-	namespace {
-		typedef HexGrid::AbsolutePos Absolute;
-		typedef HexGrid::RelativePos Relative;
-	}
-
-	// hex grid
 	HexGrid::HexGrid(
-			game::Grid&& grid,
+			game::Grid&& game_grid,
 			sdl::Hexagon hex,
 			sdl::Size view_size,
 			int scroll_speed,
 			const sdl::Context& sdl,
 			util::Log& log
 	):
-		scroll {
+		m_game_grid {std::move(game_grid)},
+		m_hex_grid {hex},
+		m_max_visible {m_hex_grid.max_visible(view_size)},
+		m_visible_section {m_game_grid.clamp(m_max_visible)},
+		m_active_i {},
+		m_mouse_pos {},
+		m_offset {},
+		m_scroll {
 			view_size,
-			sdl::HexGrid::calculate_size(hex, grid.size()),
+			m_hex_grid.size_of(m_game_grid.size()),
 			scroll_speed
 		},
-		m_active_i {},
-		m_cached_mouse_pos {},
-		m_game_grid {std::move(grid)},
-		m_hex_grid {hex},
-		m_offset {},
-		m_textures {hex, sdl},
-		m_visible_size {m_hex_grid.max_visible(view_size)},
-		m_visible {m_game_grid.size().clamp(m_visible_size)}
+		m_textures {hex, sdl}
 	{
 		log.pair("Hex size", hex.size().to_str());
 		log.pair("Grid size",
 			m_game_grid.size().to_str()
 			+ " (" + m_hex_grid.size_of(m_game_grid.size()).to_str() + ")"
 		);
-		log.pair("Max visible size", m_visible_size.to_str());
-		log.pair("Scroll", scroll.to_str());
+		log.pair("Max visible size", m_max_visible.to_str());
+		log.pair("Scroll", m_scroll.to_str());
 	}
 
 	game::HexType
@@ -65,95 +60,119 @@ namespace tethys::ui {
 	util::GridIterator
 	HexGrid::begin() const
 	{
-		return m_game_grid.begin(m_visible);
+		return m_game_grid.begin(m_visible_section);
 	}
 
 	std::optional<util::GridIndex>
-	HexGrid::index_of(Absolute position) const
+	HexGrid::find_active_index(sdl::Point mouse_pos) const
 	{
+		auto pos = m_offset + mouse_pos;
 		if (m_active_i) {
-			if (m_hex_grid.contains(position, *m_active_i))
+			if (m_hex_grid.contains(pos, *m_active_i))
 				return m_active_i;
 		}
 		for (auto iter = begin(); iter.valid(); iter.next()) {
 			auto i = iter.index();
-			if (m_hex_grid.contains(position, i))
-				return {i};
+			if (m_hex_grid.contains(pos, i)) {
+				return i;
+			}
 		}
 		return {};
 	}
 
-	Relative
+	util::GridSection
+	HexGrid::get_visible_section(sdl::Point offset) const
+	{
+		auto start = m_hex_grid.get_visible_index(offset);
+		util::GridSection section {m_max_visible, start};
+		return m_game_grid.clamp(section);
+	}
+
+	void
+	HexGrid::on_focus_lost()
+	{
+		m_scroll.stop();
+	}
+
+	void
+	HexGrid::on_key(const sdl::KeyEvent& event)
+	{
+		switch (event.key) {
+		case sdl::Key::left:
+			if (event.pressed)
+				m_scroll.start_left();
+			else
+				m_scroll.stop_left();
+			break;
+		case sdl::Key::right:
+			if (event.pressed)
+				m_scroll.start_right();
+			else
+				m_scroll.stop_right();
+			break;
+		case sdl::Key::up:
+			if (event.pressed)
+				m_scroll.start_up();
+			else
+				m_scroll.stop_up();
+			break;
+		case sdl::Key::down:
+			if (event.pressed)
+				m_scroll.start_down();
+			else
+				m_scroll.stop_down();
+			break;
+		default:
+			break;
+		}
+	}
+
+	sdl::Point
 	HexGrid::position_of(util::GridIndex i) const
 	{
-		return to_relative(m_hex_grid.position_of(i));
+		return m_hex_grid.position_of(i) - m_offset;
 	}
 
 	void
 	HexGrid::render(const sdl::Renderer& rdr) const
 	{
 		for (auto iter = begin(); iter.valid(); iter.next()) {
-			auto i = iter.index();
 			auto type = m_game_grid.cell(iter);
 			if (auto base = m_textures.base_of(type)) {
-				auto pos = position_of(i);
-				rdr.put(*base, pos);
+				rdr.put(*base, position_of(iter.index()));
 			}
 		}
 		if (m_active_i) {
 			auto i = *m_active_i;
 			auto type = m_game_grid.cell(i);
 			if (auto base = m_textures.base_of(type)) {
-				auto pos = position_of(i);
-				rdr.put(m_textures.active, pos);
+				rdr.put(m_textures.active, position_of(i));
 			}
 		}
 		for (auto iter = begin(); iter.valid(); iter.next()) {
-			auto i = iter.index();
 			auto type = m_game_grid.cell(iter);
 			if (auto overlay = m_textures.overlay_of(type)) {
-				auto pos = position_of(i);
+				auto pos = position_of(iter.index());
 				rdr.put(overlay->texture, pos + overlay->offset);
 			}
 		}
 	}
 
 	void
-	HexGrid::update(Relative mouse_pos)
+	HexGrid::update(sdl::Point mouse_pos)
 	{
-		auto pos = scroll.next(m_offset);
-		auto offset_updated = pos != m_offset;
+		auto offset = m_scroll.next(m_offset.negate()).negate();
+		auto offset_updated = offset != m_offset;
 		if (offset_updated) {
-			m_offset = pos;
-			update_section(pos.negate());
+			m_visible_section = get_visible_section(offset);
+			m_offset = offset;
 		}
-		auto mouse_updated = mouse_pos != m_cached_mouse_pos;
+		auto mouse_updated = mouse_pos != m_mouse_pos;
 		if (mouse_updated) {
-			m_cached_mouse_pos = mouse_pos;
+			m_mouse_pos = mouse_pos;
 		}
 		if (offset_updated || mouse_updated) {
-			pos = to_absolute(mouse_pos);
-			m_active_i = index_of(pos);
+			m_active_i = find_active_index(mouse_pos);
 		}
-	}
-
-	void
-	HexGrid::update_section(Absolute position)
-	{
-		auto start = m_hex_grid.get_visible_index(position);
-		util::GridSection section {m_visible_size, start};
-		m_visible = section.clamp(m_game_grid.size());
-	}
-
-	Absolute
-	HexGrid::to_absolute(Relative position) const
-	{
-		return position - m_offset;
-	}
-
-	Relative
-	HexGrid::to_relative(Absolute position) const
-	{
-		return position + m_offset;
 	}
 }

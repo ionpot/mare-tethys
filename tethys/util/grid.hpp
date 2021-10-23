@@ -82,6 +82,12 @@ namespace tethys::util {
 		void cell(GridIndex i, T v)
 		{ m_cells[cell_of(i)] = v; }
 
+		GridSection clamp(const GridSection& section) const
+		{ return section.clamp(m_size); }
+
+		GridSize clamp(GridSize size) const
+		{ return m_size.clamp(size); }
+
 		GridSize size() const
 		{ return m_size; }
 
