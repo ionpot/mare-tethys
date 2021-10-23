@@ -22,7 +22,6 @@ namespace tethys::sdl {
 		std::string to_str() const;
 
 	private:
-		const Point m_min;
 		const Point m_max;
 		const int m_speed;
 		Point m_state;

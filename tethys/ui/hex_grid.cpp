@@ -161,7 +161,7 @@ namespace tethys::ui {
 	void
 	HexGrid::update(sdl::Point mouse_pos)
 	{
-		auto offset = m_scroll.next(m_offset.negate()).negate();
+		auto offset = m_scroll.next(m_offset);
 		auto offset_updated = offset != m_offset;
 		if (offset_updated) {
 			m_visible_section = get_visible_section(offset);

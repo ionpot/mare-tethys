@@ -7,8 +7,7 @@
 
 namespace tethys::sdl {
 	Scroll::Scroll(Size screen, Size content, int speed):
-		m_min {Point::min((screen - content).to_point())},
-		m_max {Point::max((screen - content).to_point())},
+		m_max {Point::max((content - screen).to_point())},
 		m_speed {speed},
 		m_state {}
 	{}
@@ -16,10 +15,8 @@ namespace tethys::sdl {
 	Point
 	Scroll::next(Point p) const
 	{
-		Point b {p - m_state};
-		b.pick_max(m_min);
-		b.pick_min(m_max);
-		return b;
+		auto q = Point::max({p + m_state});
+		return Point::min(q, m_max);
 	}
 
 	void
@@ -83,6 +80,6 @@ namespace tethys::sdl {
 	std::string
 	Scroll::to_str() const
 	{
-		return "min " + m_min.to_str() + ", max " + m_max.to_str();
+		return "max " + m_max.to_str();
 	}
 }
