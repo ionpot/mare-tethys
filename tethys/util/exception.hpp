@@ -16,7 +16,7 @@
 namespace tethys::util {
 	class Exception : public std::exception {
 	public:
-		const std::string source;
+		std::string source;
 		std::string text;
 		const char * what() const throw()
 		{
@@ -29,6 +29,6 @@ namespace tethys::util {
 			final_text {"(" + source + ") " + text}
 		{}
 	private:
-		const std::string final_text;
+		std::string final_text;
 	};
 }

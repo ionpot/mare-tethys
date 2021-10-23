@@ -10,7 +10,7 @@
 
 namespace tethys::util {
 	struct FileLine {
-		const char* file;
+		char* file;
 		int line;
 		std::string to_string() const
 		{

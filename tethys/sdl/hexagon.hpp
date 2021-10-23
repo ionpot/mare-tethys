@@ -5,10 +5,10 @@
 
 namespace tethys::sdl {
 	struct Hexagon {
-		const int side;
-		const int x1, x2, x3;
-		const int y1, y2;
-		const Point center;
+		int side;
+		int x1, x2, x3;
+		int y1, y2;
+		Point center;
 
 		Hexagon(double side);
 

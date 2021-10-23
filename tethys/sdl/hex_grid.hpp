@@ -8,7 +8,7 @@
 
 namespace tethys::sdl {
 	struct HexGrid {
-		const Hexagon hex;
+		Hexagon hex;
 
 		HexGrid(Hexagon);
 

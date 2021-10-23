@@ -13,7 +13,7 @@ namespace tethys::util {
 		public:
 			static const std::string delimiter;
 			static bool is_pair(std::string line);
-			const std::string section;
+			std::string section;
 			std::string key;
 			std::string value;
 			Pair(std::string line, std::string section = "");
@@ -26,7 +26,7 @@ namespace tethys::util {
 		};
 		class Section {
 		public:
-			const std::string name;
+			std::string name;
 			Section(std::string name, const file::LineList&);
 			Pair find_pair(std::string key) const;
 		private:
@@ -64,7 +64,7 @@ namespace tethys::util {
 		};
 
 	private:
-		const file::LineList m_lines;
+		file::LineList m_lines;
 
 		file::LineList
 		find_object_lines(std::string name) const;
